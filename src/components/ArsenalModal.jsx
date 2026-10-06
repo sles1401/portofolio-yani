@@ -6,60 +6,75 @@ const GEAR_ITEMS = [
     id: 'main-hand',
     slot: 'Main Hand Weapon',
     slotIcon: '⚔️',
-    tech: 'Playwright, TypeScript, Python',
-    level: 'Lv. 99 (Mastery)',
+    tech: 'Playwright (JavaScript)',
+    level: 'Mastery (Lv. 95)',
     levelClass: 'lvl-mastery',
-    role: 'Eksekusi E2E lintas platform & headless automation',
-    description: 'Senjata utama untuk menembus benteng regresi aplikasi. Mendukung eksekusi paralel multi-worker, auto-retrying locators yang kebal dari flakiness, serta sharding terdistribusi pada CI/CD pipeline.',
+    role: 'Otomasi alur kritis, browser context isolation, parallel sharding.',
+    description: 'Senjata utama penembus siklus regresi. Mengotomasi alur checkout dan transaksi pengguna secara headless lintas browser (Chromium, Firefox, WebKit) dengan parallel worker sharding.',
     buffAttributes: [
-      { stat: 'Parallel Worker Speed', val: '+400% Concurrency' },
-      { stat: 'Flakiness Nullification', val: '< 0.2% Flaky Tolerance' },
-      { stat: 'Cross-Engine Penetration', val: 'Chromium, WebKit, Firefox' }
+      { stat: 'Parallel Sharding Boost', val: '+400% Concurrency' },
+      { stat: 'Browser Context Parity', val: '100% Isolated Sessions' },
+      { stat: 'Regression Speedup', val: 'Terpangkas 85% (18 Menit)' }
     ]
   },
   {
     id: 'off-hand',
     slot: 'Off-Hand Shield',
     slotIcon: '🛡️',
-    tech: 'Postman, REST Assured, k6',
-    level: 'Lv. 94 (Advanced)',
+    tech: 'Postman / REST API',
+    level: 'Advanced (Lv. 92)',
     levelClass: 'lvl-advanced',
-    role: 'Uji beban, boundary data & audit kontrak API',
-    description: 'Tameng pertahanan integritas pertukaran data microservice. Melindungi backend dari spike beban tiba-tiba, menegakkan validasi skema JSON kontrak ketat, dan memverifikasi idempotency token transaksi.',
+    role: 'Validasi skema JSON, automated runner collection, boundary test.',
+    description: 'Tameng penjaga integritas payload microservices. Memverifikasi validitas schema kontrak JSON, response code status, token authentication handshake, dan uji kasus batas negatif.',
     buffAttributes: [
-      { stat: 'Load Spike Resistance', val: 'Up to 25,000 RPS' },
-      { stat: 'Schema Contract Guard', val: '100% Type Safe Validation' },
-      { stat: 'P99 Latency Reduction', val: 'Optimized from 480ms ➔ 115ms' }
+      { stat: 'Contract Schema Safety', val: '100% Type Safe Assertions' },
+      { stat: 'Idempotency Protection', val: 'Zero Double-Charge Risk' },
+      { stat: 'Collection Automation', val: 'Newman CI Automated Runs' }
     ]
   },
   {
     id: 'body-armor',
     slot: 'Body Armor',
     slotIcon: '🥋',
-    tech: 'Docker, GitHub Actions, AWS',
-    level: 'Lv. 88 (Proficient)',
+    tech: 'GitHub Actions & Git',
+    level: 'Proficient (Lv. 88)',
     levelClass: 'lvl-proficient',
-    role: 'Isolasi runner pengujian & otomatisasi CI/CD',
-    description: 'Baju zirah lingkungan terisolasi. Memastikan seluruh rangkaian pengujian berjalan deterministik tanpa terpengaruh perbedaan environment lokal mesin developer (It Works on My Machine syndrome destroyed).',
+    role: 'Integrasi uji otomatis pada pull request, headless matrix runs.',
+    description: 'Baju zirah pipeline deployment. Menjadi gatekeeper rilis dengan mengeksekusi test runner secara otomatis pada setiap pull request branch staging dan release.',
     buffAttributes: [
-      { stat: 'Environment Parity', val: '100% Containerized Isolation' },
-      { stat: 'Pipeline Gatekeeper', val: 'Zero Defect Leak to Staging' },
-      { stat: 'Matrix Sharding Cloud', val: 'Dynamic Spot Runners' }
+      { stat: 'Continuous Testing Gate', val: 'Zero Defect Leak to Staging' },
+      { stat: 'Matrix Workflow Parity', val: 'Multi-OS & Node Environment' },
+      { stat: 'Branching Hygiene', val: 'Deterministic Test Verification' }
     ]
   },
   {
-    id: 'relics',
-    slot: 'Relic Accessories',
+    id: 'support-relic',
+    slot: 'Support Relic',
     slotIcon: '🔮',
-    tech: 'Charles Proxy, Chrome Profiler',
-    level: 'Lv. 85 (Field Proven)',
+    tech: 'DevTools & Network Log',
+    level: 'Field Tested (Lv. 90)',
     levelClass: 'lvl-proven',
-    role: 'Analisis packet data & memory allocation profiling',
-    description: 'Artefak penglihatan tembus pandang telemetri runtime. Membedah traffic SSL/TLS payload secara langsung, merekayasa respons lambat/kegagalan jaringan, dan melacak kebocoran detached DOM memori heap.',
+    role: 'Tracing payload gagal, profil memory leak, inspeksi state DOM.',
+    description: 'Artefak observabilitas visual dan telemetri runtime browser. Membedah traffic network request/response, menelusuri unhandled exception konsol, dan profil memori heap.',
     buffAttributes: [
-      { stat: 'Packet Manipulation', val: 'Real-Time Throttle & Breakpoint' },
-      { stat: 'Heap Leak Detection', val: '0.1 MB Delta Precision' },
-      { stat: 'Console Log Trapper', val: 'Uncaught Exception Sentry' }
+      { stat: 'Network Inspection', val: 'Sub-millisecond Timing Trace' },
+      { stat: 'Heap Leak Diagnostic', val: 'DOM Node Leak Trapper' },
+      { stat: 'Throttling Simulation', val: 'Slow 3G & Offline Emulation' }
+    ]
+  },
+  {
+    id: 'methodology-relic',
+    slot: 'Methodology Relic',
+    slotIcon: '📜',
+    tech: 'Manual Exploratory & SOP',
+    level: 'Expert (Lv. 96)',
+    levelClass: 'lvl-mastery',
+    role: 'Penyusunan test plan komprehensif, mentoring, mitigasi edge-case.',
+    description: 'Grimoire metodologi rekayasa kualitas. Merancang Requirements Traceability Matrix (RTM), skenario uji positif/negatif, checklist regresi, serta standardisasi proses tim QA.',
+    buffAttributes: [
+      { stat: 'Test Plan Depth', val: '150+ Structured Test Cases' },
+      { stat: 'User Story Traceability', val: '100% Acceptance Criteria Met' },
+      { stat: 'Release Governance', val: 'Zero Blocker Production Delivery' }
     ]
   }
 ];
@@ -67,24 +82,24 @@ const GEAR_ITEMS = [
 const PASSIVE_BUFFS = [
   {
     id: 'buff-1',
-    name: 'Eagle-Eye Pattern Recognition',
+    name: 'Meticulous Edge-Pathfinding',
     icon: '🦅',
     type: 'Analytical Cognitive Buff',
-    effect: 'Ketajaman mengenali anomali kecil yang kerap terlewat dalam pengujian rutin, inkonsistensi perilaku edge-case, dan pola regresi tersembunyi.'
+    effect: 'Kejelian menemukan celah tersembunyi, inkonsistensi status asinkron, dan batas kondisi input ekstrim.'
   },
   {
     id: 'buff-2',
-    name: 'Cross-Realm Communication',
+    name: 'Cross-Department Diplomacy',
     icon: '🗣️',
     type: 'Interdisciplinary Synergy Buff',
-    effect: 'Kemampuan menyampaikan temuan bug kepada developer, devops, dan product owner secara konstruktif, diplomatis, dan berbasis data solusi teknis konkret.'
+    effect: 'Komunikasi solutif dan konstruktif dengan tim engineer, DevOps, dan product owner berbasis bukti skrip objektif.'
   },
   {
     id: 'buff-3',
-    name: 'User Empathy Aura',
+    name: 'User Advocacy Lens',
     icon: '💖',
     type: 'Human-Centered Sensory Buff',
-    effect: 'Menempatkan diri secara utuh sebagai pengguna akhir untuk menguji alur aplikasi yang rentan memicu kebingungan, friksi checkout, atau kegagalan aksesibilitas.'
+    effect: 'Memastikan UX intuitif, alur konversi tanpa friksi, dan aksesibilitas ramah bagi seluruh pengguna awam.'
   }
 ];
 
@@ -111,9 +126,9 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
         <div className="jrpg-window-header">
           <div className="jrpg-header-title">
             <span className="jrpg-pixel-icon">⚔️</span>
-            <h3>ARMORY TECH STACK & PASSIVE BUFFS</h3>
+            <h3>ARMORY & SKILL TREE: PERLENGKAPAN TEMPUR SURYANI LESTARI</h3>
           </div>
-          <div className="jrpg-header-badge">HAGA INVENTORY • SECTION 6</div>
+          <div className="jrpg-header-badge">BAB 07 • SKILLS LOADOUT</div>
           <button className="jrpg-close-btn" type="button" onClick={handleClose} aria-label="Tutup Dialog">
             [ESC] ✕
           </button>
@@ -121,17 +136,17 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
 
         {/* Body */}
         <div className="jrpg-window-body">
-          {/* Seeker Status Bar Summary */}
+          {/* Seeker Vitals & Resources (Bab 7) */}
           <div className="seeker-status-summary-bar">
             <div className="seeker-stats-left">
               <div className="seeker-avatar-mini">
-                <img src="assets/images/haga-avatar.jpg" alt="Haga Seeker" />
-                <span>HAGA (LV.99)</span>
+                <img src="assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" />
+                <span>SURYANI</span>
               </div>
               <div className="seeker-vitals-bars">
                 <div className="vital-item">
                   <div className="vital-label-row">
-                    <span className="vital-name">HP [Stamina Pengujian Eksploratori]</span>
+                    <span className="vital-name">HP [Ketahanan Pengujian Maraton]</span>
                     <span className="vital-num">999 / 999</span>
                   </div>
                   <div className="vital-track">
@@ -141,27 +156,26 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
 
                 <div className="vital-item">
                   <div className="vital-label-row">
-                    <span className="vital-name">MP [Kapasitas Otomasi & Skrip]</span>
-                    <span className="vital-num">480 / 550</span>
+                    <span className="vital-name">MP [Efisiensi Otomasi Scripting]</span>
+                    <span className="vital-num">550 / 550</span>
                   </div>
                   <div className="vital-track">
-                    <div className="vital-fill mp-fill" style={{ width: '87.2%' }} />
+                    <div className="vital-fill mp-fill" style={{ width: '100%' }} />
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="seeker-stats-badge">
-              <span className="role-tag">LEAD WORLD DEBUGGER</span>
-              <span className="ready-tag">READY FOR FIELD DEPLOYMENT</span>
+              <span className="role-tag">ACCURACY: 99.8%</span>
+              <span className="ready-tag">INTERSEPSI BUG KRITIS 100%</span>
             </div>
           </div>
 
-          {/* Section 6.1: Matriks Perlengkapan Tempur Seeker */}
+          {/* 5 Gear Slots Grid */}
           <div className="armory-grid-layout">
-            {/* Gear Selector Slots */}
             <div className="gear-slots-column">
-              <h5 className="sub-section-title">EQUIPMENT SLOTS (4 SLOTS)</h5>
+              <h5 className="sub-section-title">EQUIPMENT SLOTS ({GEAR_ITEMS.length})</h5>
               <div className="gear-slot-buttons">
                 {GEAR_ITEMS.map((gear) => (
                   <button
@@ -181,14 +195,14 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Selected Gear Dossier */}
+            {/* Inspect Dossier */}
             <div className="gear-inspect-dossier">
               <div className="inspect-header">
                 <div>
                   <span className="inspect-slot-category">{selectedGear.slot}</span>
                   <h4 className="inspect-tech-name">{selectedGear.tech}</h4>
                   <p className="inspect-field-role">
-                    <strong>Peran Lapangan:</strong> {selectedGear.role}
+                    <strong>Peran & Nilai Tambah:</strong> {selectedGear.role}
                   </p>
                 </div>
                 <span className={`inspect-level-pill ${selectedGear.levelClass}`}>
@@ -200,7 +214,7 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
                 <p>{selectedGear.description}</p>
               </div>
 
-              <h6 className="buff-attributes-title">TACTICAL SYSTEM BUFFS:</h6>
+              <h6 className="buff-attributes-title">METRIK & UTILITAS OPERASIONAL:</h6>
               <div className="attributes-grid">
                 {selectedGear.buffAttributes.map((attr, idx) => (
                   <div key={idx} className="attribute-pill">
@@ -212,10 +226,10 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Section 6.2: Pohon Keterampilan Pasif (Passive Buffs) */}
+          {/* Passive Buffs (Bab 7) */}
           <div className="passive-buffs-section">
             <h5 className="sub-section-title">
-              <span>🌟</span> POHON KETERAMPILAN PASIF (PASSIVE BUFFS - SOFT SKILLS)
+              <span>🌟</span> PASSIVE BUFFS (KARAKTERISTIK UNGGULAN & SOFT SKILLS)
             </h5>
             <div className="passive-buffs-grid">
               {PASSIVE_BUFFS.map((buff) => (
@@ -236,9 +250,9 @@ export const ArsenalModal = ({ isOpen, onClose }) => {
 
         {/* Footer */}
         <div className="jrpg-window-footer">
-          <span className="jrpg-footer-hint">Tech stack teruji di lingkungan produksi skala tinggi dengan zero tolerance terhadap flakiness.</span>
+          <span className="jrpg-footer-hint">Seluruh teknologi siap pakai di lini produksi untuk menjamin zero-defect delivery.</span>
           <button type="button" className="jrpg-btn primary" onClick={handleClose}>
-            [ESC] KEMBALI KE MARKAS GUILD
+            [ESC] KEMBALI KE PENJELAJAHAN
           </button>
         </div>
       </div>

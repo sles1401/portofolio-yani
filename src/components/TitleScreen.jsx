@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { sound } from '../utils/audio';
 
-export const TitleScreen = ({ onStartGame, onOpenExpress }) => {
+export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === 'Enter' || e.code === 'Space') {
         e.preventDefault();
         sound.playSelect();
-        onStartGame();
+        onStartExpedition();
       } else if (e.code === 'KeyM') {
         e.preventDefault();
         sound.playSelect();
-        onOpenExpress();
+        onOpenDocket();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onStartGame, onOpenExpress]);
+  }, [onStartExpedition, onOpenDocket]);
 
   return (
     <div className="title-screen-overlay">
@@ -24,48 +24,49 @@ export const TitleScreen = ({ onStartGame, onOpenExpress }) => {
       
       {/* Floating System Runes */}
       <div className="floating-runes" aria-hidden="true">
-        <span className="rune" style={{ left: '10%', animationDelay: '0s' }}>[SEEKER_DEBUGGER_LV99]</span>
-        <span className="rune" style={{ left: '30%', animationDelay: '3.5s' }}>[ANOMALY_BESTIARY_LOADED]</span>
-        <span className="rune" style={{ left: '55%', animationDelay: '1.8s' }}>[PLAYWRIGHT_SHARDING_200_OK]</span>
-        <span className="rune" style={{ left: '78%', animationDelay: '4.2s' }}>[ZERO_DEFECT_LEAK_CONFIRMED]</span>
+        <span className="rune" style={{ left: '8%', animationDelay: '0s' }}>[SURYANI_LESTARI_QA_SEEKER]</span>
+        <span className="rune" style={{ left: '32%', animationDelay: '3.2s' }}>[PLAYWRIGHT_JS_PARALLEL_OK]</span>
+        <span className="rune" style={{ left: '56%', animationDelay: '1.6s' }}>[MARKETING_PPIC_SYNC_ZERO_DESYNC]</span>
+        <span className="rune" style={{ left: '80%', animationDelay: '4.5s' }}>[BANDUNG_HQ_SYSTEM_STABILITY]</span>
       </div>
 
       <div className="title-box">
-        {/* Badge & Avatar Header */}
+        {/* Badge Header */}
         <div className="title-badge">
-          <span>⚔️</span> QUALITY ASSURANCE IN ANOTHER WORLD • HAGA PERSONA
+          <span>⚔️</span> COMMERCIAL OPEN-WORLD BLUEPRINT • SURYANI LESTARI EDITION
         </div>
 
+        {/* Character Avatar Showcase */}
         <div className="title-avatar-showcase">
           <img
-            src="assets/images/haga-avatar.jpg"
-            alt="Haga Seeker"
+            src="assets/images/suryani-seeker-avatar.jpg"
+            alt="Suryani Lestari Seeker"
             className="title-avatar-img"
           />
           <div className="avatar-meta-badge">
-            <strong>HAGA</strong>
-            <small>LEAD WORLD DEBUGGER / SEEKER LV.99</small>
+            <strong>SURYANI LESTARI</strong>
+            <small>LEAD SYSTEM SEEKER &amp; STABILITY GUARDIAN • suryani-lestari.my.id</small>
           </div>
         </div>
         
-        <h1 className="title-main">QA SEEKER PORTFOLIO</h1>
-        <div className="title-subhead">VERSi DOKUMEN: 4.0 • LEAD SDET / QUALITY ASSURANCE ARCHITECT</div>
+        <h1 className="title-main">QA SEEKER MASTER BLUEPRINT</h1>
+        <div className="title-subhead">OPEN-WORLD 2400×1800PX • RECRUITER DOCKET HYBRID SYSTEM</div>
         
         <p className="title-desc">
-          "Tidak ada sistem yang sepenuhnya sempurna, namun dengan ketelitian dan integritas seorang Seeker, kita mampu membuat dunia perangkat lunak menjadi jauh lebih andal."
+          "Menyatukan identitas riil Suryani Lestari (QA Automation Engineer asal Bandung) dengan tema investigasi celah sistem ala Seeker Haga: pemotongan 85% durasi regresi via Playwright JS, 0 defect leak pada modul Marketing &amp; PPIC, dan audit endpoint API tanpa celah."
         </p>
 
-        {/* Dual-View Entry Buttons (Section 2) */}
+        {/* Dual-View Entry Buttons (Bab 2) */}
         <div className="title-actions-dual">
           <button 
             className="press-play-btn primary-start" 
             type="button" 
             onClick={() => {
               sound.playSelect();
-              onStartGame();
+              onStartExpedition();
             }}
           >
-            ▶ JALUR 1: MASUK MARKAS GUILD (IMMERSIVE 2D)
+            ▶ MODE A: OPEN-WORLD EXPEDITION (CANVAS 2400×1800)
           </button>
 
           <button 
@@ -73,16 +74,16 @@ export const TitleScreen = ({ onStartGame, onOpenExpress }) => {
             type="button" 
             onClick={() => {
               sound.playSelect();
-              onOpenExpress();
+              onOpenDocket();
             }}
           >
-            ⚡ JALUR 2: RECRUITER EXPRESS HUB (&lt; 15 DETIK)
+            ⚡ MODE B: RECRUITER DOCKET (EKSEKUTIF &lt; 15 DETIK)
           </button>
         </div>
 
         <div className="title-controls-hint">
           <div className="hint-line">
-            <span>Kontrol Eksplorasi:</span>
+            <span>Kontrol Karakter:</span>
             <span className="k-badge">W</span>
             <span className="k-badge">A</span>
             <span className="k-badge">S</span>
@@ -97,13 +98,13 @@ export const TitleScreen = ({ onStartGame, onOpenExpress }) => {
           <div className="hint-line">
             <span>Shortcut Cepat:</span>
             <span className="k-badge">M</span>
-            <span>Menu Eksekutif</span>
+            <span>Toggle Recruiter Docket</span>
             <span>•</span>
             <span className="k-badge">D</span>
-            <span>Seeker Debug Vision</span>
+            <span>Haga Debug Vision 2.0</span>
             <span>•</span>
             <span className="k-badge">ESC</span>
-            <span>Tutup Jendela</span>
+            <span>Reset View</span>
           </div>
         </div>
       </div>

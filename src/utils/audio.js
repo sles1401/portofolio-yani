@@ -1,54 +1,48 @@
 /**
- * QA Seeker Portfolio — Haga Edition
- * Web Audio API 8-Bit Chiptune Synthesizer (Zero External Audio File Dependency)
- * Reference: Blueprint Spesifikasi Bab 7 (Implementasi Inti Sintesis Frekuensi)
+ * QA Seeker Master Blueprint: Suryani Lestari Edition
+ * Web Audio API Synthesizer Mandiri untuk Efek Retro Seeker (Bab 8)
+ * Zero external audio assets (.mp3/.wav), < 2 KB, 0ms network latency.
  */
 
 class SoundSystem {
   constructor() {
     this.audioCtx = null;
-    this.soundEnabled = true;
+    this.isMuted = typeof window !== 'undefined' && localStorage.getItem("seeker_muted") === "true";
   }
 
-  init() {
-    if (!this.audioCtx) {
+  initAudioContext() {
+    if (!this.audioCtx && typeof window !== 'undefined') {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (AudioCtx) {
         this.audioCtx = new AudioCtx();
       }
     }
-    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+    if (this.audioCtx && this.audioCtx.state === "suspended") {
       this.audioCtx.resume();
     }
   }
 
   toggleMute() {
-    this.soundEnabled = !this.soundEnabled;
-    return !this.soundEnabled; // returns isMuted
+    this.isMuted = !this.isMuted;
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem("seeker_muted", this.isMuted ? "true" : "false");
+    }
+    return this.isMuted;
   }
 
-  isMuted() {
-    return !this.soundEnabled;
-  }
-
-  setMuted(muted) {
-    this.soundEnabled = !muted;
-  }
-
-  // Section 7.1: Implementasi Inti Sintesis Frekuensi
-  playChiptune(freq, waveType = 'square', duration = 0.1, volume = 0.08) {
-    if (!this.soundEnabled) return;
-    this.init();
+  playSynthesizedTone(freq, type = "square", duration = 0.1, gainVal = 0.08) {
+    if (this.isMuted) return;
+    this.initAudioContext();
     if (!this.audioCtx) return;
 
     try {
       const osc = this.audioCtx.createOscillator();
       const gain = this.audioCtx.createGain();
 
-      osc.type = waveType; // 'square', 'sawtooth', 'triangle', 'sine'
+      osc.type = type;
       osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
 
-      gain.gain.setValueAtTime(volume, this.audioCtx.currentTime);
+      gain.gain.setValueAtTime(gainVal, this.audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + duration);
 
       osc.connect(gain);
@@ -57,19 +51,19 @@ class SoundSystem {
       osc.start();
       osc.stop(this.audioCtx.currentTime + duration);
     } catch {
-      // AudioContext state error guard
+      // AudioContext fallback guard
     }
   }
 
-  // Preset 1: Footstep — Nada pendek gelombang square pitch rendah (220 Hz, durasi 0.04 detik)
+  // (1) playFootstep(): modulasi noise pendek saat Seeker melangkah
   playFootstep() {
-    this.playChiptune(220, 'square', 0.04, 0.035);
+    this.playSynthesizedTone(220, "square", 0.04, 0.035);
   }
 
-  // Preset 2: Menu Select — Nada harmonic ganda (440 Hz menuju 880 Hz)
-  playMenuSelect() {
-    if (!this.soundEnabled) return;
-    this.init();
+  // (2) playSelect(): nada tinggi square wave ganda 440Hz -> 880Hz
+  playSelect() {
+    if (this.isMuted) return;
+    this.initAudioContext();
     if (!this.audioCtx) return;
 
     try {
@@ -77,7 +71,7 @@ class SoundSystem {
       const osc = this.audioCtx.createOscillator();
       const gain = this.audioCtx.createGain();
 
-      osc.type = 'square';
+      osc.type = "square";
       osc.frequency.setValueAtTime(440, t);
       osc.frequency.setValueAtTime(880, t + 0.06);
 
@@ -90,19 +84,14 @@ class SoundSystem {
       osc.start(t);
       osc.stop(t + 0.16);
     } catch {
-      // safe fallback
+      // guard
     }
   }
 
-  // Alias for compatibility
-  playSelect() {
-    this.playMenuSelect();
-  }
-
-  // Preset 3: Anomaly Glitch — Modulasi gelombang sawtooth dengan pitch turun cepat (150 Hz ke 95 Hz)
-  playAnomalyGlitch() {
-    if (!this.soundEnabled) return;
-    this.init();
+  // (3) playGlitch(): osilator sawtooth 160Hz -> 90Hz saat mendeteksi anomali
+  playGlitch() {
+    if (this.isMuted) return;
+    this.initAudioContext();
     if (!this.audioCtx) return;
 
     try {
@@ -110,9 +99,9 @@ class SoundSystem {
       const osc = this.audioCtx.createOscillator();
       const gain = this.audioCtx.createGain();
 
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(150, t);
-      osc.frequency.exponentialRampToValueAtTime(95, t + 0.22);
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(160, t);
+      osc.frequency.exponentialRampToValueAtTime(90, t + 0.22);
 
       gain.gain.setValueAtTime(0.12, t);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
@@ -123,72 +112,42 @@ class SoundSystem {
       osc.start(t);
       osc.stop(t + 0.25);
     } catch {
-      // safe fallback
+      // guard
     }
   }
 
-  // Alias for compatibility
-  playGlitch() {
-    this.playAnomalyGlitch();
-  }
-
-  // Preset 4: Quest Clear / Fanfare — Arpeggio 4 nada segitiga berirama kemenangan (C5, E5, G5, C6)
+  // (4) playFanfare(): 4-tone victory arpeggio saat quest dibuka / diselesaikan
   playFanfare() {
-    if (!this.soundEnabled) return;
+    if (this.isMuted) return;
     const notes = [523.25, 659.25, 783.99, 1046.50];
     notes.forEach((freq, idx) => {
       setTimeout(() => {
-        this.playChiptune(freq, 'triangle', 0.18, 0.1);
+        this.playSynthesizedTone(freq, "triangle", 0.18, 0.1);
       }, idx * 110);
     });
   }
 
-  // Section 9.1: Copy contact chirp (659.25 Hz triangle)
-  playCopyChirp() {
-    this.playChiptune(659.25, 'triangle', 0.15, 0.1);
+  // Scan frequency pulse for Debug Vision 2.0
+  playScan() {
+    if (this.isMuted) return;
+    this.playSynthesizedTone(920, "sawtooth", 0.12, 0.07);
+    setTimeout(() => this.playSynthesizedTone(1380, "square", 0.15, 0.06), 70);
   }
 
-  // Window Close & Dialogue sounds
+  // Close modal chirp
   playClose() {
-    if (!this.soundEnabled) return;
-    this.init();
-    if (!this.audioCtx) return;
-
-    try {
-      const t = this.audioCtx.currentTime;
-      const osc = this.audioCtx.createOscillator();
-      const gain = this.audioCtx.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(540, t);
-      osc.frequency.exponentialRampToValueAtTime(260, t + 0.1);
-
-      gain.gain.setValueAtTime(0.06, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
-
-      osc.connect(gain);
-      gain.connect(this.audioCtx.destination);
-
-      osc.start(t);
-      osc.stop(t + 0.1);
-    } catch {
-      // safe fallback
-    }
+    if (this.isMuted) return;
+    this.playSynthesizedTone(520, "sine", 0.08, 0.06);
   }
 
-  playDebugToggle(enabled) {
-    if (enabled) {
-      this.playChiptune(880, 'sawtooth', 0.12, 0.08);
-      setTimeout(() => this.playChiptune(1320, 'square', 0.15, 0.07), 80);
-    } else {
-      this.playChiptune(440, 'triangle', 0.12, 0.06);
-    }
+  // Copy email chirp
+  playCopyChirp() {
+    this.playSynthesizedTone(659.25, "triangle", 0.14, 0.1);
   }
 }
 
 export const sound = new SoundSystem();
-export const playChiptune = (freq, waveType, duration, volume) => sound.playChiptune(freq, waveType, duration, volume);
-export const playFanfare = () => sound.playFanfare();
 export const playFootstep = () => sound.playFootstep();
-export const playMenuSelect = () => sound.playMenuSelect();
-export const playAnomalyGlitch = () => sound.playAnomalyGlitch();
+export const playSelect = () => sound.playSelect();
+export const playGlitch = () => sound.playGlitch();
+export const playFanfare = () => sound.playFanfare();

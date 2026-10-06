@@ -1,146 +1,150 @@
-# 🛡️ QA Seeker Portfolio — Haga Edition (Versi 4.0)
+# 🛡️ QA Seeker Master Blueprint: Suryani Lestari Edition
 
-> **Konsep Interaktif Bertema *Quality Assurance in Another World* (*Kono Sekai wa Fukanzen Sugiru*)**  
-> **Persona:** **Haga**, Lead World Debugger / Seeker Level 99  
-> **Fokus Karir:** Senior Quality Assurance Engineer / SDET / QA Architect  
-> **Target:** Recruiter Global & Engineering Hiring Manager
+> **Arsitektur Portofolio Open-World 2400×1800px, Integrasi Data `suryani-lestari.my.id`, & Hook Konversi Komersial**  
+> **DOC ID:** `SL-SEEKER-2026-X`  
+> **OPERATOR:** **Suryani Lestari** (Bandung, Indonesia)  
+> **TARGET:** CTO / Lead Recruiter / Engineering Hiring Manager  
 
 ---
 
-## 1. Ikhtisar Eksekutif & Konsep Dasar
+## 01. Positioning Komersial & Persona Seeker Suryani Lestari
 
-Platform portofolio penguji perangkat lunak (QA/SDET) interaktif bergaya penjelajah dunia digital (**Seeker**), di mana karakter Haga memandang setiap sistem aplikasi bukan sebagai dokumen kerja monoton, melainkan dunia virtual berisikan hukum fisika komputasi dan celah anomali yang harus diteliti secara tekun.
+Menyatukan identitas riil **Suryani Lestari** (QA Specialist & Test Automation Engineer asal Bandung, basis operasi di [suryani-lestari.my.id](https://suryani-lestari.my.id)) dengan narasi Seeker Haga (*Quality Assurance in Another World*). Alih-alih membuat game tanpa orientasi karir, portofolio ini dibangun dengan *high-converting commercial hooks*:
+- Penghematan 85% durasi regresi via Playwright JS
+- 0 defect leak pada sinkronisasi lintas modul (Marketing & PPIC)
+- Audit endpoint API tanpa celah
 
-### 1.1 Tabel Dekonstruksi Karakter & Pengujian
+### Matriks Re-framing Nilai Jual Profesional
 
-| Aspek Portofolio | Format Lama (Kaku/Membosankan) | Format Baru (QA Seeker Haga) |
+| Komponen Profil | Data Nyata (suryani-lestari.my.id) | Formulasi Komersial Seeker Haga |
 | :--- | :--- | :--- |
-| **Identitas** | Tester perangkat lunak biasa | Investigator Celah & Penjaga Stabilitas Dunia |
-| **Pengalaman Kerja** | Daftar riwayat perusahaan | Arsip Ekspedisi Pembersihan Dungeon Kode |
-| **Katalog Defect** | Spreadsheet bug dengan ID Jira | Ensiklopedia Anomali beserta Metode Exorcism |
-| **Keahlian Alat** | Deretan ikon logo tanpa konteks | Perlengkapan Tempur Utama & Tameng Pertahanan |
-| **Kesan Pengunjung** | Lembar CV digital pasif | Pengalaman eksplorasi dunia pixel interaktif |
+| **Identitas & Gelar** | Suryani Lestari, QA Engineer & Mentor | Lead System Seeker & Cross-Module Stability Guardian |
+| **Core Deliverable** | Automasi Playwright JS, E2E, API Test | Penyusunan harness mitigasi risiko rilis & sensor anomali |
+| **Proyek Unggulan** | Integrasi sistem Marketing & modul PPIC | Ekspedisi Penyelamatan Sinkronisasi Data Lintas Realm |
+| **Nilai Konversi** | Eksekusi test case terstruktur | 85%+ pemotongan durasi siklus regresi & ROI pengujian nyata |
 
 ---
 
-## 2. Arsitektur Kontrol Dual-View (Dual-View Mechanism)
+## 02. Arsitektur Recruiter Docket: Dual-View Hybrid System
 
-Navigasi dua jalur yang bekerja secara paralel untuk kenyamanan eksplorasi maupun audit cepat:
+Navigasi dua jalur paralel untuk kenyamanan eksplorasi maupun evaluasi cepat:
+- **Mode A: Open-World Expedition:** Kanvas 2400×1800 px dengan kamera dinamis Lerp, eksplorasi 5 distrik, dialog pop-up JRPG retro, dan D-Pad sentuh otomatis di layar seluler (< 640px).
+- **Mode B: Recruiter Docket (Eksekutif):** Lembar eksekutif berdensitas tinggi (< 15 detik), menghentikan loop canvas seketika untuk efisiensi CPU/baterai, menampilkan 4 hero metrics, download CV PDF 1-klik, dan form komisi langsung.
 
-1. **Jalur 1 (Immersive Mode):**  
-   Viewport Canvas 2D interaktif tempat karakter Haga dapat berjalan menyusuri markas guild menggunakan WASD / Panah / Virtual D-pad / Klik navigasi.
-2. **Jalur 2 (Recruiter Express Mode):**  
-   Persistent navigation bar di header dan footer dengan tombol langsung (*Quests*, *Bestiary*, *Gear*, *Dispatch*) yang meluncurkan modal dialog JRPG secara instan tanpa harus menggerakkan karakter, memungkinkan HR mengekstrak kualifikasi dalam waktu kurang dari 15 detik.
+### 4 Metrik Komersial Utama (Hero Metrics)
 
-### Shortcut Keyboard Global
-- **`[M]`** : Buka Recruiter Express Hub / Menu Utama
-- **`[D]`** : Toggle *Seeker Debug Vision*
-- **`[ESC]`** : Menutup semua jendela modal dialog
-- **`[SPACE]` / `[E]`** : Berinteraksi (*Inspect Object*) saat berada dalam radius < 72 px dari landmark
-- **`WASD / Arrows`** : Pergerakan karakter (kecepatan 3.5 px/frame)
+1. **Regression Velocity:** Terpangkas 85% (Dari 2 hari kerja/16 jam ke 18 menit) — *Mempercepat siklus rilis fitur baru tanpa menambah headcount.*
+2. **Cross-Module Accuracy:** 0 Data Desync (Marketing vs PPIC Engine) — *Mencegah kerugian finansial akibat order inventaris ganda/hilang.*
+3. **Critical Defect Catch:** 100% Intersepsi sebelum rilis production (12 anomali mutasi dicegat di staging) — *Menjaga reputasi produk dan mencegah downtime aplikasi fatal.*
+4. **API Contract Resilience:** 100% Schema Conformity via Postman/Newman — *Menjamin stabilitas integrasi backend dan frontend microservices.*
 
 ---
 
-## 3. Fitur Tanda Khas: Seeker Debug Vision
+## 03. Arsitektur Open-World Tilemap (2400×1800 px & Camera Lerp)
 
-Fitur adaptasi dari batu debug misterius Haga untuk melihat susunan sistem runtime:
-1. **Phosphor Green Wireframe Grid:** Lapisan overlay kisi 32×32 pixel berwarna hijau fosfor (`#00FF88`).
-2. **Telemetry Box Sudut Kanan Atas:**
-   - *Target Environment:* Production (v4.0-Live)
-   - *Current Coordinates:* X & Y real-time
-   - *Frame Rate (FPS):* Penghitung FPS presisi berbasis delta-time
-   - *Heap Memory Allocation:* Memori runtime MB melalui `performance.memory`
-   - *Status Glitch Listener:* ACTIVE / SCANNING
-3. **Bounding Box & Label Landmark:** Penanda koordinat entitas di setiap landmark interaktif.
-4. **Radar Ring Pemindai:** Gelombang radar berdenyut di sekeliling sprite Haga.
-
----
-
-## 4. Guild Quest Clearance Records (Studi Kasus Bisnis)
-
-1. **[Rank S] E-Commerce Checkout E2E Automation Citadel**
-   - *Tantangan:* Uji regresi manual memakan waktu 45 menit dan meloloskan bug diskon ganda ke produksi.
-   - *Solusi:* Framework Playwright TypeScript dengan paralel multi-worker dan GitHub Actions sharding.
-   - *Hasil Terukur:* Waktu uji terpangkas 45m ➔ 8m (82%), defect leak turun ke 0% selama 6 bulan, flakiness < 0.2%.
-   - *Relics:* Playwright, TypeScript, Docker, GitHub Actions, Allure Report.
-2. **[Rank A] Fintech Transaction Microservice Stress Exorcism**
-   - *Tantangan:* Risiko database pool exhaustion & deadlock saat lonjakan 20.000 pengguna serentak.
-   - *Solusi:* Skenario load & stress test terdistribusi k6 dengan telemetri endpoint Grafana.
-   - *Hasil Terukur:* Menemukan 4 titik deadlock pooling, latency P99 turun dari 480ms ➔ 115ms (76%), availability 99.99%.
-   - *Relics:* k6, Postman, PostgreSQL, Grafana, Docker.
-3. **[Rank A] Mobile Banking Multi-Device Matrix Campaign**
-   - *Tantangan:* Fragmentasi 30+ tipe device menyebabkan glitch layout & kegagalan otentikasi biometrik.
-   - *Solusi:* Device Farm Matrix berbasis Appium & BrowserStack dengan dynamic assertions.
-   - *Hasil Terukur:* Validasi 32 tipe device dalam 12 menit, mengeliminasi 9 vendor crashes sebelum rilis, kompatibilitas 99.8%.
-   - *Relics:* Appium, Python, BrowserStack, GitHub Actions, Jira.
+- **Skala Dunia:** 2400×1800 pixel (75×56 grid berukuran 32px per tile).
+- **Sub-Pixel Camera Tracking (Lerp 0.08):**
+  ```javascript
+  const targetX = player.x - viewportWidth / 2;
+  const targetY = player.y - viewportHeight / 2;
+  camera.x += (targetX - camera.x) * 0.08;
+  camera.y += (targetY - camera.y) * 0.08;
+  ```
+- **Struktur 5 Distrik Open-World:**
+  1. `CENTRAL_PLAZA` (x: 1200, y: 900): Central Guild Plaza (Titik awal, papan misi, dan arsip Seeker).
+  2. `FOUNDRY` (x: 620, y: 520): Automation Foundry (Pabrik roda gigi steampunk, Playwright core).
+  3. `SWAMP` (x: 1780, y: 520): Anomaly Swamp / Ruins (Rawa terglitch berisi Anomaly Bestiary).
+  4. `LIGHTHOUSE` (x: 620, y: 1320): Integration Lighthouse (Mercusuar pantai, API & PPIC Sync).
+  5. `ENVOY_POST` (x: 1780, y: 1320): Envoy Post (Kuil pengiriman surat dispatch kontak Suryani).
+- **Mini-Map HUD Radar:** Lingkaran berdiameter 110px di sudut kanan bawah kanvas, skala 0.045x dari dunia riil, sapuan radar cyan, dan titik koordinat 5 distrik.
 
 ---
 
-## 5. Anomaly Bestiary (Dokumentasi Defect Mendalam)
+## 04. Fitur Tanda Khas: Haga Debug Vision 2.0 (Anomaly Scanner)
 
-Katalog 4 spesimen anomali sistemik nyata beserta skenario reproduksi, analisis akar masalah (*root cause*), dan metode *exorcism* (*code remediation*):
-1. **The Race Condition Wyrm** `[CRITICAL]` : Klaim voucher ganda akibat pembacaan tanpa lock database atomic. Remediasi: Redis distributed lock & row lock.
-2. **The Memory Leak Specter** `[HIGH]` : RAM bengkak 150 MB ➔ 1.7 GB akibat listener WebSocket tak dilepas saat unmount. Remediasi: Pembersihan otomatis & Chrome Heap Profiler.
-3. **Null-Pointer Doppelganger** `[HIGH]` : Crash checkout mobile akibat field opsional kontak null tanpa schema guard. Remediasi: Zod schema contract & optional chaining.
-4. **Timezone Discord Phantom** `[MEDIUM]` : Tagihan prematur di zona Pasifik (UTC-10) karena `new Date().getDate()` lokal. Remediasi: Playwright Clock API mocking & standardisasi UTC.
-
----
-
-## 6. Armory Tech Stack & Passive Buffs
-
-- **Vitals Bar:** HP 999/999 (Stamina Pengujian Eksploratori) & MP 480/550 (Kapasitas Otomasi & Skrip).
-- **Perlengkapan Tempur:**
-  - *Main Hand Weapon:* Playwright, TypeScript, Python (Lv. 99 Mastery — E2E Cross-Platform)
-  - *Off-Hand Shield:* Postman, REST Assured, k6 (Lv. 94 Advanced — Load & API Contracts)
-  - *Body Armor:* Docker, GitHub Actions, AWS (Lv. 88 Proficient — Isolated CI/CD Runner)
-  - *Relics:* Charles Proxy, Chrome Profiler (Lv. 85 Field Proven — Packet Data & Memory Allocation)
-- **Passive Buffs (Soft Skills):**
-  - *Eagle-Eye Pattern Recognition:* Ketajaman mendeteksi cacat tersembunyi.
-  - *Cross-Realm Communication:* Komunikasi solutif & konstruktif lintas dev/product.
-  - *User Empathy Aura:* Pengujian berbasis perspektif pengguna akhir.
+Diaktifkan via tombol HUD atau shortcut keyboard `[D]`:
+1. Grid koordinat 32×32 pixel hijau phosphor (`rgba(0, 255, 136, 0.15)`).
+2. Bounding box AABB merah solid pada semua rintangan dan biru pada landmark interaktif (`ZONE: ${obj.id}`).
+3. Floating diagnostics HUD: World Pos (X, Y), Tile ID, Aktif DOM Nodes, Canvas FPS, dan *System Integrity Index: 99.96%*.
+4. Easter egg telemetri (Heap memory warning di Swamp, 4 active headless threads di Foundry, webhook listener di Lighthouse).
+5. Radar ring berdenyut radius inspeksi 80px di sekeliling sprite Suryani.
 
 ---
 
-## 7. Mesin Audio 8-Bit Native (Web Audio API)
+## 05. Guild Quest Board: 4 Berkas Studi Kasus Proyek
 
-Sintesis suara chiptune tanpa dependensi file audio fisik (.mp3/.wav):
-1. **Footstep:** Square wave rendah (220 Hz, durasi 0.04s).
-2. **Menu Select:** Nada harmonik ganda (440 Hz ➔ 880 Hz).
-3. **Anomaly Glitch:** Sawtooth wave pitch modulation cepat (150 Hz ➔ 95 Hz).
-4. **Quest Clear / Fanfare:** Arpeggio 4 nada segitiga kemenangan (C5, E5, G5, C6).
-- Toggle audio instan via tombol HUD.
-
----
-
-## 8. Guild Dispatch (Resepsionis Kontak Recruiter)
-
-- **Formulir Kontrak Misi:** Input nama perekrut, email perusahaan, dan cakupan proyek dengan konfirmasi toast "*CONTRACT TRANSMITTED TO HAGA*" dan audio fanfare.
-- **Copy Coordinates:** Salin instan alamat email resmi `haga.qa.seeker@domain.com` dengan fallback clipboard & audio feedback.
-- **Tautan Berkas Formal:** Unduh CV PDF standar, LinkedIn terverifikasi, Repositori GitHub.
-- **Status Ketersediaan:** "*Ready for Full-Time Remote / On-Site Quest*".
+1. **[Rank S] The Cross-Module Pipeline Exorcism (Marketing to PPIC):**
+   - Mengeliminasi desync status asinkron, 0 data discrepancy, 12 anomali mutasi status dicegat di staging.
+2. **[Rank A] The Citadel of Autonomous Playwright Regression:**
+   - Framework Playwright JS dari nol, 16 jam terpangkas jadi 18 menit (85% speedup), 92% coverage.
+3. **[Rank A] Sanitasi & Validasi Kontrak REST API:**
+   - 100% Schema Conformity via Postman/Newman, penegasan boundary test dan idempotency.
+4. **[Rank B] Lumina Studio QA Standard Operating Procedure Advisory:**
+   - 150+ Structured Test Cases, 100% User Stories Covered, Zero Release Blocker.
 
 ---
 
-## 9. Cara Menjalankan & Build
+## 06. Anomaly Bestiary: Defect Log Investigatif
+
+1. **The Desync Poltergeist** `[CRITICAL]`: Race condition status transaksi PPIC. Exorcism: Idempotency Key & `page.waitForResponse("/api/ppic/sync")`.
+2. **The Hydrating Null-Parasite** `[HIGH SEV]`: Missing optional payload array memicu white-screen crash. Exorcism: Strict Contract Assertion.
+3. **The Shifting DOM Spectre** `[MEDIUM]`: Flakiness akibat XPath absolut pada SPA re-render. Exorcism: Resilient Role-Based Locators `page.getByRole("button")`.
+4. **The Boundary Breach Kraken** `[EDGE CASE]`: Input emoji & multibyte Unicode memotong data MySQL. Exorcism: UTF8MB4 Boundary Injection Testing.
+
+---
+
+## 07. Armory & Skill Tree: Perlengkapan Tempur
+
+- **Vitals:** HP 999/999 (Stamina Pengujian Maraton), MP 550/550 (Otomasi Scripting Modular), Accuracy 99.8%.
+- **5 Slot Equipment:**
+  - *Main Hand Weapon:* Playwright (JavaScript) — Mastery (Lv. 95)
+  - *Off-Hand Shield:* Postman / REST API — Advanced (Lv. 92)
+  - *Body Armor:* GitHub Actions & Git — Proficient (Lv. 88)
+  - *Support Relic:* DevTools & Network Log — Field Tested (Lv. 90)
+  - *Methodology Relic:* Manual Exploratory & SOP — Expert (Lv. 96)
+- **Passive Buffs:** *Meticulous Edge-Pathfinding*, *Cross-Department Diplomacy*, *User Advocacy Lens*.
+
+---
+
+## 08. Synthesized 8-Bit Audio (Web Audio API)
+
+Sintesis suara native tanpa aset fisik (< 2 KB, 0ms latency):
+- `playFootstep()`: Modulasi noise pendek saat melangkah.
+- `playSelect()`: Nada tinggi square wave ganda 440Hz -> 880Hz.
+- `playGlitch()`: Osilator sawtooth 160Hz -> 90Hz saat deteksi anomali.
+- `playFanfare()`: 4-tone victory arpeggio (C5, E5, G5, C6).
+- Mute state persisten di `localStorage.getItem("seeker_muted")`.
+
+---
+
+## 09. Guild Dispatch: Call-To-Action & Jalur Konversi
+
+- **Kanal Terverifikasi:**
+  - Live Portfolio: [suryani-lestari.my.id](https://suryani-lestari.my.id)
+  - LinkedIn: [linkedin.com/in/suryani-lestari](https://linkedin.com/in/suryani-lestari)
+  - Basis Operasi: Bandung, Indonesia (Remote / Hybrid)
+  - Status: *Open for High-Impact QA Roles*
+- **Opsi Penugasan Komisi:** *Full-time QA Automation Specialist*, *Playwright Test Suite Construction*, *QA Strategy & Advisory*.
+- **Aksi 1-Klik:** Download Seeker Resume (PDF), Visit Digital Vault, Guild Network (LinkedIn), Copy Email Coordinates (`contact@suryani-lestari.my.id`).
+
+---
+
+## 10. Cara Menjalankan & Build
 
 ```bash
-# Instalasi dependensi (jika diperlukan)
-npm install
-
 # Build bundle produksi
 npm run build
 
 # Mode Watcher saat pengembangan
 npm run dev
-```
 
-Buka `index.html` langsung di browser, atau jalankan melalui local server:
-```bash
+# Jalankan lokal
 npx serve .
 ```
+Buka `index.html` langsung di browser, atau akses `http://localhost:3000`.
 
 ---
 
-## 10. Epilog Penutup
+### Epilog Petualang Seeker
 
-> *"Tidak ada sistem yang sepenuhnya sempurna, namun dengan ketelitian dan integritas seorang Seeker, kita mampu membuat dunia perangkat lunak menjadi jauh lebih andal."*
+> *"Dengan portofolio ini, profil Suryani Lestari tampil sebagai kandidat QA yang langka: memiliki penguasaan teknis Playwright dan API yang solid, pola pikir investigasi yang tekun, serta kreativitas rekayasa antarmuka kelas atas yang langsung memikat recruiter sejak detik pertama."*

@@ -4,131 +4,61 @@ import { sound } from '../utils/audio';
 const BESTIARY_DATA = [
   {
     id: 'anom-1',
-    name: 'The Race Condition Wyrm',
-    monsterType: 'Critical Concurrency Anomaly',
-    severity: 'CRITICAL',
-    severityClass: 'sev-critical',
-    icon: '🐉',
-    threatLevel: 'Threat Level 99 • High Financial Hazard',
-    behavior: 'Voucher belanja bernilai terbatas dapat diklaim 2 kali apabila dua request HTTP POST dikirimkan secara serentak dalam rentang 15 milidetik.',
-    reproductionSteps: [
-      'Siapkan 1 akun pengguna dengan saldo kupon promo aktif terbatas kuota.',
-      'Gunakan script concurrency runner (k6 / Artillery) mengirim 2 request HTTP POST /api/v1/coupons/redeem secara paralel dengan timestamp offset delta < 15ms.',
-      'Amati database ledger: kuota terpotong 1 kali namun saldo kredit ganda masuk ke wallet pengguna.'
-    ],
-    rootCause: 'Backend memeriksa validitas kupon dan mengurangi kuota pada baris query terpisah tanpa mengunci baris data (lack of atomic transaction / read-modify-write without row locks).',
-    exorcism: 'Mengimplementasikan distributed lock berbasis Redis dan constraint transaksi atomic di level database menggunakan `SELECT ... FOR UPDATE` dan isolating level serializable.',
-    remediationCode: `// EXORCISM: Redis Distributed Lock + DB Atomic Transaction
-const lockKey = \`lock:coupon:\${couponId}:\${userId}\`;
-const acquired = await redis.set(lockKey, 'locked', 'NX', 'PX', 2000);
-if (!acquired) {
-  throw new ConcurrencyConflictError("Operasi klaim sedang diproses secara simultan.");
-}
-try {
-  await db.transaction(async (trx) => {
-    const coupon = await trx('coupons').where({ id: couponId }).forUpdate().first();
-    if (coupon.remaining_quota <= 0) throw new ExpiredCouponError();
-    await trx('coupons').where({ id: couponId }).decrement('remaining_quota', 1);
-    await trx('user_benefits').insert({ user_id: userId, coupon_id: couponId });
-  });
-} finally {
-  await redis.del(lockKey);
-}`
+    name: 'The Desync Poltergeist',
+    threatLevel: 'CRITICAL',
+    threatClass: 'sev-critical',
+    icon: '👻',
+    habitat: 'Antrean webhook integrasi modul Marketing menuju PPIC.',
+    rootCause: 'Request ganda saat submit memicu event inventory deduction mendahului validasi payment.',
+    exorcismScript: `// Exorcism: Idempotency Key & Promise Handshake
+await page.waitForResponse(resp => 
+  resp.url().includes("/api/ppic/sync") && resp.status() === 200
+);`,
+    impactNotes: 'Mencegah terjadinya status transaksi desinkronisasi yang berisiko membuat order inventaris ganda atau barang terpotong tanpa bukti bayar terverifikasi.'
   },
   {
     id: 'anom-2',
-    name: 'The Memory Leak Specter',
-    monsterType: 'SPA Dashboard Garbage Retention Specter',
-    severity: 'HIGH',
-    severityClass: 'sev-high',
-    icon: '👻',
-    threatLevel: 'Threat Level 88 • Resource Starvation Hazard',
-    behavior: 'Dashboard monitoring analitik perlahan menaikkan konsumsi RAM browser dari 150 MB menjadi 1.7 GB setelah dibuka selama 1 jam dalam sesi operasional non-stop.',
-    reproductionSteps: [
-      'Buka tab dashboard analitik real-time pada Chrome/Chromium browser.',
-      'Simulasikan pergantian tab navigasi antara modul monitoring dan log viewer setiap 30 detik selama 1 jam.',
-      'Buka DevTools Memory tab: amati heap snapshot berukuran bengkak dengan jutaan detached DOM nodes dan closure listeners.'
-    ],
-    rootCause: 'Event listener pada chart WebSocket tidak dilepas (cleanup function unmount missing) saat komponen dirender ulang atau berpindah halaman.',
-    exorcism: 'Menambahkan pembersihan listener otomatis pada hook lifecycle unmount dan memverifikasi siklus memori menggunakan Chrome Heap Allocation Profiler hingga konsumsi heap stabil datar pada 140 MB.',
-    remediationCode: `// EXORCISM: React useEffect Unsubscribe & Chart Cleanup
-useEffect(() => {
-  const socket = webSocketManager.connect('/stream/analytics');
-  const handler = (metrics) => chartInstance.current?.append(metrics);
-  socket.on('data_tick', handler);
-
-  return () => {
-    // Crucial Cleanup Exorcism: lepas listener & release memory
-    socket.off('data_tick', handler);
-    socket.disconnect();
-    chartInstance.current?.destroy();
-    chartInstance.current = null;
-  };
-}, []);`
+    name: 'The Hydrating Null-Parasite',
+    threatLevel: 'HIGH SEV',
+    threatClass: 'sev-high',
+    icon: '🐛',
+    habitat: 'Endpoint REST API dengan array bersarang opsional.',
+    rootCause: 'Respon payload tanpa key opsional mengakibatkan white-screen crash pada client dashboard.',
+    exorcismScript: `// Exorcism: Strict Contract Assertion
+expect(responseBody).toHaveProperty("items");
+expect(Array.isArray(responseBody.items)).toBeTruthy();`,
+    impactNotes: 'Menjamin stabilitas konsumsi API di front-end dengan penegakan assertion kontrak skema JSON terstruktur.'
   },
   {
     id: 'anom-3',
-    name: 'Null-Pointer Doppelganger',
-    monsterType: 'Payload Edge-Case Crash Entity',
-    severity: 'HIGH',
-    severityClass: 'sev-high',
-    icon: '👤',
-    threatLevel: 'Threat Level 85 • Fatal Client Termination',
-    behavior: 'Layar checkout mobile mendadak crash (White Screen of Death / SIGSEGV) ketika pengguna beralih ke alamat pengiriman sekunder yang tidak memiliki nomor ekstensi telepon.',
-    reproductionSteps: [
-      'Pengguna mendaftarkan alamat sekunder tanpa menginput kolom "telepon_ekstensi" (nullable field).',
-      'Masuk ke alur checkout lalu pilih alamat tersebut dari daftar drop-down.',
-      'Klien mengeksekusi payload parser: aplikasi tertutup mendadak tanpa error dialog.'
-    ],
-    rootCause: 'Parser JSON klien berasumsi seluruh nested field kontak selalu berwujud string objek utuh tanpa optional chaining (`recipient.phone.ext.toUpperCase()`), sehingga melempar Cannot read property of undefined.',
-    exorcism: 'Menerapkan validasi skema runtime ketat (Zod) di API Gateway, safe optional navigation pada DTO klien, dan penyediaan fallback default value di seluruh pipeline transformator.',
-    remediationCode: `// EXORCISM: Zod Contract Validation & Safe Optional Access
-const DeliveryAddressSchema = z.object({
-  id: z.string().uuid(),
-  street: z.string().min(1),
-  phone: z.object({
-    main: z.string(),
-    extension: z.string().nullable().default(null)
-  }).default({ main: '', extension: null })
-});
-
-// Safe Client Dereferencing:
-const formattedExt = address?.phone?.extension?.trim() ?? 'N/A';`
+    name: 'The Shifting DOM Spectre',
+    threatLevel: 'MEDIUM',
+    threatClass: 'sev-medium',
+    icon: '👁️',
+    habitat: 'Tabel data dinamis dengan re-rendering asinkron.',
+    rootCause: 'Pengujian gagal palsu (flaky) akibat selector XPath absolut yang berubah saat render.',
+    exorcismScript: `// Exorcism: Resilient Role-Based Locators
+await expect(page.getByRole("button", {
+  name: /konfirmasi/i
+})).toBeVisible();`,
+    impactNotes: 'Mengeliminasi flakiness pengujian Playwright hingga 0.2% dengan beralih ke accessible role locators yang tahan terhadap refaktor UI.'
   },
   {
     id: 'anom-4',
-    name: 'Timezone Discord Phantom',
-    monsterType: 'UTC vs Local Offset Billing Shift Entity',
-    severity: 'MEDIUM',
-    severityClass: 'sev-medium',
-    icon: '⏳',
-    threatLevel: 'Threat Level 75 • Business Logic Drift',
-    behavior: 'Pelanggan di wilayah waktu Pasifik (UTC-10) menerima tagihan langganan satu hari lebih cepat dari tanggal jatuh tempo invoice resmi.',
-    reproductionSteps: [
-      'Set timezone mesin penguji atau browser ke Pacific/Honolulu (UTC-10).',
-      'Buat invoice berlangganan bulanan dengan tanggal jatuh tempo 1 April 2026 00:00:00 UTC.',
-      'Generate render invoice: sistem menampilkan tanggal jatuh tempo 31 Maret 2026, memicu auto-debit prematurely.'
-    ],
-    rootCause: 'Penggunaan fungsi new Date().getDate() lokal tanpa normalisasi format ISO 8601 di server backend maupun modul scheduler penagihan.',
-    exorcism: 'Parameterisasi pengujian dengan mocking timezone melalui Playwright Clock API, standardisasi parsing format UTC (ISO 8601), dan penegasan boundary window billing berbasis UTC epoch time.',
-    remediationCode: `// EXORCISM: Playwright Clock API Timezone Mocking Test
-test('Invoice billing due date remains synchronized across UTC-10', async ({ page }) => {
-  // Mock sistem ke zona waktu Honolulu (UTC-10)
-  await page.emulateTimezone('Pacific/Honolulu');
-  await page.clock.setFixedTime(new Date('2026-04-01T00:00:00Z'));
-  
-  await page.goto('/billing/invoices/INV-9021');
-  const dueDateText = await page.locator('[data-testid="due-date"]').innerText();
-  
-  // Tegaskan tanggal terformat dalam UTC standar bisnis
-  expect(dueDateText).toBe('01 Apr 2026 (UTC)');
-});`
+    name: 'The Boundary Breach Kraken',
+    threatLevel: 'EDGE CASE',
+    threatClass: 'sev-edge',
+    icon: '🦑',
+    habitat: 'Input field nama produk & catatan pengiriman.',
+    rootCause: 'Input emoji dan karakter Unicode multibyte memotong data di database MySQL.',
+    exorcismScript: `// Exorcism: UTF8MB4 Boundary Injection Testing
+await inputField.fill("Test_Item_🔥__LongStringRepeat500Chars");`,
+    impactNotes: 'Memvalidasi sanitasi input batas panjang karakter ekstrim dan encoding UTF-8 (utf8mb4) sebelum menyentuh lapisan database persistent.'
   }
 ];
 
 export const BestiaryModal = ({ isOpen, onClose }) => {
   const [selectedMonster, setSelectedMonster] = useState(BESTIARY_DATA[0]);
-  const [showCode, setShowCode] = useState(true);
 
   if (!isOpen) return null;
 
@@ -138,7 +68,7 @@ export const BestiaryModal = ({ isOpen, onClose }) => {
   };
 
   const handleSelectMonster = (monster) => {
-    sound.playAnomalyGlitch();
+    sound.playGlitch();
     setSelectedMonster(monster);
   };
 
@@ -150,9 +80,9 @@ export const BestiaryModal = ({ isOpen, onClose }) => {
         <div className="jrpg-window-header">
           <div className="jrpg-header-title">
             <span className="jrpg-pixel-icon">👾</span>
-            <h3>ANOMALY BESTIARY: ENSIKLOPEDIA DEFECT MENDALAM</h3>
+            <h3>ANOMALY BESTIARY: DEFECT LOG INVESTIGATIF SURYANI LESTARI</h3>
           </div>
-          <div className="jrpg-header-badge">HAGA RESEARCH LOGS • SECTION 5</div>
+          <div className="jrpg-header-badge">BAB 06 • ROOT CAUSE MASTERY</div>
           <button className="jrpg-close-btn" type="button" onClick={handleClose} aria-label="Tutup Dialog">
             [ESC] ✕
           </button>
@@ -160,21 +90,21 @@ export const BestiaryModal = ({ isOpen, onClose }) => {
 
         {/* Body */}
         <div className="jrpg-window-body">
-          {/* Lore Banner */}
+          {/* Seeker Note */}
           <div className="jrpg-lore-notice">
             <div className="seeker-avatar-mini">
-              <img src="assets/images/haga-avatar.jpg" alt="Haga Seeker" />
-              <span>HAGA (LV.99)</span>
+              <img src="assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" />
+              <span>SURYANI</span>
             </div>
             <p className="jrpg-lore-text">
-              "Sebagai pengganti lampiran bug report standar yang membosankan, inilah catatan anomali sistemik nyata yang telah dibedah akar masalahnya dan dibersihkan tuntas melalui metode exorcism rekayasa perangkat lunak."
+              "Laporan bug berformat Seeker Haga memangkas waktu debat tim teknis karena menyertakan reproduksi skrip otomatis dan saran perbaikan langsung pada baris kode yang bermasalah."
             </p>
           </div>
 
           <div className="bestiary-layout-split">
-            {/* Left Column: Monster Catalog List */}
+            {/* Left: Monster List */}
             <aside className="bestiary-catalog">
-              <h5 className="catalog-heading">KATALOG SPESIMEN ANOMALI ({BESTIARY_DATA.length})</h5>
+              <h5 className="catalog-heading">SPESIMEN ANOMALI SISTEMIK ({BESTIARY_DATA.length})</h5>
               <div className="monster-list">
                 {BESTIARY_DATA.map((monster) => (
                   <button
@@ -186,8 +116,8 @@ export const BestiaryModal = ({ isOpen, onClose }) => {
                     <span className="monster-badge-icon">{monster.icon}</span>
                     <div className="monster-nav-info">
                       <span className="monster-nav-name">{monster.name}</span>
-                      <span className={`monster-nav-sev ${monster.severityClass}`}>
-                        {monster.severity} SEVERITY
+                      <span className={`monster-nav-sev ${monster.threatClass}`}>
+                        {monster.threatLevel}
                       </span>
                     </div>
                   </button>
@@ -195,72 +125,52 @@ export const BestiaryModal = ({ isOpen, onClose }) => {
               </div>
             </aside>
 
-            {/* Right Column: Detailed Anomaly Anatomical Breakdown */}
+            {/* Right: Detailed Dossier */}
             <main className="bestiary-detail-sheet">
               <div className="monster-sheet-header">
                 <div className="monster-sheet-title-group">
                   <span className="monster-giant-icon">{selectedMonster.icon}</span>
                   <div>
-                    <div className="monster-threat-tag">{selectedMonster.threatLevel}</div>
                     <h4 className="monster-main-title">{selectedMonster.name}</h4>
-                    <span className="monster-type-sub">{selectedMonster.monsterType}</span>
+                    <span className={`severity-badge-large ${selectedMonster.threatClass}`}>
+                      THREAT LEVEL: {selectedMonster.threatLevel}
+                    </span>
                   </div>
                 </div>
-
-                <span className={`severity-badge-large ${selectedMonster.severityClass}`}>
-                  SEVERITY: {selectedMonster.severity}
-                </span>
               </div>
 
-              {/* Behavior / Anomaly manifestation */}
+              {/* Habitat */}
               <div className="dossier-section-block">
                 <h5 className="dossier-subtitle">
-                  <span>🩸</span> PERILAKU ANOMALI (MANIFESTASI DI SISTEM)
+                  <span>🗺️</span> HABITAT KEMUNCULAN ANOMALI
                 </h5>
-                <p className="dossier-body-text">{selectedMonster.behavior}</p>
+                <p className="dossier-body-text">{selectedMonster.habitat}</p>
               </div>
 
-              {/* Reproduction Steps */}
-              <div className="dossier-section-block">
-                <h5 className="dossier-subtitle">
-                  <span>🔬</span> SKENARIO REPRODUKSI LANGKAH DEMI LANGKAH
-                </h5>
-                <ol className="repro-steps-list">
-                  {selectedMonster.reproductionSteps.map((step, idx) => (
-                    <li key={idx}>{step}</li>
-                  ))}
-                </ol>
-              </div>
-
-              {/* Root Cause Analysis */}
+              {/* Akar Masalah */}
               <div className="dossier-section-block root-cause-highlight">
                 <h5 className="dossier-subtitle">
-                  <span>🧬</span> ANALISIS AKAR MASALAH (ROOT-CAUSE ANATOMY)
+                  <span>🧬</span> AKAR MASALAH (ROOT-CAUSE ANALYSIS)
                 </h5>
                 <p className="dossier-body-text">{selectedMonster.rootCause}</p>
               </div>
 
-              {/* Exorcism & Code Remediation */}
+              {/* Exorcism Script */}
               <div className="dossier-section-block exorcism-block">
-                <div className="exorcism-header-row">
-                  <h5 className="dossier-subtitle">
-                    <span>✨</span> METODE EXORCISM (SOLUSI PENYUCIAN SISTEMIK)
-                  </h5>
-                  <button 
-                    type="button" 
-                    className="toggle-code-btn"
-                    onClick={() => setShowCode(!showCode)}
-                  >
-                    {showCode ? 'Sembunyikan Remediation Code' : 'Lihat Remediation Code'}
-                  </button>
-                </div>
-                <p className="dossier-body-text exorcism-text">{selectedMonster.exorcism}</p>
+                <h5 className="dossier-subtitle">
+                  <span>✨</span> EXORCISM SCRIPT (SOLUSI PENYUCIAN KODE)
+                </h5>
+                <pre className="remediation-code-block">
+                  <code>{selectedMonster.exorcismScript}</code>
+                </pre>
+              </div>
 
-                {showCode && (
-                  <pre className="remediation-code-block">
-                    <code>{selectedMonster.remediationCode}</code>
-                  </pre>
-                )}
+              {/* Impact Notes */}
+              <div className="dossier-section-block">
+                <h5 className="dossier-subtitle">
+                  <span>🛡️</span> NILAI PERLINDUNGAN SISTEM
+                </h5>
+                <p className="dossier-body-text">{selectedMonster.impactNotes}</p>
               </div>
             </main>
           </div>
@@ -268,9 +178,9 @@ export const BestiaryModal = ({ isOpen, onClose }) => {
 
         {/* Footer */}
         <div className="jrpg-window-footer">
-          <span className="jrpg-footer-hint">Setiap anomali memiliki dokumentasi reproduktifitas 100% dan tes verifikasi otomatis.</span>
+          <span className="jrpg-footer-hint">Setiap anomali dilengkapi skrip uji otomatis Playwright / Postman reproduktif 100%.</span>
           <button type="button" className="jrpg-btn primary" onClick={handleClose}>
-            [ESC] KEMBALI KE MARKAS GUILD
+            [ESC] KEMBALI KE PENJELAJAHAN
           </button>
         </div>
       </div>

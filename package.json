@@ -1,7 +1,7 @@
 {
-  "name": "qa-seeker-portfolio-haga",
-  "version": "4.0.0",
-  "description": "Portofolio Interaktif Bertema Quality Assurance in Another World (Haga Persona) — Lead World Debugger / Seeker Level 99 (QA Engineer / SDET)",
+  "name": "suryani-qa-seeker-openworld",
+  "version": "2.0.0",
+  "description": "QA Seeker Master Blueprint: Suryani Lestari Edition — Open-World Tilemap 2400x1800px & Recruiter Docket (suryani-lestari.my.id)",
   "main": "assets/dist/bundle.js",
   "scripts": {
     "build": "esbuild src/index.jsx --bundle --outfile=assets/dist/bundle.js --minify --loader:.js=jsx --loader:.jsx=jsx",

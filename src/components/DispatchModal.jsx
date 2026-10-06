@@ -3,8 +3,9 @@ import { sound, playFanfare } from '../utils/audio';
 
 export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
   const [formData, setFormData] = useState({
-    recruiterName: '',
-    companyEmail: '',
+    commissionScope: 'Full-time QA Automation Specialist',
+    companyName: '',
+    workEmail: '',
     projectScope: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -16,8 +17,8 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
     onClose();
   };
 
-  const copyGuildAddress = () => {
-    const contactEmail = "haga.qa.seeker@domain.com";
+  const copyEmailCoordinates = () => {
+    const contactEmail = "contact@suryani-lestari.my.id";
     sound.playCopyChirp();
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -49,19 +50,24 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.recruiterName || !formData.companyEmail) {
-      sound.playAnomalyGlitch();
-      onShowToast("MOHON LENGKAPI NAMA DAN EMAIL PERUSAHAAN!");
+    if (!formData.companyName || !formData.workEmail) {
+      sound.playGlitch();
+      onShowToast("MOHON LENGKAPI NAMA PERUSAHAAN DAN ALAMAT EMAIL!");
       return;
     }
 
     playFanfare();
     setFormSubmitted(true);
-    onShowToast("CONTRACT TRANSMITTED TO HAGA!");
+    onShowToast("QUEST CONTRACT TRANSMITTED TO SURYANI LESTARI!");
 
     setTimeout(() => {
       setFormSubmitted(false);
-      setFormData({ recruiterName: '', companyEmail: '', projectScope: '' });
+      setFormData({
+        commissionScope: 'Full-time QA Automation Specialist',
+        companyName: '',
+        workEmail: '',
+        projectScope: ''
+      });
       onClose();
     }, 2800);
   };
@@ -73,10 +79,10 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
         {/* Header */}
         <div className="jrpg-window-header">
           <div className="jrpg-header-title">
-            <span className="jrpg-pixel-icon">✉️</span>
-            <h3>GUILD DISPATCH: JALUR KONVERSI & KONTAK RECRUITER</h3>
+            <span className="jrpg-pixel-icon">📮</span>
+            <h3>GUILD DISPATCH: CALL-TO-ACTION & JALUR KONVERSI RECRUITER</h3>
           </div>
-          <div className="jrpg-header-badge">RECEPTION DESK • SECTION 9</div>
+          <div className="jrpg-header-badge">BAB 09 • RECRUITER PIPELINE</div>
           <button className="jrpg-close-btn" type="button" onClick={handleClose} aria-label="Tutup Dialog">
             [ESC] ✕
           </button>
@@ -84,120 +90,135 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
 
         {/* Body */}
         <div className="jrpg-window-body">
-          {/* Seeker Profile Callout */}
+          {/* Seeker Operator Profile */}
           <div className="dispatch-hero-card">
             <div className="dispatch-avatar-box">
-              <img src="assets/images/haga-avatar.jpg" alt="Haga Seeker" className="dispatch-avatar-img" />
-              <span className="dispatch-online-pulse">● ACTIVE ON SERVER</span>
+              <img src="assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" className="dispatch-avatar-img" />
+              <span className="dispatch-online-pulse">● SEEKER ACTIVE</span>
             </div>
 
             <div className="dispatch-info">
               <div className="dispatch-title-row">
-                <h4 className="dispatch-name">HAGA</h4>
-                <span className="dispatch-role-tag">LEAD WORLD DEBUGGER / SEEKER LV. 99</span>
+                <h4 className="dispatch-name">SURYANI LESTARI</h4>
+                <span className="dispatch-role-tag">LEAD SYSTEM SEEKER & STABILITY GUARDIAN</span>
               </div>
-              <p className="dispatch-role-sub">Quality Assurance Engineer / SDET • Global Systems Specialist</p>
+              <p className="dispatch-role-sub">QA Automation Specialist & Mentor • Bandung, Indonesia (Remote / Hybrid)</p>
 
-              {/* Status Ketersediaan Kerja */}
+              {/* Status Ketersediaan */}
               <div className="availability-box">
-                <span className="avail-label">STATUS KETERSEDIAAN MISI:</span>
+                <span className="avail-label">STATUS KETERSEDIAAN:</span>
                 <span className="avail-status-pill">
-                  🟢 Ready for Full-Time Remote / On-Site Quest
+                  🟢 Open for High-Impact QA Roles
                 </span>
               </div>
 
-              {/* Epilog Moto */}
+              {/* Copywriting Undangan Kerja (Bab 9) */}
               <p className="dispatch-quote">
-                "Tidak ada sistem yang sepenuhnya sempurna, namun dengan ketelitian dan integritas seorang Seeker, kita mampu membuat dunia perangkat lunak menjadi jauh lebih andal."
+                "Apakah sistem digital perusahaan Anda bersiap menghadapi rilis skala besar dan tidak boleh mengalami kegagalan transaksi? Berikan quest pengujian kepada Suryani Lestari untuk menjamin kestabilan alur pengguna dan kualitas software bebas cacat."
               </p>
             </div>
           </div>
 
           <div className="dispatch-grid-columns">
-            {/* Left: Formulir Kontrak Misi */}
+            {/* Left: Formulir Komisi Misi */}
             <div className="dispatch-form-panel">
               <h5 className="panel-subheading">
-                <span>📜</span> FORMULIR KONTRAK MISI (HIRE / DISPATCH FORM)
+                <span>📜</span> FORMULIR PENUGASAN KOMISI (DIRECT COMMISSION)
               </h5>
               
               {formSubmitted ? (
                 <div className="contract-success-banner">
                   <span className="banner-big-icon">🎉</span>
-                  <h4>CONTRACT TRANSMITTED TO HAGA!</h4>
-                  <p>Misi berhasil didaftarkan ke jurnal penjelajah Haga. Konfirmasi transmisi dikirim ke email Anda.</p>
+                  <h4>QUEST CONTRACT TRANSMITTED!</h4>
+                  <p>Misi berhasil ditransmisikan ke jurnal pengujian Suryani Lestari. Konfirmasi dikirim ke email Anda.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="jrpg-form">
                   <div className="form-group">
-                    <label htmlFor="recruiterName">Nama Perekrut / Perusahaan:</label>
+                    <label htmlFor="commissionScope">Opsi Penugasan Komisi (Commission Scope):</label>
+                    <select
+                      id="commissionScope"
+                      className="jrpg-input"
+                      value={formData.commissionScope}
+                      onChange={(e) => setFormData({ ...formData, commissionScope: e.target.value })}
+                    >
+                      <option value="Full-time QA Automation Specialist">Full-time QA Automation Specialist</option>
+                      <option value="Playwright Test Suite Construction">Playwright Test Suite Construction</option>
+                      <option value="QA Strategy & Advisory">QA Strategy & Advisory</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="companyName">Nama Perekrut / Perusahaan:</label>
                     <input
-                      id="recruiterName"
+                      id="companyName"
                       type="text"
                       className="jrpg-input"
-                      placeholder="e.g. Lead Talent Scout / Tech Enterprise Corp"
-                      value={formData.recruiterName}
-                      onChange={(e) => setFormData({ ...formData, recruiterName: e.target.value })}
+                      placeholder="e.g. Lead Talent Scout / Enterprise CTO Office"
+                      value={formData.companyName}
+                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       required
                     />
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="companyEmail">Alamat Email Perusahaan:</label>
+                    <label htmlFor="workEmail">Alamat Email Perusahaan:</label>
                     <input
-                      id="companyEmail"
+                      id="workEmail"
                       type="email"
                       className="jrpg-input"
-                      placeholder="e.g. hiring.team@enterprise.com"
-                      value={formData.companyEmail}
-                      onChange={(e) => setFormData({ ...formData, companyEmail: e.target.value })}
+                      placeholder="e.g. talent@company.com"
+                      value={formData.workEmail}
+                      onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
                       required
                     />
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="projectScope">Cakupan Proyek & Detail Misi (Scope of Quest):</label>
+                    <label htmlFor="projectScope">Cakupan Misi & Tantangan Sistem:</label>
                     <textarea
                       id="projectScope"
                       className="jrpg-textarea"
                       rows="3"
-                      placeholder="Jelaskan kebutuhan pengujian sistem, durasi kontrak, tech stack, atau tantangan arsitektur..."
+                      placeholder="Jelaskan kebutuhan pengujian sistem, modul integrasi, atau durasi penugasan..."
                       value={formData.projectScope}
                       onChange={(e) => setFormData({ ...formData, projectScope: e.target.value })}
                     />
                   </div>
 
                   <button type="submit" className="jrpg-btn primary submit-btn">
-                    <span>⚔️</span> TRANSMIT CONTRACT TO HAGA
+                    <span>⚔️</span> TRANSMIT QUEST CONTRACT
                   </button>
                 </form>
               )}
             </div>
 
-            {/* Right: Quick Action Coordinates & Official Artifacts */}
+            {/* Right: Quick Action Buttons & Verified Channels (Bab 9) */}
             <div className="dispatch-quick-panel">
               <h5 className="panel-subheading">
-                <span>⚡</span> AKSES CEPAT KOORDINAT & BERKAS FORMAL
+                <span>⚡</span> KANAL RESMI & TOMBOL CEPAT 1-KLIK
               </h5>
 
-              {/* Quick Copy Coordinates Button */}
+              {/* Quick Copy Email Coordinates */}
               <div className="quick-copy-card">
-                <span className="card-label">KOORDINAT SURAT RESMI:</span>
-                <code className="email-display">haga.qa.seeker@domain.com</code>
+                <span className="card-label">KOORDINAT EMAIL RESMI:</span>
+                <code className="email-display">contact@suryani-lestari.my.id</code>
                 <button
                   type="button"
                   className="jrpg-btn secondary copy-coords-btn"
-                  onClick={copyGuildAddress}
+                  onClick={copyEmailCoordinates}
                 >
-                  <span>📋</span> COPY COORDINATES
+                  <span>📋</span> COPY EMAIL COORDINATES
                 </button>
               </div>
 
-              {/* Formal Files Download / Verified Profiles */}
+              {/* Verified External Links (Bab 9) */}
               <div className="formal-links-card">
-                <span className="card-label">TAUTAN BERKAS FORMAL REKRUTER:</span>
+                <span className="card-label">TAUTAN BERKAS & DIGITAL VAULT:</span>
                 <div className="links-stack">
+                  {/* (1) Download Seeker Resume (PDF) */}
                   <a
-                    href="assets/docs/CV_Haga_Lead_QA_Seeker.pdf"
+                    href="assets/docs/CV_Suryani_Lestari_QA_Automation.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="formal-link-row"
@@ -206,14 +227,31 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
                   >
                     <span className="f-icon">📄</span>
                     <div className="f-meta">
-                      <strong>Unduh CV Formal (PDF Standar)</strong>
-                      <small>Format ATS Friendly untuk Hiring Manager</small>
+                      <strong>(1) Download Seeker Resume (PDF)</strong>
+                      <small>Format ATS-Friendly untuk Hiring Manager</small>
                     </div>
                     <span className="f-arrow">⬇</span>
                   </a>
 
+                  {/* (2) Visit Digital Vault (suryani-lestari.my.id) */}
                   <a
-                    href="https://linkedin.com/in/haga-qa-seeker"
+                    href="https://suryani-lestari.my.id"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="formal-link-row"
+                    onClick={() => sound.playSelect()}
+                  >
+                    <span className="f-icon">🌐</span>
+                    <div className="f-meta">
+                      <strong>(2) Visit Digital Vault (suryani-lestari.my.id)</strong>
+                      <small>Basis Operasi & Dokumentasi Resmi</small>
+                    </div>
+                    <span className="f-arrow">↗</span>
+                  </a>
+
+                  {/* (3) Guild Network (LinkedIn) */}
+                  <a
+                    href="https://linkedin.com/in/suryani-lestari"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="formal-link-row"
@@ -221,23 +259,8 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
                   >
                     <span className="f-icon">💼</span>
                     <div className="f-meta">
-                      <strong>Profil LinkedIn Terverifikasi</strong>
-                      <small>Endorsement & Professional Network</small>
-                    </div>
-                    <span className="f-arrow">↗</span>
-                  </a>
-
-                  <a
-                    href="https://github.com/haga-seeker/qa-test-citadel"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="formal-link-row"
-                    onClick={() => sound.playSelect()}
-                  >
-                    <span className="f-icon">🐙</span>
-                    <div className="f-meta">
-                      <strong>Repositori GitHub Pengujian</strong>
-                      <small>Playwright CI Specs, k6 Load Tests & Allure Reports</small>
+                      <strong>(3) Guild Network (LinkedIn)</strong>
+                      <small>Profil Profesional linkedin.com/in/suryani-lestari</small>
                     </div>
                     <span className="f-arrow">↗</span>
                   </a>
@@ -249,9 +272,9 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
 
         {/* Footer */}
         <div className="jrpg-window-footer">
-          <span className="jrpg-footer-hint">Tersedia untuk peran Full-Time QA Lead, Senior SDET, dan QA Architect Global.</span>
+          <span className="jrpg-footer-hint">Tersedia untuk peran Full-Time QA Automation Specialist, Lead SDET, dan QA Advisor.</span>
           <button type="button" className="jrpg-btn primary" onClick={handleClose}>
-            [ESC] KEMBALI KE MARKAS GUILD
+            [ESC] KEMBALI KE PENJELAJAHAN
           </button>
         </div>
       </div>

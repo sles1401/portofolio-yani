@@ -12,7 +12,7 @@ import { ConventionalView } from './components/ConventionalView';
 import { sound } from './utils/audio';
 
 export const App = () => {
-  const [viewMode, setViewMode] = useState('GAME'); // 'GAME' | 'CONVENTIONAL'
+  const [viewMode, setViewMode] = useState('GAME'); // 'GAME' (Mode A) | 'CONVENTIONAL' (Mode B: Recruiter Docket)
   const [gameStarted, setGameStarted] = useState(false);
   const [activeModal, setActiveModal] = useState(null); // 'QUESTS' | 'BESTIARY' | 'GEAR' | 'DISPATCH' | null
   const [nearbyPoint, setNearbyPoint] = useState(null);
@@ -20,11 +20,14 @@ export const App = () => {
   const [debugVision, setDebugVision] = useState(false);
   const [dpadState, setDpadState] = useState({ up: false, down: false, left: false, right: false });
   const [toastMessage, setToastMessage] = useState(null);
-  const [telemetry, setTelemetry] = useState({
+  const [diagnostics, setDiagnostics] = useState({
     fps: '60.0',
-    heapMB: '42.1 MB',
-    playerX: 576,
-    playerY: 440
+    tileId: 'T_37_30',
+    domNodes: 140,
+    playerX: 1200,
+    playerY: 980,
+    integrityIndex: '99.96%',
+    easterEgg: null
   });
 
   // Global Toast Dispatcher
@@ -35,12 +38,12 @@ export const App = () => {
     }, 3200);
   }, []);
 
-  // Keyboard Shortcuts: [M], [D], [ESC] (Section 2 & Section 3)
+  // Global Keyboard Shortcuts (Bab 2 & 4: [M], [D], [ESC])
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
       const code = e.code;
 
-      // [ESC]: Close all modal windows or return from conventional view
+      // [ESC]: Close all modal windows or reset view (Bab 2)
       if (code === 'Escape') {
         if (activeModal) {
           sound.playClose();
@@ -51,21 +54,20 @@ export const App = () => {
         }
       }
 
-      // [D]: Toggle Seeker Debug Vision (Section 2 & 3)
+      // [D]: Toggle Haga Debug Vision 2.0 (Bab 4)
       if (code === 'KeyD' && viewMode === 'GAME' && !activeModal) {
-        // Only trigger toggle if not typing in an input
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
           e.preventDefault();
           setDebugVision((prev) => {
             const next = !prev;
-            sound.playDebugToggle(next);
-            showToast(next ? 'SEEKER DEBUG VISION: ACTIVE' : 'SEEKER DEBUG VISION: DEACTIVATED');
+            sound.playScan();
+            showToast(next ? 'HAGA DEBUG VISION 2.0: ACTIVE' : 'DEBUG VISION 2.0: DEACTIVATED');
             return next;
           });
         }
       }
 
-      // [M]: Toggle Recruiter Express Hub / Main Menu (Section 2)
+      // [M]: Toggle View between Mode A (Expedition) & Mode B (Recruiter Docket) (Bab 2)
       if (code === 'KeyM') {
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
           e.preventDefault();
@@ -79,12 +81,12 @@ export const App = () => {
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, [activeModal, viewMode, showToast]);
 
-  const handleStartGame = () => {
+  const handleStartExpedition = () => {
     setGameStarted(true);
     setViewMode('GAME');
   };
 
-  const handleOpenExpressFromTitle = () => {
+  const handleOpenDocketFromTitle = () => {
     setGameStarted(true);
     setViewMode('CONVENTIONAL');
   };
@@ -97,14 +99,9 @@ export const App = () => {
     }
   };
 
-  const handleSwitchToConventional = () => {
+  const handleToggleView = () => {
     sound.playSelect();
-    setViewMode('CONVENTIONAL');
-  };
-
-  const handleReturnToGame = () => {
-    sound.playSelect();
-    setViewMode('GAME');
+    setViewMode((prev) => (prev === 'GAME' ? 'CONVENTIONAL' : 'GAME'));
   };
 
   const handleDpadDirection = (direction, isPressed) => {
@@ -114,7 +111,7 @@ export const App = () => {
   const handleDpadAction = () => {
     if (nearbyPoint && !activeModal) {
       sound.playSelect();
-      setActiveModal(nearbyPoint.id);
+      setActiveModal(nearbyPoint.modalTarget || nearbyPoint.id);
     }
   };
 
@@ -126,18 +123,18 @@ export const App = () => {
   const handleToggleDebug = () => {
     setDebugVision((prev) => {
       const next = !prev;
-      sound.playDebugToggle(next);
-      showToast(next ? 'SEEKER DEBUG VISION: ACTIVE' : 'SEEKER DEBUG VISION: DEACTIVATED');
+      sound.playScan();
+      showToast(next ? 'HAGA DEBUG VISION 2.0: ACTIVE' : 'DEBUG VISION 2.0: DEACTIVATED');
       return next;
     });
   };
 
   return (
     <div className={`app-root ${debugVision ? 'debug-theme-overlay' : ''}`}>
-      {/* Subtle CRT Overlay */}
+      {/* CRT Scanline Overlay */}
       <div className="crt-overlay" aria-hidden="true" />
 
-      {/* Retro Toast Notification */}
+      {/* Retro Toast Feedback */}
       {toastMessage && (
         <div className="retro-toast-notification" role="status" aria-live="assertive">
           <span className="toast-icon">⚡</span>
@@ -145,10 +142,10 @@ export const App = () => {
         </div>
       )}
 
-      {/* Jalur 2: Recruiter Express Hub (Mode Konvensional / Dokumen Lengkap) */}
+      {/* Mode B: Recruiter Docket (Eksekutif) */}
       {viewMode === 'CONVENTIONAL' ? (
         <ConventionalView 
-          onReturnToGame={handleReturnToGame}
+          onReturnToGame={() => setViewMode('GAME')}
           onShowToast={showToast}
         />
       ) : (
@@ -156,24 +153,25 @@ export const App = () => {
           {/* Layar Pembuka (Title Screen) */}
           {!gameStarted ? (
             <TitleScreen 
-              onStartGame={handleStartGame} 
-              onOpenExpress={handleOpenExpressFromTitle}
+              onStartExpedition={handleStartExpedition} 
+              onOpenDocket={handleOpenDocketFromTitle}
             />
           ) : (
             <>
-              {/* Status Bar HUD & Persistent Header Controls */}
+              {/* Persistent Executive Controller Header (Bab 2) */}
               <GameHUD
-                onSwitchToConventional={handleSwitchToConventional}
+                onToggleView={handleToggleView}
+                viewMode={viewMode}
                 onToggleMute={handleToggleMute}
                 isMuted={isMuted}
                 nearbyPoint={nearbyPoint}
                 debugVision={debugVision}
                 onToggleDebug={handleToggleDebug}
                 onOpenModal={handleOpenModal}
-                telemetry={telemetry}
+                diagnostics={diagnostics}
               />
 
-              {/* Viewport Canvas 2D Interaktif (Jalur 1: Immersive Mode) */}
+              {/* Mode A: Open-World Expedition Canvas 2400×1800 (Bab 3) */}
               <main className="game-stage">
                 <GameCanvas
                   onTriggerModal={handleOpenModal}
@@ -181,25 +179,27 @@ export const App = () => {
                   onNearbyChange={(pt) => setNearbyPoint(pt)}
                   dpadState={dpadState}
                   debugVision={debugVision}
-                  onTelemetryUpdate={(data) => setTelemetry(data)}
+                  onDiagnosticsUpdate={(diag) => setDiagnostics(diag)}
+                  isPaused={viewMode === 'CONVENTIONAL'}
                 />
               </main>
 
-              {/* Persistent Footer: Recruiter Express Bar (Section 2) */}
+              {/* Persistent Recruiter Express Bar (Footer) */}
               <RecruiterExpressBar
                 onOpenModal={handleOpenModal}
                 activeModal={activeModal}
                 onToggleDebug={handleToggleDebug}
                 debugVision={debugVision}
+                onToggleView={handleToggleView}
               />
 
-              {/* Virtual D-Pad for Mobile Touch Users (< 640px) */}
+              {/* Virtual D-Pad for Mobile (< 640px) */}
               <VirtualDPad
                 onDirectionChange={handleDpadDirection}
                 onAction={handleDpadAction}
               />
 
-              {/* JRPG Dialog Windows (Section 2.2 Retro JRPG Window) */}
+              {/* JRPG Retro Modals */}
               <QuestModal
                 isOpen={activeModal === 'QUESTS'}
                 onClose={() => setActiveModal(null)}

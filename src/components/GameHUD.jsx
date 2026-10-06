@@ -2,23 +2,24 @@ import React from 'react';
 import { sound } from '../utils/audio';
 
 export const GameHUD = ({
-  onSwitchToConventional,
+  onToggleView,
+  viewMode,
   onToggleMute,
   isMuted,
   nearbyPoint,
   debugVision,
   onToggleDebug,
   onOpenModal,
-  telemetry
+  diagnostics
 }) => {
   return (
-    <header className="game-hud-layer">
-      {/* Top Left: Haga Lead World Debugger Player Card */}
+    <header className="game-hud-layer sticky-executive-controller">
+      {/* Top Left: Suryani Lestari Seeker Card */}
       <div className="hud-player-card">
         <div className="hud-avatar-box">
           <img 
-            src="assets/images/haga-avatar.jpg" 
-            alt="Haga Seeker Avatar" 
+            src="assets/images/suryani-seeker-avatar.jpg" 
+            alt="Suryani Lestari Seeker Avatar" 
             className="hud-mini-avatar"
           />
           <span className="hud-online-dot" title="Seeker Online" />
@@ -26,14 +27,14 @@ export const GameHUD = ({
 
         <div className="hud-meta">
           <div className="hud-row-top">
-            <h2 className="hud-player-name">HAGA</h2>
-            <span className="hud-level-pill">SEEKER LV. 99</span>
-            <span className="hud-sdet-pill">LEAD SDET</span>
+            <h2 className="hud-player-name">SURYANI LESTARI</h2>
+            <span className="hud-level-pill">LEAD SYSTEM SEEKER</span>
+            <span className="hud-sdet-pill">BANDUNG HQ</span>
           </div>
 
-          {/* Dual HP / MP Vitals */}
+          {/* Vitals: HP 999/999 & MP 550/550 & Accuracy 99.8% (Bab 7) */}
           <div className="hud-vitals-bars-compact">
-            <div className="hud-vital-mini" title="HP: 999/999 Stamina Pengujian Eksploratori">
+            <div className="hud-vital-mini" title="HP: 999/999 Ketahanan Pengujian Maraton">
               <span className="vital-mini-tag">HP</span>
               <div className="vital-mini-track">
                 <div className="vital-mini-fill hp" style={{ width: '100%' }} />
@@ -41,101 +42,107 @@ export const GameHUD = ({
               <span className="vital-mini-val">999/999</span>
             </div>
 
-            <div className="hud-vital-mini" title="MP: 480/550 Kapasitas Otomasi & Skrip">
+            <div className="hud-vital-mini" title="MP: 550/550 Efisiensi Otomasi Modular">
               <span className="vital-mini-tag">MP</span>
               <div className="vital-mini-track">
-                <div className="vital-mini-fill mp" style={{ width: '87.2%' }} />
+                <div className="vital-mini-fill mp" style={{ width: '100%' }} />
               </div>
-              <span className="vital-mini-val">480/550</span>
+              <span className="vital-mini-val">550/550</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Center Top: Proximity Banner (State NEAR_LANDMARK: Section 2.1) */}
+      {/* Center: Nearby Landmark & Interaction Prompt */}
       {nearbyPoint ? (
         <div 
           className="interaction-prompt-banner"
           onClick={() => {
             sound.playSelect();
-            onOpenModal(nearbyPoint.id);
+            onOpenModal(nearbyPoint.modalTarget || nearbyPoint.id);
           }}
           role="button"
           tabIndex={0}
         >
           <span className="blink-icon">⚡</span>
           <span>
-            Dekat {nearbyPoint.label}: Tekan <strong>[SPACE]</strong> atau Klik untuk INSPECT OBJECT
+            {nearbyPoint.district} — <strong>{nearbyPoint.label}</strong>: Tekan <strong>[SPACE]</strong> atau Klik untuk Inspeksi
           </span>
         </div>
       ) : null}
 
-      {/* Top Right: Actions Bar & Debug Toggle */}
+      {/* Top Right: Persistent Executive Controller Switch (Bab 2) & Audio */}
       <div className="hud-top-actions">
-        {/* Debug Vision Button [D] */}
+        {/* Toggle Debug Vision 2.0 [D] */}
         <button
           className={`hud-btn debug-btn ${debugVision ? 'active' : ''}`}
           type="button"
           onClick={() => {
-            sound.playDebugToggle(!debugVision);
+            sound.playScan();
             onToggleDebug();
           }}
-          title="Toggle Seeker Debug Vision [Shortcut: D]"
+          title="Toggle Haga Debug Vision 2.0 [Shortcut: D]"
         >
-          <span>👁️</span> DEBUG VISION: {debugVision ? 'ACTIVE' : 'OFF'} [D]
+          <span>👁️</span> DEBUG VISION 2.0: {debugVision ? 'ON' : 'OFF'} [D]
         </button>
 
-        {/* Audio Toggle */}
+        {/* Audio SFX Toggle */}
         <button 
           className="hud-btn audio-btn" 
           type="button" 
           onClick={onToggleMute}
-          title="Toggle Efek Suara Chiptune 8-Bit Native"
+          title="Toggle Synthesized 8-Bit Chiptune Audio"
         >
           {isMuted ? '🔇 SFX: OFF' : '🔊 SFX: ON'}
         </button>
 
-        {/* Recruiter Express / Conventional View Switcher */}
+        {/* Bab 2: Persistent Executive Controller Toggle View */}
         <button 
           className="hud-btn mode-switch-btn" 
           type="button" 
           onClick={() => {
             sound.playSelect();
-            onSwitchToConventional();
+            onToggleView();
           }}
-          title="Akses Cepat Dokumen Rekruter Eksekutif (< 15 Detik)"
+          title="Toggle View: Open-World Expedition / Recruiter Docket [Shortcut: M]"
         >
-          <span>📋</span> RECRUITER EXPRESS HUB
+          <span>📋</span> TOGGLE VIEW: {viewMode === 'GAME' ? 'RECRUITER DOCKET' : 'OPEN-WORLD'} [M]
         </button>
       </div>
 
-      {/* Seeker Debug Vision Telemetry Box (Section 3) */}
-      {debugVision && (
-        <div className="debug-telemetry-hud-box" aria-live="polite">
-          <div className="telemetry-hud-title">
-            <span>⚡</span> SEEKER DEBUG TELEMETRY (LIVE)
+      {/* Bab 4: Floating Diagnostics di pojok kiri atas saat Debug Vision 2.0 aktif */}
+      {debugVision && diagnostics && (
+        <div className="floating-diagnostics-box" aria-live="polite">
+          <div className="diagnostics-header">
+            <span>⚡</span> HAGA TELEMETRY & WIREFRAME SCANNER 2.0
           </div>
-          <div className="telemetry-hud-rows">
-            <div className="telemetry-row">
-              <span className="t-key">TARGET ENV:</span>
-              <span className="t-val t-env">Production (v4.0-Live)</span>
+          <div className="diagnostics-grid">
+            <div className="diag-row">
+              <span className="diag-key">WORLD POS:</span>
+              <span className="diag-val">X: {diagnostics.playerX} | Y: {diagnostics.playerY}</span>
             </div>
-            <div className="telemetry-row">
-              <span className="t-key">COORDINATES:</span>
-              <span className="t-val">X: {telemetry.playerX} | Y: {telemetry.playerY}</span>
+            <div className="diag-row">
+              <span className="diag-key">TILE ID:</span>
+              <span className="diag-val diag-code">{diagnostics.tileId} (32px)</span>
             </div>
-            <div className="telemetry-row">
-              <span className="t-key">FRAME RATE:</span>
-              <span className="t-val" id="hud-fps">{telemetry.fps} FPS</span>
+            <div className="diag-row">
+              <span className="diag-key">AKTIF DOM NODES:</span>
+              <span className="diag-val">{diagnostics.domNodes} Nodes</span>
             </div>
-            <div className="telemetry-row">
-              <span className="t-key">HEAP MEMORY:</span>
-              <span className="t-val" id="hud-memory">{telemetry.heapMB}</span>
+            <div className="diag-row">
+              <span className="diag-key">CANVAS FPS:</span>
+              <span className="diag-val diag-fps">{diagnostics.fps} FPS (Target 60)</span>
             </div>
-            <div className="telemetry-row">
-              <span className="t-key">GLITCH LISTENER:</span>
-              <span className="t-val t-active">ACTIVE / SCANNING</span>
+            <div className="diag-row">
+              <span className="diag-key">SYSTEM INTEGRITY:</span>
+              <span className="diag-val diag-integrity">{diagnostics.integrityIndex}</span>
             </div>
+            {diagnostics.easterEgg && (
+              <div className="diag-easter-egg">
+                <span className="egg-icon">🔍</span>
+                <span>{diagnostics.easterEgg}</span>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -1,12 +1,12 @@
 import React from 'react';
 import { sound } from '../utils/audio';
 
-export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, debugVision }) => {
+export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, debugVision, onToggleView }) => {
   const navItems = [
-    { id: 'QUESTS', label: 'Quests', sub: 'Project Records', icon: '📜' },
-    { id: 'BESTIARY', label: 'Bestiary', sub: 'Anomaly Grimoire', icon: '👾' },
-    { id: 'GEAR', label: 'Gear', sub: 'Armory Stack', icon: '⚔️' },
-    { id: 'DISPATCH', label: 'Dispatch', sub: 'Hire & Contact', icon: '✉️' }
+    { id: 'QUESTS', label: 'Quests', sub: 'Marketing & PPIC', icon: '📜' },
+    { id: 'BESTIARY', label: 'Bestiary', sub: 'Anomaly Logs', icon: '👾' },
+    { id: 'GEAR', label: 'Armory', sub: 'Playwright & Tools', icon: '⚔️' },
+    { id: 'DISPATCH', label: 'Dispatch', sub: 'Hire Suryani', icon: '📮' }
   ];
 
   return (
@@ -14,8 +14,8 @@ export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, d
       <div className="express-brand-chip">
         <span className="express-icon">⚡</span>
         <div className="express-brand-text">
-          <strong>RECRUITER EXPRESS MODE</strong>
-          <small>Akses Langsung Modal Dialog JRPG (1-Click)</small>
+          <strong>RECRUITER EXPRESS CONTROLLER</strong>
+          <small>Akses Cepat 1-Klik Dialog JRPG Retro</small>
         </div>
       </div>
 
@@ -38,29 +38,47 @@ export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, d
           </button>
         ))}
 
+        {/* Vision 2.0 Button */}
         <button
           type="button"
           className={`express-nav-btn debug-nav-btn ${debugVision ? 'debug-active' : ''}`}
           onClick={() => {
-            sound.playDebugToggle(!debugVision);
+            sound.playScan();
             onToggleDebug();
           }}
-          title="Toggle Seeker Debug Vision [Shortcut: D]"
+          title="Toggle Haga Debug Vision 2.0 [Shortcut: D]"
         >
           <span className="btn-icon">👁️</span>
           <div className="btn-text-wrap">
             <span className="btn-title">Vision [D]</span>
-            <span className="btn-sub">{debugVision ? 'ACTIVE' : 'TOGGLE'}</span>
+            <span className="btn-sub">{debugVision ? 'ACTIVE' : 'OFF'}</span>
+          </div>
+        </button>
+
+        {/* Toggle Docket */}
+        <button
+          type="button"
+          className="express-nav-btn docket-nav-btn"
+          onClick={() => {
+            sound.playSelect();
+            onToggleView();
+          }}
+          title="Toggle Mode B: Recruiter Docket [Shortcut: M]"
+        >
+          <span className="btn-icon">📋</span>
+          <div className="btn-text-wrap">
+            <span className="btn-title">Docket [M]</span>
+            <span className="btn-sub">Eksekutif</span>
           </div>
         </button>
       </div>
 
       <div className="express-shortcuts-hint">
-        <span>[M] Menu</span>
+        <span>[M] Docket</span>
         <span>•</span>
-        <span>[D] Debug</span>
+        <span>[D] Vision 2.0</span>
         <span>•</span>
-        <span>[ESC] Tutup</span>
+        <span>[ESC] Reset</span>
       </div>
     </nav>
   );

@@ -2597,6 +2597,210 @@ html, body {
 }
 
 /* ==========================================================================
+   HERO METRICS QUAD GRID (BAB 02 SPECIFICATION)
+   ========================================================================== */
+.hero-metrics-quad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.hero-metric-box {
+  background: linear-gradient(145deg, #0e1b3d, #09132c);
+  border: 1px solid #1e356c;
+  border-top: 3px solid var(--neon-cyan);
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.hero-metric-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: var(--neon-cyan);
+  letter-spacing: 0.5px;
+}
+
+.hero-metric-val {
+  font-family: var(--font-pixel);
+  font-size: 1.15rem;
+  color: #ffffff;
+  margin: 2px 0;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+.hero-metric-sub {
+  font-size: 0.82rem;
+  color: var(--neon-gold);
+  font-weight: 600;
+}
+
+.hero-metric-biz {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin-top: 4px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 6px;
+}
+
+.hero-metric-biz strong {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   FLOATING DIAGNOSTICS HUD 2.0 (BAB 04 SPECIFICATION)
+   ========================================================================== */
+.floating-diagnostics-box {
+  position: absolute;
+  top: 76px;
+  left: 1.25rem;
+  z-index: 60;
+  width: 320px;
+  background: rgba(5, 12, 28, 0.94);
+  border: 2px solid var(--phosphor-green);
+  box-shadow: 0 0 25px var(--phosphor-green-glow);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #ffffff;
+  pointer-events: none;
+  animation: telemetrySlide 0.2s ease-out;
+}
+
+.diagnostics-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--phosphor-green);
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  border-bottom: 1px dashed rgba(0, 255, 136, 0.4);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.diagnostics-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.diag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.diag-key {
+  color: var(--text-dim);
+  font-size: 0.68rem;
+}
+
+.diag-val {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.diag-code {
+  color: var(--neon-cyan);
+}
+
+.diag-fps {
+  color: #facc15;
+}
+
+.diag-integrity {
+  color: var(--phosphor-green);
+  font-weight: 800;
+}
+
+.diag-easter-egg {
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(0, 255, 136, 0.12);
+  border: 1px solid var(--phosphor-green);
+  border-radius: 3px;
+  color: #a7f3d0;
+  font-size: 0.68rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: eggBlink 2s infinite;
+}
+
+@keyframes eggBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+/* ==========================================================================
+   QUEST COMPARISON TABLE (BAB 05 SPECIFICATION)
+   ========================================================================== */
+.comparison-table-wrapper {
+  background: rgba(6, 14, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+  margin: 6px 0;
+}
+
+.table-heading-prompt {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  color: var(--neon-cyan);
+  margin-bottom: 8px;
+}
+
+.quest-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.quest-compare-table th {
+  background: #0d1a3a;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-bottom: 1px solid #1e3366;
+  font-size: 0.75rem;
+}
+
+.quest-compare-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.before-cell {
+  color: #f87171 !important;
+}
+
+.after-cell {
+  color: var(--phosphor-green) !important;
+  font-weight: 600;
+}
+
+.highlight-btn {
+  background: #0284c7 !important;
+  border-color: #38bdf8 !important;
+  font-weight: 700;
+}
+
+.sev-edge {
+  color: #38bdf8 !important;
+}
+
+.docket-nav-btn {
+  border-color: var(--neon-gold) !important;
+}
+
+/* ==========================================================================
    12. RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 @media (max-width: 900px) {
