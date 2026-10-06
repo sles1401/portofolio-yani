@@ -456,9 +456,10 @@ export const GameCanvas = ({
 
 // ==========================================
 // RENDER TERRAIN & BIOMES (2400 × 1800 px)
+// Clean-Tech Architecture: Porcelain Slate (#F8FAFC) & Obsidian Slate (#0F172A)
 // ==========================================
 function renderOpenWorldTerrain(ctx, camX, camY, viewW, viewH, tick) {
-  // Tile bounds visible in viewport
+  // Tile bounds visible in viewport (Frustum Culling)
   const startCol = Math.max(0, Math.floor(camX / TILE_SIZE));
   const endCol = Math.min(MAP_COLS, Math.ceil((camX + viewW) / TILE_SIZE));
   const startRow = Math.max(0, Math.floor(camY / TILE_SIZE));
@@ -469,110 +470,174 @@ function renderOpenWorldTerrain(ctx, camX, camY, viewW, viewH, tick) {
       const tx = c * TILE_SIZE;
       const ty = r * TILE_SIZE;
 
-      // Outer boundary wall
+      // Outer boundary wall (Obsidian Slate #0F172A with crisp micro-border)
       if (r < 2 || r >= MAP_ROWS - 2 || c < 2 || c >= MAP_COLS - 2) {
-        ctx.fillStyle = '#070b18';
+        ctx.fillStyle = '#0f172a';
         ctx.fillRect(tx, ty, TILE_SIZE, TILE_SIZE);
-        ctx.strokeStyle = '#141d36';
+        ctx.strokeStyle = '#1e293b';
         ctx.lineWidth = 1;
         ctx.strokeRect(tx + 2, ty + 2, TILE_SIZE - 4, TILE_SIZE - 4);
       } else {
-        // District Biomes coloring:
-        // Northwest (Foundry): Steampunk bronze stone
+        // District Biomes coloring (Clean Tech Theme):
+        // Northwest (Foundry): Deep industrial slate
         if (tx < 1000 && ty < 900) {
-          ctx.fillStyle = (r + c) % 2 === 0 ? '#1b1a29' : '#151422';
+          ctx.fillStyle = (r + c) % 2 === 0 ? '#111827' : '#0f172a';
         }
-        // Northeast (Anomaly Swamp): Glitched violet-swamp
+        // Northeast (Data Sanctum): Cyber obsidian violet
         else if (tx >= 1400 && ty < 900) {
-          ctx.fillStyle = (r + c) % 2 === 0 ? '#131e24' : '#10171d';
+          ctx.fillStyle = (r + c) % 2 === 0 ? '#14142b' : '#0f172a';
         }
-        // Southwest (Lighthouse Coast): Deep coastal navy
+        // Southwest (Gateway Pier): Deep ocean network slate
         else if (tx < 1000 && ty >= 900) {
-          ctx.fillStyle = (r + c) % 2 === 0 ? '#0d1d33' : '#0a1729';
+          ctx.fillStyle = (r + c) % 2 === 0 ? '#0b192c' : '#081220';
         }
-        // Southeast (Envoy Garden): Emerald forest stone
+        // Southeast (Envoy Lounge): Deep emerald executive slate
         else if (tx >= 1400 && ty >= 900) {
-          ctx.fillStyle = (r + c) % 2 === 0 ? '#0f231e' : '#0c1b18';
+          ctx.fillStyle = (r + c) % 2 === 0 ? '#061d18' : '#041713';
         }
-        // Central Plaza: Guild polished checkerboard (#13203C and #162544)
+        // Central Plaza: Clean slate canvas (#1e293b / #334155)
         else {
-          ctx.fillStyle = (r + c) % 2 === 0 ? '#13203c' : '#162544';
+          ctx.fillStyle = (r + c) % 2 === 0 ? '#1e293b' : '#1a2234';
         }
         ctx.fillRect(tx, ty, TILE_SIZE, TILE_SIZE);
 
-        // Tile subtle grout
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+        // Tile subtle micro-grid
+        ctx.strokeStyle = 'rgba(226, 232, 240, 0.03)';
         ctx.lineWidth = 0.5;
         ctx.strokeRect(tx, ty, TILE_SIZE, TILE_SIZE);
       }
     }
   }
 
-  // Cross highways / connecting paved cobblestone paths
-  // Horizontal path from Foundry to Swamp
-  ctx.fillStyle = 'rgba(218, 165, 32, 0.12)';
+  // Paved Clean-Tech Porcelain Highways (#F8FAFC / #F1F5F9 with #E2E8F0 borders)
+  // Horizontal transmission avenue
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.08)';
   ctx.fillRect(400, 860, 1600, 80);
-  // Vertical path from Lighthouse to Envoy
-  ctx.fillRect(1160, 400, 80, 1000);
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.3)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(400, 860, 1600, 80);
 
-  // Central Grand Plaza Crimson Carpet
-  ctx.fillStyle = '#83182b';
-  ctx.fillRect(1100, 780, 200, 240);
-  ctx.strokeStyle = '#c59b27';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(1100, 780, 200, 240);
+  // Vertical transmission avenue
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.08)';
+  ctx.fillRect(1160, 400, 80, 1000);
+  ctx.strokeRect(1160, 400, 80, 1000);
+
+  // Optical data bus lines (Prompt Halaman 9)
+  const busPulse = (tick * 4) % 1600;
+  ctx.fillStyle = '#06b6d4';
+  ctx.fillRect(400 + busPulse, 898, 24, 4);
+  ctx.fillStyle = '#10b981';
+  ctx.fillRect(1198, 400 + ((tick * 3) % 1000), 4, 24);
+
+  // Central Grand Plaza Clean Slate Pavement with Geometric Pool
+  ctx.fillStyle = 'rgba(241, 245, 249, 0.09)';
+  ctx.fillRect(1080, 780, 240, 240);
+  ctx.strokeStyle = '#10b981';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(1080, 780, 240, 240);
+
+  // Geometric water pool (Prompt Halaman 9: kolam air geometris di Central Plaza)
+  ctx.fillStyle = '#0284c7';
+  ctx.fillRect(1130, 820, 140, 70);
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(1130, 820, 140, 70);
+
+  // Water wavelets
+  const wave = Math.sin(tick * 0.08) * 3;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.fillRect(1145, 840 + wave, 50, 3);
+  ctx.fillRect(1205, 860 - wave, 50, 3);
 }
 
-// Render Obstacles with Red Bounding Box in Debug Vision (Bab 4)
-function renderObstacles(ctx, debugVision) {
+// Render Obstacles with Frustum Culling & Red Bounding Box in Debug Vision (Bab 4)
+function renderObstacles(ctx, debugVision, camX, camY, viewW, viewH, tick) {
   for (const obs of WORLD_OBSTACLES) {
+    // Frustum Culling (Prompt Halaman 9)
+    if (obs.x + obs.w < camX || obs.x > camX + viewW || obs.y + obs.h < camY || obs.y > camY + viewH) {
+      continue;
+    }
+
     ctx.fillStyle = '#1e293b';
     ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
     ctx.strokeStyle = '#334155';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.5;
     ctx.strokeRect(obs.x, obs.y, obs.w, obs.h);
+
+    // Prompt Halaman 3: Simpul retakan dinding berdenyut cyan halus di [X: 18, Y: 24] (576, 768)
+    if (obs.isGlitchWall) {
+      const pulse = Math.sin(tick * 0.1) * 0.35 + 0.65;
+      ctx.save();
+      ctx.strokeStyle = `rgba(6, 182, 212, ${pulse})`;
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#06B6D4';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.moveTo(obs.x + 12, obs.y + 10);
+      ctx.lineTo(obs.x + 24, obs.y + 24);
+      ctx.lineTo(obs.x + 18, obs.y + 34);
+      ctx.lineTo(obs.x + 36, obs.y + 40);
+      ctx.stroke();
+
+      // Mini fracture branch
+      ctx.beginPath();
+      ctx.moveTo(obs.x + 24, obs.y + 24);
+      ctx.lineTo(obs.x + 34, obs.y + 20);
+      ctx.stroke();
+      ctx.restore();
+    }
 
     // Bab 4: Gambarkan bounding box AABB berwarna merah solid di sekeliling semua obyek rintangan
     if (debugVision) {
-      ctx.strokeStyle = '#ef4444';
+      ctx.strokeStyle = obs.isGlitchWall ? '#06b6d4' : '#ef4444';
       ctx.lineWidth = 2;
       ctx.strokeRect(obs.x - 2, obs.y - 2, obs.w + 4, obs.h + 4);
+      if (obs.isGlitchWall) {
+        ctx.fillStyle = '#06b6d4';
+        ctx.font = 'bold 9px monospace';
+        ctx.fillText('GLITCH WALL [18, 24]', obs.x - 12, obs.y - 6);
+      }
     }
   }
 }
 
-// Render 5 District Landmarks with Blue Bounding Box in Debug Vision (Bab 4)
-function renderDistrictLandmarks(ctx, tick, debugVision, nearbyLandmark) {
+// Render 5 District Landmarks with Frustum Culling & Blue Bounding Box in Debug Vision (Bab 4)
+function renderDistrictLandmarks(ctx, tick, debugVision, nearbyLandmark, camX, camY, viewW, viewH) {
   for (const d of OPEN_WORLD_DISTRICTS) {
+    // Frustum Culling (Prompt Halaman 9)
+    if (d.x + 120 < camX || d.x - 120 > camX + viewW || d.y + 120 < camY || d.y - 120 > camY + viewH) {
+      continue;
+    }
+
     const isNearby = nearbyLandmark?.id === d.id;
     const bob = Math.sin(tick * 0.06 + d.x) * 4;
 
     ctx.save();
 
-    // Floor Base Halo
-    const haloAlpha = isNearby ? 0.4 + Math.sin(tick * 0.1) * 0.2 : 0.18;
-    ctx.fillStyle = `rgba(0, 240, 255, ${haloAlpha})`;
+    // Floor Base Halo (Teal / Emerald)
+    const haloAlpha = isNearby ? 0.45 + Math.sin(tick * 0.1) * 0.2 : 0.2;
+    ctx.fillStyle = isNearby ? `rgba(16, 185, 129, ${haloAlpha})` : `rgba(6, 182, 212, ${haloAlpha})`;
     ctx.beginPath();
-    ctx.ellipse(d.x, d.y + 20, 52, 28, 0, 0, Math.PI * 2);
+    ctx.ellipse(d.x, d.y + 20, 56, 30, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // District Specific Visuals
+    // District Specific Visuals (Clean Tech Architecture)
     if (d.id === 'CENTRAL_PLAZA') {
-      drawPlazaAltar(ctx, d.x, d.y);
+      drawCleanNoticeBoard(ctx, d.x, d.y);
     } else if (d.id === 'FOUNDRY') {
-      drawFoundryGears(ctx, d.x, d.y, tick);
-    } else if (d.id === 'SWAMP') {
-      drawSwampGlitches(ctx, d.x, d.y, tick);
-    } else if (d.id === 'LIGHTHOUSE') {
-      drawLighthouseBeacon(ctx, d.x, d.y, tick);
+      drawPlaywrightRigAndServer(ctx, d.x, d.y, tick);
+    } else if (d.id === 'DATA_SANCTUM') {
+      drawDataSanctumArchive(ctx, d.x, d.y, tick);
+    } else if (d.id === 'GATEWAY_PIER') {
+      drawGatewayPierAPI(ctx, d.x, d.y, tick);
     } else {
-      drawEnvoyShrine(ctx, d.x, d.y);
+      drawEnvoyLoungeDesk(ctx, d.x, d.y);
     }
 
-    // Floating Icon Bubble
-    ctx.fillStyle = '#0b1633';
+    // Floating Icon Bubble (12px rounded clean card)
+    ctx.fillStyle = '#0f172a';
     ctx.strokeStyle = d.color;
-    ctx.lineWidth = 2.5;
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(d.x, d.y - 48 + bob, 20, 0, Math.PI * 2);
     ctx.fill();
@@ -584,14 +649,14 @@ function renderDistrictLandmarks(ctx, tick, debugVision, nearbyLandmark) {
     ctx.fillText(d.icon, d.x, d.y - 47 + bob);
 
     // Label Text
-    ctx.font = 'bold 11px monospace';
+    ctx.font = 'bold 12px "Inter", sans-serif';
     ctx.fillStyle = '#ffffff';
     ctx.shadowColor = '#000000';
     ctx.shadowBlur = 4;
     ctx.fillText(d.label, d.x, d.y + 44);
-    ctx.font = '9px sans-serif';
+    ctx.font = '10px "Inter", sans-serif';
     ctx.fillStyle = d.color;
-    ctx.fillText(d.subtitle, d.x, d.y + 58);
+    ctx.fillText(d.subtitle, d.x, d.y + 60);
     ctx.shadowBlur = 0;
 
     // Interaction Prompt [SPACE] INSPECT
@@ -618,13 +683,13 @@ function renderDistrictLandmarks(ctx, tick, debugVision, nearbyLandmark) {
 function drawInspectPromptBubble(ctx, x, y, label) {
   ctx.save();
   ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#00f0ff';
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#10b981';
+  ctx.lineWidth = 1.5;
 
-  const w = 170;
-  const h = 26;
+  const w = 180;
+  const h = 28;
   ctx.beginPath();
-  ctx.roundRect(x - w / 2, y - h / 2, w, h, 6);
+  ctx.roundRect(x - w / 2, y - h / 2, w, h, 8);
   ctx.fill();
   ctx.stroke();
 
@@ -635,8 +700,8 @@ function drawInspectPromptBubble(ctx, x, y, label) {
   ctx.lineTo(x + 5, y + h / 2);
   ctx.fill();
 
-  ctx.font = 'bold 9px monospace';
-  ctx.fillStyle = '#0b1633';
+  ctx.font = 'bold 9px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#0f172a';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(`[SPACE] INSPECT ${label}`, x, y);
@@ -644,68 +709,118 @@ function drawInspectPromptBubble(ctx, x, y, label) {
   ctx.restore();
 }
 
-function drawPlazaAltar(ctx, x, y) {
-  ctx.fillStyle = '#5c3818';
-  ctx.fillRect(x - 34, y - 20, 68, 40);
-  ctx.fillStyle = '#d4af37';
-  ctx.strokeRect(x - 34, y - 20, 68, 40);
-  ctx.fillStyle = '#f5e8c7';
-  ctx.fillRect(x - 22, y - 12, 44, 24);
-}
-
-function drawFoundryGears(ctx, x, y, tick) {
-  ctx.fillStyle = '#475569';
-  ctx.fillRect(x - 30, y - 10, 60, 30);
-  // Gear rotation
-  ctx.save();
-  ctx.translate(x, y - 15);
-  ctx.rotate(tick * 0.05);
-  ctx.strokeStyle = '#f59e0b';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(-12, -12, 24, 24);
-  ctx.restore();
-}
-
-function drawSwampGlitches(ctx, x, y, tick) {
-  ctx.fillStyle = '#2e1065';
-  ctx.fillRect(x - 28, y - 10, 56, 30);
-  // Glitch particles
-  const shift = Math.sin(tick * 0.2) * 6;
-  ctx.fillStyle = '#a855f7';
-  ctx.fillRect(x - 16 + shift, y - 22, 32, 10);
-  ctx.fillStyle = '#00ff88';
-  ctx.fillRect(x - 8 - shift, y - 26, 16, 4);
-}
-
-function drawLighthouseBeacon(ctx, x, y, tick) {
+// Landmark 1: Central Plaza - The Glass Notice Board
+function drawCleanNoticeBoard(ctx, x, y) {
+  // Glass stand
   ctx.fillStyle = '#1e293b';
-  ctx.beginPath();
-  ctx.moveTo(x - 18, y + 20);
-  ctx.lineTo(x - 10, y - 25);
-  ctx.lineTo(x + 10, y - 25);
-  ctx.lineTo(x + 18, y + 20);
-  ctx.closePath();
-  ctx.fill();
+  ctx.fillRect(x - 30, y - 10, 60, 24);
+  ctx.strokeStyle = '#06b6d4';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(x - 30, y - 10, 60, 24);
 
-  // Lighthouse light beam
-  const beamAngle = tick * 0.04;
-  ctx.save();
-  ctx.translate(x, y - 25);
-  ctx.rotate(beamAngle);
-  ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.arc(0, 0, 60, -0.3, 0.3);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
+  // Glass board surface (frosted glass look)
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.25)';
+  ctx.fillRect(x - 24, y - 26, 48, 20);
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(x - 24, y - 26, 48, 20);
+
+  // Lines on board
+  ctx.fillStyle = '#06b6d4';
+  ctx.fillRect(x - 18, y - 22, 36, 2);
+  ctx.fillRect(x - 18, y - 17, 28, 2);
+  ctx.fillRect(x - 18, y - 12, 32, 2);
 }
 
-function drawEnvoyShrine(ctx, x, y) {
-  ctx.fillStyle = '#065f46';
-  ctx.fillRect(x - 26, y - 16, 52, 36);
+// Landmark 2: Automation Foundry - The Playwright Rig & Teal Server Cluster
+function drawPlaywrightRigAndServer(ctx, x, y, tick) {
+  // Server rack
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(x - 32, y - 22, 64, 40);
+  ctx.strokeStyle = '#10b981';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(x - 32, y - 22, 64, 40);
+
+  // Blinking teal & emerald LEDs (Prompt Halaman 9)
+  const led1 = tick % 30 > 15;
+  const led2 = (tick + 15) % 40 > 20;
+  ctx.fillStyle = led1 ? '#10b981' : '#047857';
+  ctx.fillRect(x - 26, y - 16, 6, 4);
+  ctx.fillRect(x - 16, y - 16, 6, 4);
+  ctx.fillStyle = led2 ? '#06b6d4' : '#0e7490';
+  ctx.fillRect(x + 10, y - 16, 6, 4);
+  ctx.fillRect(x + 20, y - 16, 6, 4);
+
+  // Terminal screen on rig
+  ctx.fillStyle = '#1e293b';
+  ctx.fillRect(x - 24, y - 6, 48, 18);
   ctx.fillStyle = '#10b981';
-  ctx.fillRect(x - 22, y - 12, 44, 28);
+  ctx.font = '7px monospace';
+  ctx.fillText('> pw run', x - 18, y + 6);
+}
+
+// Landmark 3: Data Sanctum - The Defect Archive & Bug Containment Pod
+function drawDataSanctumArchive(ctx, x, y, tick) {
+  // Archive pedestal
+  ctx.fillStyle = '#1e1b4b';
+  ctx.fillRect(x - 28, y - 10, 56, 28);
+  ctx.strokeStyle = '#a855f7';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(x - 28, y - 10, 56, 28);
+
+  // Glass containment tube
+  ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
+  ctx.fillRect(x - 18, y - 28, 36, 20);
+  ctx.strokeStyle = '#c084fc';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(x - 18, y - 28, 36, 20);
+
+  // Contained bug anomaly pulse
+  const shift = Math.sin(tick * 0.15) * 4;
+  ctx.fillStyle = '#06b6d4';
+  ctx.fillRect(x - 8 + shift, y - 20, 16, 4);
+}
+
+// Landmark 4: Gateway Pier - REST API Transceiver & Optic Fiber Lines
+function drawGatewayPierAPI(ctx, x, y, tick) {
+  // Transceiver base
+  ctx.fillStyle = '#0c4a6e';
+  ctx.fillRect(x - 24, y - 12, 48, 30);
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(x - 24, y - 12, 48, 30);
+
+  // Antenna pylon
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y - 12);
+  ctx.lineTo(x, y - 32);
+  ctx.stroke();
+
+  // Emitted signal ring
+  const ringRadius = ((tick * 0.8) % 24);
+  const ringAlpha = Math.max(0, 1 - ringRadius / 24) * 0.6;
+  ctx.strokeStyle = `rgba(56, 189, 248, ${ringAlpha})`;
+  ctx.beginPath();
+  ctx.arc(x, y - 32, ringRadius, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+// Landmark 5: Envoy Lounge - The Envoy Terminal & Recruiter Desk
+function drawEnvoyLoungeDesk(ctx, x, y) {
+  // Modern executive desk
+  ctx.fillStyle = '#064e3b';
+  ctx.fillRect(x - 30, y - 14, 60, 32);
+  ctx.strokeStyle = '#10b981';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(x - 30, y - 14, 60, 32);
+
+  // Clean glass desk pad
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.35)';
+  ctx.fillRect(x - 22, y - 8, 44, 20);
+
+  // Holographic letter icon
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 12px sans-serif';
   ctx.fillText('✉️', x - 6, y + 6);
@@ -845,79 +960,118 @@ function renderDebugVision2Overlay(ctx, camX, camY, viewW, viewH, playerX, playe
 }
 
 // ==========================================
-// MINI-MAP HUD RADAR (BAB 3)
-// Lingkaran diameter 110px di pojok kanan bawah kanvas.
-// Skala 0.045x dari dunia riil. Cyan radar sweep & 5 distrik.
+// MINI-MAP HUD RADAR (PROMPT HALAMAN 9)
+// Mini-map HUD radar semi-transparan 160×120px dengan pin penanda lokasi aktif
 // ==========================================
-function renderMiniMapRadar(ctx, viewW, viewH, playerX, playerY, tick) {
-  const mapRadius = 55; // Diameter 110px
-  const mapCenterX = viewW - mapRadius - 16;
-  const mapCenterY = viewH - mapRadius - 80; // slightly above bottom express bar
-  const scale = 0.045;
+function renderMiniMapRadar(ctx, viewW, viewH, playerX, playerY, tick, nearbyDistrict) {
+  const mapW = 160;
+  const mapH = 120;
+  const mapX = viewW - mapW - 16;
+  const mapY = viewH - mapH - 84; // Posisi di pojok kanan bawah di atas express bar
 
   ctx.save();
 
-  // Circular Mask
+  // Glass Container 160×120px dengan sudut 10px rounded
   ctx.beginPath();
-  ctx.arc(mapCenterX, mapCenterY, mapRadius, 0, Math.PI * 2);
+  ctx.roundRect(mapX, mapY, mapW, mapH, 10);
   ctx.clip();
 
-  // Dark Map Background
-  ctx.fillStyle = 'rgba(5, 12, 28, 0.9)';
-  ctx.fillRect(mapCenterX - mapRadius, mapCenterY - mapRadius, mapRadius * 2, mapRadius * 2);
+  // Dark Semi-Transparent Obsidian Glass Background (#0F172A)
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+  ctx.fillRect(mapX, mapY, mapW, mapH);
 
-  // Radar Grid Rings
-  ctx.strokeStyle = 'rgba(0, 240, 255, 0.2)';
+  // Radar Grid Crosshairs
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.arc(mapCenterX, mapCenterY, mapRadius * 0.4, 0, Math.PI * 2);
-  ctx.arc(mapCenterX, mapCenterY, mapRadius * 0.75, 0, Math.PI * 2);
+  ctx.moveTo(mapX + mapW / 2, mapY);
+  ctx.lineTo(mapX + mapW / 2, mapY + mapH);
+  ctx.moveTo(mapX, mapY + mapH / 2);
+  ctx.lineTo(mapX + mapW, mapY + mapH / 2);
   ctx.stroke();
 
-  // Radar Sweep Beam
-  const sweepAngle = (tick * 0.04) % (Math.PI * 2);
-  const sweepGradient = ctx.createRadialGradient(mapCenterX, mapCenterY, 2, mapCenterX, mapCenterY, mapRadius);
-  sweepGradient.addColorStop(0, 'rgba(0, 240, 255, 0.4)');
-  sweepGradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
-  ctx.fillStyle = sweepGradient;
+  // Radar Rings
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.18)';
   ctx.beginPath();
-  ctx.moveTo(mapCenterX, mapCenterY);
-  ctx.arc(mapCenterX, mapCenterY, mapRadius, sweepAngle, sweepAngle + 0.4);
+  ctx.arc(mapX + mapW / 2, mapY + mapH / 2, 24, 0, Math.PI * 2);
+  ctx.arc(mapX + mapW / 2, mapY + mapH / 2, 48, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Radar Sweep Scan
+  const sweepAngle = (tick * 0.04) % (Math.PI * 2);
+  const cx = mapX + mapW / 2;
+  const cy = mapY + mapH / 2;
+  ctx.fillStyle = 'rgba(6, 182, 212, 0.12)';
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.arc(cx, cy, 56, sweepAngle, sweepAngle + 0.45);
   ctx.closePath();
   ctx.fill();
 
-  // World Offset Relative to map center
-  // Player is at center of radar
-  for (const d of OPEN_WORLD_DISTRICTS) {
-    const relX = (d.x - playerX) * scale;
-    const relY = (d.y - playerY) * scale;
-    const dotX = mapCenterX + relX;
-    const dotY = mapCenterY + relY;
+  // World to Mini-Map Projection (Inner Bounds)
+  const padX = 14;
+  const padY = 16;
+  const innerW = mapW - padX * 2;
+  const innerH = mapH - padY * 2;
 
-    // Landmark Dot
+  // Render 5 District Location Pins (Prompt Halaman 9)
+  for (const d of OPEN_WORLD_DISTRICTS) {
+    const px = mapX + padX + (d.x / WORLD_WIDTH) * innerW;
+    const py = mapY + padY + (d.y / WORLD_HEIGHT) * innerH;
+
+    const isActive = nearbyDistrict?.id === d.id;
+
+    // Pin Base
     ctx.fillStyle = d.color;
     ctx.beginPath();
-    ctx.arc(dotX, dotY, 3.5, 0, Math.PI * 2);
+    ctx.arc(px, py, isActive ? 4.5 : 3, 0, Math.PI * 2);
     ctx.fill();
+
+    if (isActive) {
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Pin active label tooltip on radar
+      ctx.font = 'bold 8px "Inter", sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(d.shortLabel, px, py - 6);
+    }
   }
 
-  // Yellow Player Dot at Center
-  ctx.fillStyle = '#facc15';
+  // Player Marker on Radar (Yellow / Emerald glowing pin with pulse)
+  const playerMapX = mapX + padX + (playerX / WORLD_WIDTH) * innerW;
+  const playerMapY = mapY + padY + (playerY / WORLD_HEIGHT) * innerH;
+
+  // Pulse wave
+  const pPulse = (tick * 0.8) % 10;
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.6)';
+  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.arc(mapCenterX, mapCenterY, 3.5, 0, Math.PI * 2);
+  ctx.arc(playerMapX, playerMapY, pPulse, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Player Point
+  ctx.fillStyle = '#10b981';
+  ctx.beginPath();
+  ctx.arc(playerMapX, playerMapY, 3.5, 0, Math.PI * 2);
   ctx.fill();
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1;
+  ctx.stroke();
 
   ctx.restore();
 
-  // Radar Outer Ring & Label
-  ctx.strokeStyle = '#00f0ff';
-  ctx.lineWidth = 2;
+  // Outer Crisp Micro-Border 1px Emerald (Prompt Halaman 1 & 9)
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
-  ctx.arc(mapCenterX, mapCenterY, mapRadius, 0, Math.PI * 2);
+  ctx.roundRect(mapX, mapY, mapW, mapH, 10);
   ctx.stroke();
 
-  ctx.font = 'bold 8px monospace';
-  ctx.fillStyle = '#00f0ff';
-  ctx.textAlign = 'center';
-  ctx.fillText('MINI-MAP [0.045x]', mapCenterX, mapCenterY - mapRadius - 4);
+  // Header Title Text
+  ctx.font = 'bold 8px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#10B981';
+  ctx.textAlign = 'left';
+  ctx.fillText('RADAR HUD [160×120]', mapX + 8, mapY - 4);
 }

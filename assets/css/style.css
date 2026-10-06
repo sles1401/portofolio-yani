@@ -2801,6 +2801,856 @@ html, body {
 }
 
 /* ==========================================================================
+   13. CLEAN-TECH ARCHITECTURE & BLUEPRINT MODALS (PROMPT 1 - 10)
+   Harmonisasi suryani-lestari.my.id: Slate (#F8FAFC & #0F172A), Emerald (#10B981), Cyan (#06B6D4)
+   Cards: Border-radius 12px, stroke 1px crisp, frosted-glass (blur 8px)
+   ========================================================================== */
+
+:root {
+  --ct-surface-light: #F8FAFC;
+  --ct-surface-dark: #0F172A;
+  --ct-surface-panel: rgba(15, 23, 42, 0.94);
+  --ct-emerald: #10B981;
+  --ct-emerald-glow: rgba(16, 185, 129, 0.4);
+  --ct-cyan: #06B6D4;
+  --ct-cyan-glow: rgba(6, 182, 212, 0.35);
+  --ct-border: #E2E8F0;
+  --ct-border-dark: rgba(226, 232, 240, 0.14);
+  --ct-radius: 12px;
+}
+
+/* Clean Tech Modal Base Window */
+.clean-tech-window {
+  width: 92%;
+  max-width: 960px;
+  max-height: 88vh;
+  background: var(--ct-surface-panel);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--ct-border-dark);
+  border-radius: var(--ct-radius);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #F8FAFC;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  animation: cleanModalEnter 0.22s ease-out;
+}
+
+@keyframes cleanModalEnter {
+  from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* macOS / Linux Style Modern Window Header */
+.macos-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: #090e1a;
+  border-bottom: 1px solid var(--ct-border-dark);
+}
+
+.window-dots {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.window-dots .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.window-dots .dot:hover {
+  transform: scale(1.15);
+}
+
+.window-dots .dot-red { background: #ef4444; }
+.window-dots .dot-yellow { background: #f59e0b; }
+.window-dots .dot-green { background: #10b981; }
+
+.window-title-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ct-emerald);
+}
+
+.window-close-text {
+  background: transparent;
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  color: #94A3B8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.window-close-text:hover {
+  color: #ffffff;
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Clean Modal Body & Scroll */
+.clean-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.clean-modal-footer {
+  padding: 12px 20px;
+  background: #090e1a;
+  border-top: 1px solid var(--ct-border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-meta-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #94A3B8;
+}
+
+/* Sub-navigation Tabs */
+.clean-subnav-bar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 20px 0;
+  background: #0c1424;
+  border-bottom: 1px solid var(--ct-border-dark);
+  overflow-x: auto;
+}
+
+.subnav-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #94A3B8;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.subnav-tab:hover {
+  color: #F8FAFC;
+}
+
+.subnav-tab.active {
+  color: var(--ct-emerald);
+  border-bottom-color: var(--ct-emerald);
+}
+
+/* Clean Buttons */
+.clean-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  border: 1px solid transparent;
+}
+
+.clean-btn.primary {
+  background: #1e293b;
+  color: #F8FAFC;
+  border-color: rgba(226, 232, 240, 0.2);
+}
+
+.clean-btn.primary:hover {
+  background: #334155;
+  border-color: var(--ct-emerald);
+}
+
+.clean-btn.execute-btn {
+  background: var(--ct-emerald);
+  color: #0F172A;
+  font-weight: 700;
+  box-shadow: 0 4px 14px var(--ct-emerald-glow);
+}
+
+.clean-btn.execute-btn:hover {
+  background: #34d399;
+  transform: translateY(-1px);
+}
+
+.clean-btn.secondary {
+  background: transparent;
+  border-color: rgba(6, 182, 212, 0.5);
+  color: var(--ct-cyan);
+}
+
+.clean-btn.secondary:hover {
+  background: rgba(6, 182, 212, 0.12);
+}
+
+/* ==========================================================================
+   PROMPT 2: PLAYWRIGHT TERMINAL & STEP INSPECTOR
+   ========================================================================== */
+.terminal-split-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+  min-height: 380px;
+}
+
+.terminal-pane {
+  background: #080d1a;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.terminal-controls-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.suite-selector-dropdown {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  color: #F8FAFC;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+}
+
+.suite-selector-dropdown:focus {
+  border-color: var(--ct-emerald);
+}
+
+.terminal-cli-screen {
+  flex: 1;
+  background: #050811;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  overflow-y: auto;
+  max-height: 280px;
+  white-space: pre-wrap;
+}
+
+.cli-line-log {
+  color: #10B981;
+}
+
+.cli-pass-badge {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* Step Inspector Pane */
+.inspector-pane {
+  background: #0c1424;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inspector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ct-border-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ct-cyan);
+}
+
+.inspector-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 290px;
+}
+
+.inspector-step-item {
+  background: #080d1a;
+  border: 1px solid rgba(226, 232, 240, 0.08);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.73rem;
+  transition: all 0.15s ease;
+}
+
+.inspector-step-item.active-step {
+  border-color: var(--ct-emerald);
+  background: rgba(16, 185, 129, 0.1);
+  box-shadow: 0 0 10px var(--ct-emerald-glow);
+}
+
+.step-num-badge {
+  font-weight: 700;
+  color: var(--ct-cyan);
+  margin-right: 6px;
+}
+
+.step-code-text {
+  font-family: 'JetBrains Mono', monospace;
+  color: #e2e8f0;
+}
+
+.step-state-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   PROMPT 4: VISUAL REGRESSION SPLIT SLIDER & TEST MATRIX
+   ========================================================================== */
+.split-slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: #080d1a;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--ct-border-dark);
+  user-select: none;
+}
+
+.slider-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.slider-layer.defect-layer {
+  background: #180d12;
+  color: #f87171;
+}
+
+.slider-layer.production-layer {
+  background: #081717;
+  color: var(--ct-emerald);
+}
+
+.slider-drag-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--ct-emerald);
+  box-shadow: 0 0 12px var(--ct-emerald-glow);
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+.slider-handle-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ct-emerald);
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.matrix-search-box {
+  background: #080d1a;
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  color: #F8FAFC;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  width: 100%;
+  outline: none;
+}
+
+.matrix-search-box:focus {
+  border-color: var(--ct-emerald);
+}
+
+.payload-drawer-card {
+  background: #080d1a;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 8px;
+  padding: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+}
+
+/* ==========================================================================
+   PROMPT 5: HIRING ROI & EFFICIENCY CALCULATOR
+   ========================================================================== */
+.roi-intro-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #081226;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 10px;
+  padding: 14px 18px;
+  gap: 12px;
+}
+
+.roi-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ct-cyan);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.currency-toggle {
+  display: flex;
+  gap: 4px;
+  background: #0f172a;
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.curr-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.curr-btn.active {
+  background: var(--ct-emerald);
+  color: #0F172A;
+}
+
+.roi-calculator-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 18px;
+}
+
+.roi-sliders-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #080d1a;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slider-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.slider-value-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--ct-emerald);
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  accent-color: var(--ct-emerald);
+  cursor: pointer;
+}
+
+.roi-results-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #0c182c;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.roi-stat-highlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(16, 185, 129, 0.08);
+  border-radius: 8px;
+  border-left: 3px solid var(--ct-emerald);
+}
+
+.duration-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.73rem;
+}
+
+.duration-bar-track {
+  height: 12px;
+  background: #1e293b;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.duration-bar-fill.before {
+  height: 100%;
+  background: #ef4444;
+}
+
+.duration-bar-fill.after {
+  height: 100%;
+  background: var(--ct-emerald);
+}
+
+/* ==========================================================================
+   PROMPT 6: BEHAVIORAL INTERVIEW SIMULATOR
+   ========================================================================== */
+.npc-dialog-box {
+  background: #0a1122;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.npc-avatar-badge {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.dialog-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dialog-option-card {
+  background: #080d1a;
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  color: #F8FAFC;
+}
+
+.dialog-option-card:hover {
+  border-color: var(--ct-cyan);
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.dialog-option-card.selected-optimal {
+  border-color: var(--ct-emerald);
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.dialog-option-card.selected-suboptimal {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.option-rational-feedback {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.option-rational-feedback.optimal {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-left: 3px solid var(--ct-emerald);
+}
+
+.option-rational-feedback.warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border-left: 3px solid #f59e0b;
+}
+
+/* ==========================================================================
+   PROMPT 7: PROCEDURAL 800×500PX ID CARD MODAL
+   ========================================================================== */
+.license-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #050811;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.license-canvas-preview {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   PROMPT 3: SECRET CHAMBER MODAL
+   ========================================================================== */
+.secret-achievement-banner {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+  border: 1px solid var(--ct-emerald);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.secret-trophy-icon {
+  font-size: 2.2rem;
+}
+
+.secret-content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.secret-card {
+  background: #080d1a;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.secret-card.highlight-card {
+  border-color: var(--ct-emerald);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.secret-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--ct-emerald);
+  margin-bottom: 6px;
+}
+
+.secret-actions-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   CONVENTIONAL VIEW: LIVE TOOLS SUITE & BAB 10 ACCEPTANCE MATRIX
+   ========================================================================== */
+.live-tools-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.tool-launcher-card {
+  background: #0c1527;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: var(--ct-radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  color: #F8FAFC;
+}
+
+.tool-launcher-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ct-emerald);
+  background: #0f1d35;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--ct-emerald);
+}
+
+.tool-card-icon {
+  font-size: 1.8rem;
+}
+
+.tool-card-info strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #F8FAFC;
+  margin-bottom: 2px;
+}
+
+.tool-card-info small {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+.tool-launch-arrow {
+  margin-top: auto;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ct-emerald);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Acceptance Matrix Table & Sign-Off */
+.acceptance-table .badge-pass {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.sign-off-card {
+  margin-top: 16px;
+  background: #081122;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sign-off-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sign-off-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ct-emerald);
+  letter-spacing: 0.05em;
+}
+
+.sign-off-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #94A3B8;
+}
+
+.deployment-commands-box {
+  background: #050811;
+  border: 1px solid rgba(226, 232, 240, 0.1);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: #38bdf8;
+}
+
+.deploy-cmd-title {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  margin-bottom: 4px;
+}
+
+.cname-hint {
+  font-size: 0.7rem;
+  color: #10B981;
+  margin-top: 6px;
+}
+
+.quick-tool-btn {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: var(--ct-emerald) !important;
+  color: #10B981 !important;
+  font-weight: 600;
+}
+
+.quick-tool-btn:hover {
+  background: var(--ct-emerald) !important;
+  color: #0F172A !important;
+}
+
+/* ==========================================================================
    12. RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 @media (max-width: 900px) {
