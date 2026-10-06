@@ -3,9 +3,13 @@ import { sound } from '../utils/audio';
 
 export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, debugVision, onToggleView }) => {
   const navItems = [
-    { id: 'QUESTS', label: 'Quests', sub: 'Marketing & PPIC', icon: '📜' },
+    { id: 'QUESTS', label: 'Quests', sub: 'Case Studies', icon: '📜' },
+    { id: 'TERMINAL', label: 'Playwright', sub: 'Live Runner', icon: '💻' },
     { id: 'BESTIARY', label: 'Bestiary', sub: 'Anomaly Logs', icon: '👾' },
-    { id: 'GEAR', label: 'Armory', sub: 'Playwright & Tools', icon: '⚔️' },
+    { id: 'VISUAL_REGRESSION', label: 'Visual Diff', sub: 'Regression Slider', icon: '🔍' },
+    { id: 'ROI_CALC', label: 'ROI Calc', sub: 'Cost Preserved', icon: '📈' },
+    { id: 'INTERVIEW', label: 'Interview', sub: 'NPC Leadership', icon: '💬' },
+    { id: 'LICENSE_CARD', label: 'Seeker ID', sub: 'Export PNG', icon: '🪪' },
     { id: 'DISPATCH', label: 'Dispatch', sub: 'Hire Suryani', icon: '📮' }
   ];
 
@@ -15,7 +19,7 @@ export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, d
         <span className="express-icon">⚡</span>
         <div className="express-brand-text">
           <strong>RECRUITER EXPRESS CONTROLLER</strong>
-          <small>Akses Cepat 1-Klik Dialog JRPG Retro</small>
+          <small>Akses Cepat 1-Klik Tools QA Seeker &amp; Dialog JRPG</small>
         </div>
       </div>
 

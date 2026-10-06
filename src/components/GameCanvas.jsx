@@ -11,75 +11,75 @@ export const OPEN_WORLD_DISTRICTS = [
   {
     id: 'CENTRAL_PLAZA',
     modalTarget: 'QUESTS',
-    label: 'Central Guild Plaza',
+    label: 'Central Plaza',
     shortLabel: 'PLAZA',
     district: 'Distrik 1',
-    subtitle: 'Titik Awal, Papan Misi & Arsip Seeker',
+    subtitle: 'Kolam Geometris, Papan Pengumuman Kaca Modern & Studi Kasus',
     x: 1200,
     y: 900,
     w: 96,
     h: 76,
-    color: '#ffb800',
+    color: '#06b6d4',
     icon: '🏛️',
     easterEgg: 'Central Archive: 150+ Structured Test Cases Verified'
   },
   {
     id: 'FOUNDRY',
-    modalTarget: 'GEAR',
+    modalTarget: 'TERMINAL',
     label: 'Automation Foundry',
     shortLabel: 'FOUNDRY',
     district: 'Distrik 2',
-    subtitle: 'Pabrik Roda Gigi Steampunk (Playwright Core)',
+    subtitle: 'Server Cluster Teal & Konsol Playwright Live Terminal Rig',
     x: 620,
     y: 520,
     w: 96,
     h: 76,
-    color: '#00f0ff',
-    icon: '⚙️',
-    easterEgg: 'Playwright Headless Threads: 4 Active'
+    color: '#10b981',
+    icon: '💻',
+    easterEgg: 'Playwright Headless Threads: 4 Active • Exit Code 0'
   },
   {
-    id: 'SWAMP',
+    id: 'DATA_SANCTUM',
     modalTarget: 'BESTIARY',
-    label: 'Anomaly Swamp / Ruins',
-    shortLabel: 'SWAMP',
+    label: 'Data Sanctum',
+    shortLabel: 'SANCTUM',
     district: 'Distrik 3',
-    subtitle: 'Rawa Terglitch Berisi Anomaly Bestiary',
+    subtitle: 'The Defect Archive: Ruang Anomaly Bestiary & Bug Containment',
     x: 1780,
     y: 520,
     w: 96,
     h: 76,
     color: '#a855f7',
     icon: '👾',
-    easterEgg: 'Heap Memory Spike Warning (Poltergeist Detected)'
+    easterEgg: 'Heap Memory Spike Warning (Poltergeist Contained)'
   },
   {
-    id: 'LIGHTHOUSE',
-    modalTarget: 'QUESTS',
-    label: 'Integration Lighthouse',
-    shortLabel: 'LIGHTHOUSE',
+    id: 'GATEWAY_PIER',
+    modalTarget: 'VISUAL_REGRESSION',
+    label: 'Gateway Pier',
+    shortLabel: 'GATEWAY',
     district: 'Distrik 4',
-    subtitle: 'Mercusuar Pantai (API & PPIC Sync)',
+    subtitle: 'Saluran Transmisi REST API & Visual Regression Split Slider',
     x: 620,
     y: 1320,
     w: 96,
     h: 76,
     color: '#38bdf8',
-    icon: '🗼',
+    icon: '📡',
     easterEgg: 'PPIC Webhook Endpoint: Listening on Port 8080 (0 Desync)'
   },
   {
-    id: 'ENVOY_POST',
+    id: 'ENVOY_LOUNGE',
     modalTarget: 'DISPATCH',
-    label: 'Envoy Post',
+    label: 'Envoy Lounge',
     shortLabel: 'ENVOY',
     district: 'Distrik 5',
-    subtitle: 'Kuil Pengiriman Surat Dispatch Kontak Suryani',
+    subtitle: 'Meja Kontak Perekrut & Pengiriman Tawaran Kerja Formal',
     x: 1780,
     y: 1320,
     w: 96,
     h: 76,
-    color: '#00ff88',
+    color: '#10b981',
     icon: '📮',
     easterEgg: 'Dispatch Scroll: contact@suryani-lestari.my.id'
   }
@@ -95,16 +95,18 @@ const WORLD_OBSTACLES = [
   { x: 32, y: 32, w: 2336, h: 64 },
   // South boundary wall
   { x: 32, y: 1704, w: 2336, h: 64 },
-  // Foundry gears yard
+  // Foundry server clusters
   { x: 480, y: 420, w: 80, h: 80 },
   { x: 740, y: 420, w: 80, h: 80 },
-  // Swamp ruins stones
+  // Prompt Halaman 3: Simpul Retakan Dinding Terencana [X: 18, Y: 24] (576, 768)
+  { x: 552, y: 744, w: 48, h: 48, isGlitchWall: true, label: 'Wall Glitch Node' },
+  // Sanctum data vaults
   { x: 1640, y: 420, w: 70, h: 70 },
   { x: 1900, y: 440, w: 70, h: 70 },
-  // Lighthouse coastal reef
+  // Gateway Pier transmission pylons
   { x: 480, y: 1220, w: 80, h: 80 },
   { x: 740, y: 1240, w: 80, h: 80 },
-  // Envoy post garden shrines
+  // Envoy lounge executive privacy screens
   { x: 1640, y: 1220, w: 70, h: 70 },
   { x: 1900, y: 1240, w: 70, h: 70 }
 ];
@@ -133,10 +135,14 @@ export const GameCanvas = ({
     targetY: null
   });
 
-  // Camera state with Lerp tracking (Bab 3)
+  // Camera state with Lerp tracking (Bab 3: 0.08)
   const cameraRef = useRef({ x: 1200 - 480, y: 980 - 300 });
   const keysPressed = useRef({});
   const nearbyRef = useRef(null);
+  
+  // Prompt Halaman 3: Ref untuk collision breach timer dan screen shake
+  const wallContactTimerRef = useRef(0);
+  const screenShakeRef = useRef(0);
 
   // Keyboard navigation & space interaction
   useEffect(() => {
@@ -292,6 +298,25 @@ export const GameCanvas = ({
             stepSoundTimer = 0;
           }
 
+          // Prompt Halaman 3: Deteksi Penembusan Tembok Khas Haga (Collision Breach)
+          // Pada koordinat [X: 18, Y: 24] di distrik Automation Foundry (576, 768)
+          const glitchTileX = 18 * 32; // 576
+          const glitchTileY = 24 * 32; // 768
+          const isTouchingGlitch = Math.hypot(p.x - glitchTileX, p.y - glitchTileY) < 38;
+          const isPushingWall = isTouchingGlitch && (dx !== 0 || dy !== 0);
+
+          if (isTouchingGlitch && isPushingWall) {
+            wallContactTimerRef.current += 16.6;
+            if (wallContactTimerRef.current > 1800) { // 1.8 Detik Kontak
+              screenShakeRef.current = 6; // 3-6 frame camera screen shake
+              sound.playSynthesizedGlitchTone();
+              onTriggerModal('SECRET_CHAMBER');
+              wallContactTimerRef.current = 0;
+            }
+          } else {
+            wallContactTimerRef.current = 0;
+          }
+
           // Solid collision boundary & obstacle check (Bab 3)
           let collides = false;
           for (const obs of WORLD_OBSTACLES) {
@@ -314,6 +339,7 @@ export const GameCanvas = ({
           p.isMoving = false;
           p.walkFrame = 0;
           stepSoundTimer = 0;
+          wallContactTimerRef.current = 0;
         }
       }
 
@@ -334,7 +360,7 @@ export const GameCanvas = ({
         }
       }
 
-      // 3. Sub-pixel Camera Tracking with Lerp Formula (Bab 3: Lerp 0.08)
+      // 3. Sub-pixel Camera Tracking with Lerp Formula (Bab 3 & Prompt 9: Lerp 0.08)
       const targetCamX = p.x - canvas.width / 2;
       const targetCamY = p.y - canvas.height / 2;
       cameraRef.current.x += (targetCamX - cameraRef.current.x) * 0.08;
@@ -345,19 +371,28 @@ export const GameCanvas = ({
       const camX = Math.round(cameraRef.current.x);
       const camY = Math.round(cameraRef.current.y);
 
+      // Prompt Halaman 3: Camera shake 3-frame saat breach
+      let shakeX = 0;
+      let shakeY = 0;
+      if (screenShakeRef.current > 0) {
+        screenShakeRef.current--;
+        shakeX = (Math.random() - 0.5) * 8;
+        shakeY = (Math.random() - 0.5) * 8;
+      }
+
       // 4. Render Open-World Map
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
-      ctx.translate(-camX, -camY);
+      ctx.translate(-camX + shakeX, -camY + shakeY);
 
-      // 4.1 Render World Terrain (5 Distrik Open-World)
+      // 4.1 Render World Terrain (5 Distrik Open-World dengan Frustum Culling)
       renderOpenWorldTerrain(ctx, camX, camY, canvas.width, canvas.height, tick);
 
-      // 4.2 Render Obstacles (batu batas, reruntuhan)
-      renderObstacles(ctx, debugVision);
+      // 4.2 Render Obstacles (batu batas, server cluster, simpul retakan dinding)
+      renderObstacles(ctx, debugVision, camX, camY, canvas.width, canvas.height, tick);
 
-      // 4.3 Render 5 District Landmarks
-      renderDistrictLandmarks(ctx, tick, debugVision, nearbyRef.current);
+      // 4.3 Render 5 District Landmarks (Frustum Culling)
+      renderDistrictLandmarks(ctx, tick, debugVision, nearbyRef.current, camX, camY, canvas.width, canvas.height);
 
       // 4.4 Render Character Sprite Suryani Lestari (Lead System Seeker)
       drawSuryaniSprite(ctx, p.x, p.y, p.facing, p.walkFrame, p.isMoving, tick, debugVision);
@@ -369,8 +404,8 @@ export const GameCanvas = ({
 
       ctx.restore();
 
-      // 4.6 Render Mini-Map HUD Radar (Bab 3: 110px circle in bottom-right)
-      renderMiniMapRadar(ctx, canvas.width, canvas.height, p.x, p.y, tick);
+      // 4.6 Render Mini-Map HUD Radar (Prompt Halaman 9: Semi-transparan 160×120px dengan pin penanda lokasi aktif)
+      renderMiniMapRadar(ctx, canvas.width, canvas.height, p.x, p.y, tick, nearbyRef.current);
 
       animationFrameId = requestAnimationFrame(gameLoop);
     };
@@ -380,7 +415,7 @@ export const GameCanvas = ({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [activeModal, debugVision, dpadState, isPaused, onDiagnosticsUpdate, onNearbyChange]);
+  }, [activeModal, debugVision, dpadState, isPaused, onDiagnosticsUpdate, onNearbyChange, onTriggerModal]);
 
   // Click on canvas to move or inspect landmark directly
   const handleCanvasClick = (e) => {

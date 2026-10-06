@@ -1,153 +1,268 @@
 /**
- * QA Seeker Master Blueprint: Suryani Lestari Edition
- * Web Audio API Synthesizer Mandiri untuk Efek Retro Seeker (Bab 8)
- * Zero external audio assets (.mp3/.wav), < 2 KB, 0ms network latency.
+ * QA Seeker Master Blueprint: Suryani Lestari Edition (v5.2 FINAL)
+ * Prompt Halaman 8: Synthesized Modern Sound Engine (Web Audio API 2.0)
+ * Modern Crystalline Sound FX Engine (Zero File MP3/WAV Eksternal)
+ * Principles: Calm Technology, delicate sine/triangle micro-interactions, sl_mute storage.
  */
 
-class SoundSystem {
+class ModernSeekerAudio {
   constructor() {
-    this.audioCtx = null;
-    this.isMuted = typeof window !== 'undefined' && localStorage.getItem("seeker_muted") === "true";
+    this.ctx = null;
+    this.muted = typeof window !== 'undefined' && localStorage.getItem("sl_mute") === "true";
   }
 
-  initAudioContext() {
-    if (!this.audioCtx && typeof window !== 'undefined') {
+  init() {
+    if (!this.ctx && typeof window !== 'undefined') {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (AudioCtx) {
-        this.audioCtx = new AudioCtx();
+        this.ctx = new AudioCtx();
       }
     }
-    if (this.audioCtx && this.audioCtx.state === "suspended") {
-      this.audioCtx.resume();
+    if (this.ctx && this.ctx.state === "suspended") {
+      this.ctx.resume();
     }
   }
 
   toggleMute() {
-    this.isMuted = !this.isMuted;
+    this.muted = !this.muted;
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem("seeker_muted", this.isMuted ? "true" : "false");
+      localStorage.setItem("sl_mute", this.muted ? "true" : "false");
     }
-    return this.isMuted;
+    return this.muted;
   }
 
-  playSynthesizedTone(freq, type = "square", duration = 0.1, gainVal = 0.08) {
-    if (this.isMuted) return;
-    this.initAudioContext();
-    if (!this.audioCtx) return;
+  isMuted() {
+    return this.muted;
+  }
+
+  // (1) playNavTick(): klik kristalin lembut 40ms (gelombang sinus 800Hz meluruh cepat) saat ganti tab / klik tombol
+  playNavTick() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
 
     try {
-      const osc = this.audioCtx.createOscillator();
-      const gain = this.audioCtx.createGain();
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
 
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime);
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(800, this.ctx.currentTime);
 
-      gain.gain.setValueAtTime(gainVal, this.audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + duration);
+      gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.04);
 
       osc.connect(gain);
-      gain.connect(this.audioCtx.destination);
+      gain.connect(this.ctx.destination);
 
       osc.start();
-      osc.stop(this.audioCtx.currentTime + duration);
-    } catch {
-      // AudioContext fallback guard
-    }
-  }
-
-  // (1) playFootstep(): modulasi noise pendek saat Seeker melangkah
-  playFootstep() {
-    this.playSynthesizedTone(220, "square", 0.04, 0.035);
-  }
-
-  // (2) playSelect(): nada tinggi square wave ganda 440Hz -> 880Hz
-  playSelect() {
-    if (this.isMuted) return;
-    this.initAudioContext();
-    if (!this.audioCtx) return;
-
-    try {
-      const t = this.audioCtx.currentTime;
-      const osc = this.audioCtx.createOscillator();
-      const gain = this.audioCtx.createGain();
-
-      osc.type = "square";
-      osc.frequency.setValueAtTime(440, t);
-      osc.frequency.setValueAtTime(880, t + 0.06);
-
-      gain.gain.setValueAtTime(0.08, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
-
-      osc.connect(gain);
-      gain.connect(this.audioCtx.destination);
-
-      osc.start(t);
-      osc.stop(t + 0.16);
+      osc.stop(this.ctx.currentTime + 0.04);
     } catch {
       // guard
     }
   }
 
-  // (3) playGlitch(): osilator sawtooth 160Hz -> 90Hz saat mendeteksi anomali
-  playGlitch() {
-    if (this.isMuted) return;
-    this.initAudioContext();
-    if (!this.audioCtx) return;
+  // (2) playTerminalSuccess(): akor harmonik naik (523.25Hz -> 659.25Hz) saat tes Playwright lolos / aksi sukses
+  playTerminalSuccess() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
 
     try {
-      const t = this.audioCtx.currentTime;
-      const osc = this.audioCtx.createOscillator();
-      const gain = this.audioCtx.createGain();
+      const t = this.ctx.currentTime;
+      // Note 1: C5 (523.25 Hz)
+      const osc1 = this.ctx.createOscillator();
+      const gain1 = this.ctx.createGain();
+      osc1.type = "triangle";
+      osc1.frequency.setValueAtTime(523.25, t);
+      gain1.gain.setValueAtTime(0.05, t);
+      gain1.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+      osc1.connect(gain1);
+      gain1.connect(this.ctx.destination);
+      osc1.start(t);
+      osc1.stop(t + 0.18);
+
+      // Note 2: E5 (659.25 Hz)
+      const osc2 = this.ctx.createOscillator();
+      const gain2 = this.ctx.createGain();
+      osc2.type = "sine";
+      osc2.frequency.setValueAtTime(659.25, t + 0.08);
+      gain2.gain.setValueAtTime(0.06, t + 0.08);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+      osc2.connect(gain2);
+      gain2.connect(this.ctx.destination);
+      osc2.start(t + 0.08);
+      osc2.stop(t + 0.28);
+    } catch {
+      // guard
+    }
+  }
+
+  // (3) playAnomalyPing(): nada peringatan 120ms lembut untuk deteksi bug
+  playAnomalyPing() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const t = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
 
       osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(160, t);
-      osc.frequency.exponentialRampToValueAtTime(90, t + 0.22);
+      osc.frequency.setValueAtTime(320, t);
+      osc.frequency.exponentialRampToValueAtTime(180, t + 0.12);
 
-      gain.gain.setValueAtTime(0.12, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+      gain.gain.setValueAtTime(0.05, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
 
       osc.connect(gain);
-      gain.connect(this.audioCtx.destination);
+      gain.connect(this.ctx.destination);
 
       osc.start(t);
-      osc.stop(t + 0.25);
+      osc.stop(t + 0.12);
     } catch {
       // guard
     }
   }
 
-  // (4) playFanfare(): 4-tone victory arpeggio saat quest dibuka / diselesaikan
+  // (4) playModalSwoop(): sapuan desah lembut berfilter saat modal dialog muncul
+  playModalSwoop() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const t = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(260, t);
+      osc.frequency.exponentialRampToValueAtTime(440, t + 0.09);
+
+      gain.gain.setValueAtTime(0.03, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.1);
+    } catch {
+      // guard
+    }
+  }
+
+  // Prompt Halaman 3: Distorsi statis Web Audio API untuk efek penembusan dinding / secret chamber
+  playSynthesizedGlitchTone() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const t = this.ctx.currentTime;
+      // Multi-frequency static pulse
+      [140, 95, 220].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(freq, t + idx * 0.04);
+        gain.gain.setValueAtTime(0.08, t + idx * 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.04 + 0.14);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t + idx * 0.04);
+        osc.stop(t + idx * 0.04 + 0.14);
+      });
+    } catch {
+      // guard
+    }
+  }
+
+  // Soft Footstep
+  playFootstep() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const t = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(160, t);
+      gain.gain.setValueAtTime(0.02, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.03);
+    } catch {
+      // guard
+    }
+  }
+
+  // Backward-compatible aliases
+  playSelect() {
+    this.playNavTick();
+  }
+
+  playGlitch() {
+    this.playAnomalyPing();
+  }
+
   playFanfare() {
-    if (this.isMuted) return;
-    const notes = [523.25, 659.25, 783.99, 1046.50];
-    notes.forEach((freq, idx) => {
-      setTimeout(() => {
-        this.playSynthesizedTone(freq, "triangle", 0.18, 0.1);
-      }, idx * 110);
-    });
+    this.playTerminalSuccess();
   }
 
-  // Scan frequency pulse for Debug Vision 2.0
   playScan() {
-    if (this.isMuted) return;
-    this.playSynthesizedTone(920, "sawtooth", 0.12, 0.07);
-    setTimeout(() => this.playSynthesizedTone(1380, "square", 0.15, 0.06), 70);
+    this.playModalSwoop();
   }
 
-  // Close modal chirp
   playClose() {
-    if (this.isMuted) return;
-    this.playSynthesizedTone(520, "sine", 0.08, 0.06);
+    this.playNavTick();
   }
 
-  // Copy email chirp
   playCopyChirp() {
-    this.playSynthesizedTone(659.25, "triangle", 0.14, 0.1);
+    this.playTerminalSuccess();
+  }
+
+  playChiptune(freq = 440, type = "triangle", duration = 0.05, vol = 0.05) {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const t = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + duration);
+    } catch {
+      // guard
+    }
   }
 }
 
-export const sound = new SoundSystem();
+export const sound = new ModernSeekerAudio();
+export const playNavTick = () => sound.playNavTick();
+export const playTerminalSuccess = () => sound.playTerminalSuccess();
+export const playAnomalyPing = () => sound.playAnomalyPing();
+export const playModalSwoop = () => sound.playModalSwoop();
+export const playSynthesizedGlitchTone = () => sound.playSynthesizedGlitchTone();
+export const playFanfare = () => sound.playTerminalSuccess();
+export const playSelect = () => sound.playNavTick();
+export const playGlitch = () => sound.playAnomalyPing();
+export const playScan = () => sound.playModalSwoop();
+export const playClose = () => sound.playNavTick();
+export const playCopyChirp = () => sound.playTerminalSuccess();
 export const playFootstep = () => sound.playFootstep();
-export const playSelect = () => sound.playSelect();
-export const playGlitch = () => sound.playGlitch();
-export const playFanfare = () => sound.playFanfare();
+export const playChiptune = (freq, type, dur, vol) => sound.playChiptune(freq, type, dur, vol);
+

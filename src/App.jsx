@@ -8,13 +8,19 @@ import { QuestModal } from './components/QuestModal';
 import { BestiaryModal } from './components/BestiaryModal';
 import { ArsenalModal } from './components/ArsenalModal';
 import { DispatchModal } from './components/DispatchModal';
+import { PlaywrightTerminalModal } from './components/PlaywrightTerminalModal';
+import { SecretChamberModal } from './components/SecretChamberModal';
+import { VisualRegressionModal } from './components/VisualRegressionModal';
+import { RoiCalculatorModal } from './components/RoiCalculatorModal';
+import { InterviewSimulatorModal } from './components/InterviewSimulatorModal';
+import { LicenseCardModal } from './components/LicenseCardModal';
 import { ConventionalView } from './components/ConventionalView';
 import { sound } from './utils/audio';
 
 export const App = () => {
   const [viewMode, setViewMode] = useState('GAME'); // 'GAME' (Mode A) | 'CONVENTIONAL' (Mode B: Recruiter Docket)
   const [gameStarted, setGameStarted] = useState(false);
-  const [activeModal, setActiveModal] = useState(null); // 'QUESTS' | 'BESTIARY' | 'GEAR' | 'DISPATCH' | null
+  const [activeModal, setActiveModal] = useState(null); // 'QUESTS' | 'BESTIARY' | 'GEAR' | 'DISPATCH' | 'TERMINAL' | 'SECRET_CHAMBER' | 'VISUAL_REGRESSION' | 'ROI_CALC' | 'INTERVIEW' | 'LICENSE_CARD' | null
   const [nearbyPoint, setNearbyPoint] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
   const [debugVision, setDebugVision] = useState(false);
@@ -116,7 +122,7 @@ export const App = () => {
   };
 
   const handleOpenModal = (modalId) => {
-    sound.playSelect();
+    sound.playModalSwoop();
     setActiveModal(modalId);
   };
 
@@ -147,6 +153,7 @@ export const App = () => {
         <ConventionalView 
           onReturnToGame={() => setViewMode('GAME')}
           onShowToast={showToast}
+          onOpenModal={handleOpenModal}
         />
       ) : (
         <div className="game-wrapper">
@@ -198,32 +205,64 @@ export const App = () => {
                 onDirectionChange={handleDpadDirection}
                 onAction={handleDpadAction}
               />
-
-              {/* JRPG Retro Modals */}
-              <QuestModal
-                isOpen={activeModal === 'QUESTS'}
-                onClose={() => setActiveModal(null)}
-              />
-
-              <BestiaryModal
-                isOpen={activeModal === 'BESTIARY'}
-                onClose={() => setActiveModal(null)}
-              />
-
-              <ArsenalModal
-                isOpen={activeModal === 'GEAR'}
-                onClose={() => setActiveModal(null)}
-              />
-
-              <DispatchModal
-                isOpen={activeModal === 'DISPATCH'}
-                onClose={() => setActiveModal(null)}
-                onShowToast={showToast}
-              />
             </>
           )}
         </div>
       )}
+
+      {/* Global Modals (Accessible in both Mode A & Mode B) */}
+      <QuestModal
+        isOpen={activeModal === 'QUESTS'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <BestiaryModal
+        isOpen={activeModal === 'BESTIARY'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <ArsenalModal
+        isOpen={activeModal === 'GEAR'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <DispatchModal
+        isOpen={activeModal === 'DISPATCH'}
+        onClose={() => setActiveModal(null)}
+        onShowToast={showToast}
+      />
+
+      {/* Blueprint v5.2 Clean-Tech Modals */}
+      <PlaywrightTerminalModal
+        isOpen={activeModal === 'TERMINAL' || activeModal === 'PLAYWRIGHT_TERMINAL'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <SecretChamberModal
+        isOpen={activeModal === 'SECRET_CHAMBER'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <VisualRegressionModal
+        isOpen={activeModal === 'VISUAL_REGRESSION'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <RoiCalculatorModal
+        isOpen={activeModal === 'ROI_CALC'}
+        onClose={() => setActiveModal(null)}
+        onOpenDispatch={() => setActiveModal('DISPATCH')}
+      />
+
+      <InterviewSimulatorModal
+        isOpen={activeModal === 'INTERVIEW'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <LicenseCardModal
+        isOpen={activeModal === 'LICENSE_CARD'}
+        onClose={() => setActiveModal(null)}
+      />
     </div>
   );
 };

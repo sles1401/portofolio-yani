@@ -86,14 +86,39 @@ export const GameHUD = ({
           <span>👁️</span> DEBUG VISION 2.0: {debugVision ? 'ON' : 'OFF'} [D]
         </button>
 
+        {/* Quick Launchers */}
+        <button
+          className="hud-btn quick-tool-btn"
+          type="button"
+          onClick={() => {
+            sound.playNavTick();
+            onOpenModal('TERMINAL');
+          }}
+          title="Buka Playwright Live Terminal Runner"
+        >
+          <span>💻</span> PLAYWRIGHT RUNNER
+        </button>
+
+        <button
+          className="hud-btn quick-tool-btn"
+          type="button"
+          onClick={() => {
+            sound.playNavTick();
+            onOpenModal('ROI_CALC');
+          }}
+          title="Kalkulator ROI Otomasi"
+        >
+          <span>📈</span> ROI CALC
+        </button>
+
         {/* Audio SFX Toggle */}
         <button 
           className="hud-btn audio-btn" 
           type="button" 
           onClick={onToggleMute}
-          title="Toggle Synthesized 8-Bit Chiptune Audio"
+          title="Toggle Synthesized Sound Engine"
         >
-          {isMuted ? '🔇 SFX: OFF' : '🔊 SFX: ON'}
+          {isMuted ? '🔇 AUDIO: OFF' : '🔊 AUDIO: ON'}
         </button>
 
         {/* Bab 2: Persistent Executive Controller Toggle View */}
