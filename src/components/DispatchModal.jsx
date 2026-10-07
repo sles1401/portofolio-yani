@@ -3,7 +3,7 @@ import { sound, playFanfare } from '../utils/audio';
 
 export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
   const [formData, setFormData] = useState({
-    commissionScope: 'Full-time QA Automation Specialist',
+    commissionScope: 'Full-time QA Engineer',
     companyName: '',
     workEmail: '',
     projectScope: ''
@@ -18,7 +18,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
   };
 
   const copyEmailCoordinates = () => {
-    const contactEmail = "contact@suryani-lestari.my.id";
+    const contactEmail = "suryanilestari123@gmail.com";
     sound.playCopyChirp();
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -75,7 +75,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
   return (
     <div className="jrpg-modal-backdrop" role="dialog" aria-modal="true" onClick={handleClose}>
       <div className="jrpg-window dispatch-window" onClick={(e) => e.stopPropagation()}>
-        
+
         {/* Header */}
         <div className="jrpg-window-header">
           <div className="jrpg-header-title">
@@ -125,7 +125,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
               <h5 className="panel-subheading">
                 <span>📜</span> FORMULIR PENUGASAN KOMISI (DIRECT COMMISSION)
               </h5>
-              
+
               {formSubmitted ? (
                 <div className="contract-success-banner">
                   <span className="banner-big-icon">🎉</span>
@@ -202,7 +202,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
               {/* Quick Copy Email Coordinates */}
               <div className="quick-copy-card">
                 <span className="card-label">KOORDINAT EMAIL RESMI:</span>
-                <code className="email-display">contact@suryani-lestari.my.id</code>
+                <code className="email-display">suryanilestari123@gmail.com</code>
                 <button
                   type="button"
                   className="jrpg-btn secondary copy-coords-btn"

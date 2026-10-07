@@ -72,7 +72,7 @@ export const RecruitModal = ({ isOpen, onClose }) => {
             <h5 className="actions-panel-title">HUBUNGI & REKRUT SURYANI KE TIM ANDA:</h5>
             <div className="recruit-buttons-row">
               <a
-                href="mailto:contact@suryani-lestari.my.id?subject=Tawaran%20Kolaborasi%20QA%20-%20Suryani%20Lestari"
+                href="mailto:suryanilestari123@gmail.com?subject=Tawaran%20Kolaborasi%20QA%20-%20Suryani%20Lestari"
                 className="rpg-action-btn primary"
                 onClick={handleAction}
               >

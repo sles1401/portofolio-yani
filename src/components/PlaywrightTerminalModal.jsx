@@ -132,87 +132,90 @@ export const PlaywrightTerminalModal = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Top Controls Toolbar */}
-        <div className="terminal-controls-toolbar">
-          <div className="suite-selector-wrap">
-            <label htmlFor="testSuiteSelect">PILIH TEST SUITE:</label>
-            <select
-              id="testSuiteSelect"
-              className="clean-select"
-              value={selectedSuiteKey}
-              onChange={(e) => {
-                sound.playNavTick();
-                setSelectedSuiteKey(e.target.value);
-                setTerminalOutput([]);
-                setActiveStepIndex(-1);
-                setIsCompleted(false);
-              }}
-              disabled={isRunning}
-            >
-              <option value="ppic">1. Cross-Module Handshake (Marketing-PPIC)</option>
-              <option value="auth">2. User Auth Boundary &amp; Session Expiry</option>
-              <option value="api">3. REST API Schema Contract &amp; Null Defense</option>
-            </select>
-          </div>
-
-          <button
-            type="button"
-            className={`clean-btn execute-btn ${isRunning ? 'running' : ''}`}
-            onClick={handleExecute}
-            disabled={isRunning}
-          >
-            <span>{isRunning ? '⏳ RUNNING...' : '▶ EXECUTE SUITE'}</span>
-          </button>
-        </div>
-
-        {/* Split View: Terminal & Step Inspector */}
-        <div className="terminal-split-layout">
-          {/* Left: Terminal Output */}
-          <div className="terminal-output-pane">
-            <div className="terminal-pane-label">TERMINAL CLI STREAM (STDOUT)</div>
-            <pre className="terminal-code-view">
-              {terminalOutput.length === 0 ? (
-                <span className="terminal-placeholder">
-                  Pilih suite di atas dan tekan <strong>[▶ EXECUTE SUITE]</strong> untuk mensimulasikan eksekusi Playwright JS secara real-time.
-                </span>
-              ) : (
-                terminalOutput.map((line, idx) => (
-                  <div key={idx} className={line.includes('✓') ? 'log-pass' : line.includes('Exit Code') ? 'log-success' : 'log-info'}>
-                    {line}
-                  </div>
-                ))
-              )}
-              <div ref={terminalEndRef} />
-            </pre>
-          </div>
-
-          {/* Right: DOM Step Inspector */}
-          <div className="inspector-output-pane">
-            <div className="terminal-pane-label">STEP INSPECTOR &amp; DOM LOCATOR ACTIONS</div>
-            <div className="inspector-steps-list">
-              {currentSuite.inspectorSteps.map((st, idx) => {
-                const isActive = activeStepIndex === idx;
-                const isPassed = activeStepIndex > idx || isCompleted;
-
-                return (
-                  <div key={st.step} className={`inspector-step-item ${isActive ? 'active' : isPassed ? 'passed' : 'pending'}`}>
-                    <div className="step-num-badge">
-                      {isPassed ? '✓' : isActive ? '▶' : st.step}
-                    </div>
-                    <div className="step-meta">
-                      <code className="step-action">{st.action}</code>
-                      <div className="step-sub">
-                        <span className="step-loc">Target: {st.locator}</span>
-                        <span className="step-state">{st.state}</span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+        {/* Modal Body */}
+        <div className="clean-modal-body terminal-modal-body">
+          {/* Top Controls Toolbar */}
+          <div className="terminal-controls-toolbar">
+            <div className="suite-selector-wrap">
+              <label htmlFor="testSuiteSelect">PILIH TEST SUITE:</label>
+              <select
+                id="testSuiteSelect"
+                className="clean-select"
+                value={selectedSuiteKey}
+                onChange={(e) => {
+                  sound.playNavTick();
+                  setSelectedSuiteKey(e.target.value);
+                  setTerminalOutput([]);
+                  setActiveStepIndex(-1);
+                  setIsCompleted(false);
+                }}
+                disabled={isRunning}
+              >
+                <option value="ppic">1. Cross-Module Handshake (Marketing-PPIC)</option>
+                <option value="auth">2. User Auth Boundary &amp; Session Expiry</option>
+                <option value="api">3. REST API Schema Contract &amp; Null Defense</option>
+              </select>
             </div>
 
-            <div className="inspector-footer-note">
-              <span>Membuktikan penguasaan: Headless context isolation, data-testid query resilience, dan trace artifacts.</span>
+            <button
+              type="button"
+              className={`clean-btn execute-btn ${isRunning ? 'running' : ''}`}
+              onClick={handleExecute}
+              disabled={isRunning}
+            >
+              <span>{isRunning ? '⏳ RUNNING...' : '▶ EXECUTE SUITE'}</span>
+            </button>
+          </div>
+
+          {/* Split View: Terminal & Step Inspector */}
+          <div className="terminal-split-layout">
+            {/* Left: Terminal Output */}
+            <div className="terminal-output-pane">
+              <div className="terminal-pane-label">TERMINAL CLI STREAM (STDOUT)</div>
+              <pre className="terminal-code-view">
+                {terminalOutput.length === 0 ? (
+                  <span className="terminal-placeholder">
+                    Pilih suite di atas dan tekan <strong>[▶ EXECUTE SUITE]</strong> untuk mensimulasikan eksekusi Playwright JS secara real-time.
+                  </span>
+                ) : (
+                  terminalOutput.map((line, idx) => (
+                    <div key={idx} className={line.includes('✓') ? 'log-pass' : line.includes('Exit Code') ? 'log-success' : 'log-info'}>
+                      {line}
+                    </div>
+                  ))
+                )}
+                <div ref={terminalEndRef} />
+              </pre>
+            </div>
+
+            {/* Right: DOM Step Inspector */}
+            <div className="inspector-output-pane">
+              <div className="terminal-pane-label">STEP INSPECTOR &amp; DOM LOCATOR ACTIONS</div>
+              <div className="inspector-steps-list">
+                {currentSuite.inspectorSteps.map((st, idx) => {
+                  const isActive = activeStepIndex === idx;
+                  const isPassed = activeStepIndex > idx || isCompleted;
+
+                  return (
+                    <div key={st.step} className={`inspector-step-item ${isActive ? 'active' : isPassed ? 'passed' : 'pending'}`}>
+                      <div className="step-num-badge">
+                        {isPassed ? '✓' : isActive ? '▶' : st.step}
+                      </div>
+                      <div className="step-meta">
+                        <code className="step-action">{st.action}</code>
+                        <div className="step-sub">
+                          <span className="step-loc">Target: {st.locator}</span>
+                          <span className="step-state">{st.state}</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="inspector-footer-note">
+                <span>Membuktikan penguasaan: Headless context isolation, data-testid query resilience, dan trace artifacts.</span>
+              </div>
             </div>
           </div>
         </div>

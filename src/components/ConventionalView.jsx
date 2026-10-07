@@ -3,7 +3,7 @@ import { sound } from '../utils/audio';
 
 export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) => {
   const copyCoordinates = () => {
-    const contactEmail = "contact@suryani-lestari.my.id";
+    const contactEmail = "suryanilestari123@gmail.com";
     sound.playCopyChirp();
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -105,7 +105,7 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
                 className="contact-pill copy-btn"
                 onClick={copyCoordinates}
               >
-                <span>📋</span> Copy Email Coordinates (contact@suryani-lestari.my.id)
+                <span>📋</span> Copy Email Coordinates (suryanilestari123@gmail.com)
               </button>
 
               <a 
@@ -648,7 +648,7 @@ await inputField.fill("Test_Item_🔥__LongStringRepeat500Chars");`}</code>
         </blockquote>
         <div className="epilogue-actions">
           <button type="button" className="contact-pill copy-btn" onClick={copyCoordinates}>
-            <span>📋</span> Salin Email (contact@suryani-lestari.my.id)
+            <span>📋</span> Salin Email (suryanilestari123@gmail.com)
           </button>
           <a href="https://suryani-lestari.my.id" target="_blank" rel="noopener noreferrer" className="contact-pill mailto">
             <span>🌐</span> Kunjungi Digital Vault (suryani-lestari.my.id)

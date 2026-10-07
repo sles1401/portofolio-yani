@@ -125,7 +125,7 @@ Sintesis suara native tanpa aset fisik (< 2 KB, 0ms latency):
   - Basis Operasi: Bandung, Indonesia (Remote / Hybrid)
   - Status: *Open for High-Impact QA Roles*
 - **Opsi Penugasan Komisi:** *Full-time QA Automation Specialist*, *Playwright Test Suite Construction*, *QA Strategy & Advisory*.
-- **Aksi 1-Klik:** Download Seeker Resume (PDF), Visit Digital Vault, Guild Network (LinkedIn), Copy Email Coordinates (`contact@suryani-lestari.my.id`).
+- **Aksi 1-Klik:** Download Seeker Resume (PDF), Visit Digital Vault, Guild Network (LinkedIn), Copy Email Coordinates (`suryanilestari123@gmail.com`).
 
 ---
 

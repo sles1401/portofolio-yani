@@ -81,7 +81,7 @@ export const OPEN_WORLD_DISTRICTS = [
     h: 76,
     color: '#10b981',
     icon: '📮',
-    easterEgg: 'Dispatch Scroll: contact@suryani-lestari.my.id'
+    easterEgg: 'Dispatch Scroll: suryanilestari123@gmail.com'
   }
 ];
 
