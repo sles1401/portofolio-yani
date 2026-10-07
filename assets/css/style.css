@@ -948,17 +948,23 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1;
+  min-width: 0;
 }
 
 .jrpg-pixel-icon {
   font-size: 1.3rem;
+  flex-shrink: 0;
 }
 
 .jrpg-header-title h3 {
   font-family: var(--font-pixel);
-  font-size: 0.88rem;
+  font-size: 0.74rem;
+  line-height: 1.6;
   color: #ffffff;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.5px;
+  margin: 0;
+  word-break: break-word;
 }
 
 .jrpg-header-badge {
@@ -969,6 +975,8 @@ html, body {
   color: var(--phosphor-green);
   padding: 3px 8px;
   border-radius: 3px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .jrpg-close-btn {
@@ -981,6 +989,8 @@ html, body {
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.1s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .jrpg-close-btn:hover {
@@ -1063,27 +1073,32 @@ html, body {
 }
 
 .jrpg-btn.primary {
-  background: #ffffff;
-  color: #0c2461;
-  border: 2px solid #ffffff;
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  color: #06110f;
+  border: 1px solid #34d399;
   font-weight: 700;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
 }
 
-.jrpg-btn.primary:hover {
-  background: var(--phosphor-green);
-  border-color: var(--phosphor-green);
-  color: #060914;
+.jrpg-btn.primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+  border-color: #6ee7b7;
+  color: #06110f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5);
 }
 
 .jrpg-btn.secondary {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid #ffffff;
-  color: #ffffff;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(6, 182, 212, 0.5);
+  color: var(--neon-cyan);
 }
 
 .jrpg-btn.secondary:hover {
-  background: #ffffff;
-  color: #0c2461;
+  background: rgba(6, 182, 212, 0.18);
+  border-color: var(--neon-cyan);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* ==========================================================================
@@ -1219,6 +1234,7 @@ html, body {
 .narrative-label {
   font-family: var(--font-pixel);
   font-size: 0.65rem;
+  line-height: 1.6;
   color: #ffffff;
   margin-bottom: 6px;
   display: flex;
@@ -1242,6 +1258,7 @@ html, body {
 .results-label {
   font-family: var(--font-pixel);
   font-size: 0.65rem;
+  line-height: 1.6;
   color: var(--phosphor-green);
   margin-bottom: 8px;
   display: flex;
@@ -1367,6 +1384,7 @@ html, body {
 .catalog-heading {
   font-family: var(--font-pixel);
   font-size: 0.65rem;
+  line-height: 1.6;
   color: var(--phosphor-green);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding-bottom: 6px;
@@ -1487,6 +1505,7 @@ html, body {
 .dossier-subtitle {
   font-family: var(--font-pixel);
   font-size: 0.65rem;
+  line-height: 1.6;
   color: #ffffff;
   margin-bottom: 6px;
   display: flex;
@@ -1654,6 +1673,7 @@ html, body {
 .sub-section-title {
   font-family: var(--font-pixel);
   font-size: 0.65rem;
+  line-height: 1.6;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -1856,81 +1876,95 @@ html, body {
    10. GUILD DISPATCH MODAL (SECTION 9: JALUR KONVERSI & KONTAK RECRUITER)
    ========================================================================== */
 .dispatch-hero-card {
-  background: rgba(6, 16, 44, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 12px;
-  border-radius: 4px;
+  background: rgba(6, 16, 44, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  border-radius: 6px;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 18px;
 }
 
 .dispatch-avatar-box {
-  position: relative;
-  width: 72px;
-  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  width: 95px;
 }
 
 .dispatch-avatar-img {
-  width: 100%;
-  height: 100%;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   border: 2px solid var(--phosphor-green);
   object-fit: cover;
+  box-shadow: 0 0 14px rgba(0, 255, 136, 0.35);
 }
 
 .dispatch-online-pulse {
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #050b1a;
+  position: static;
+  transform: none;
+  background: rgba(0, 255, 136, 0.15);
   color: var(--phosphor-green);
-  font-size: 0.55rem;
-  font-family: var(--font-pixel);
-  padding: 2px 6px;
-  border-radius: 10px;
+  font-size: 0.52rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 12px;
   border: 1px solid var(--phosphor-green);
   white-space: nowrap;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
 }
 
 .dispatch-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .dispatch-title-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .dispatch-name {
   font-family: var(--font-pixel);
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #ffffff;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .dispatch-role-tag {
   font-family: var(--font-pixel);
   font-size: 0.58rem;
+  line-height: 1.4;
   background: rgba(0, 255, 136, 0.2);
   color: var(--phosphor-green);
-  padding: 2px 6px;
-  border-radius: 2px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 255, 136, 0.4);
 }
 
 .dispatch-role-sub {
   font-size: 0.82rem;
   color: var(--neon-cyan);
+  margin: 0;
+  line-height: 1.4;
 }
 
 .availability-box {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 2px;
+  margin: 2px 0;
 }
 
 .avail-label {
@@ -1946,9 +1980,10 @@ html, body {
 
 .dispatch-quote {
   font-size: 0.82rem;
+  line-height: 1.55;
   color: #cbd5e1;
   font-style: italic;
-  margin-top: 4px;
+  margin: 4px 0 0 0;
 }
 
 .dispatch-grid-columns {
@@ -1960,22 +1995,31 @@ html, body {
 .dispatch-form-panel, .dispatch-quick-panel {
   background: rgba(7, 18, 50, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 12px;
-  border-radius: 4px;
+  padding: 14px;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .panel-subheading {
   font-family: var(--font-pixel);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
+  line-height: 1.8;
   color: #ffffff;
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-start;
+  gap: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding-bottom: 6px;
+  padding-bottom: 8px;
+  margin: 0;
+  word-break: break-word;
+}
+
+.panel-subheading span {
+  font-size: 0.85rem;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .jrpg-form {
@@ -4155,21 +4199,75 @@ html, body {
 /* ==========================================================================
    PROMPT 7: PROCEDURAL 800×500PX ID CARD MODAL
    ========================================================================== */
-.license-canvas-container {
+.clean-tech-window.license-modal-window {
+  max-width: 880px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.license-canvas-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.license-canvas-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  background: #050811;
-  border-radius: 10px;
-  overflow: auto;
+  width: 100%;
+  background: #060913;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 12px;
+  padding: 14px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.license-canvas-preview {
+.procedural-id-canvas {
+  display: block;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+}
+
+.license-download-toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #080d1a;
+  border: 1px solid var(--ct-border-dark);
+  border-radius: 10px;
+  padding: 12px 18px;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.license-download-toolbar .execute-btn {
+  flex-shrink: 0;
+}
+
+.license-viral-note {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  line-height: 1.45;
+  text-align: right;
+  flex: 1;
+}
+
+@media (max-width: 700px) {
+  .license-download-toolbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .license-viral-note {
+    text-align: center;
+  }
 }
 
 /* ==========================================================================

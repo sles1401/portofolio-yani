@@ -108,37 +108,91 @@ export const LicenseCardModal = ({ isOpen, onClose }) => {
       ctx.fillText(m.label, mx + 10, metricsY + 44);
     });
 
-    // 6. Draw Radar Polygon Chart 5-Sumbu (Prompt Halaman 7)
-    drawRadarAttributes(ctx, 580, 260, 110, STATS);
+    // 6. Draw Radar Polygon Chart 5-Sumbu (Centered on Right Side)
+    drawRadarAttributes(ctx, 608, 245, 95, STATS);
 
-    // 7. Visual QR Code Box
-    drawVisualQrCode(ctx, 54, 320, 120, 120);
+    // 7. Visual QR Code Box (Left Bottom: x: 54, y: 325, w: 100, h: 100)
+    const qrX = 54;
+    const qrY = 325;
+    const qrSize = 100;
+    drawVisualQrCode(ctx, qrX, qrY, qrSize, qrSize);
+
+    // Text Beside QR Code (Clean, Left-aligned, No Collision)
+    ctx.save();
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
 
     ctx.fillStyle = '#F8FAFC';
     ctx.font = 'bold 11px "Inter", sans-serif';
-    ctx.fillText('SCAN VERIFIKASI RESMI:', 190, 360);
+    ctx.fillText('SCAN VERIFIKASI RESMI:', 168, 344);
+
+    // Pill badge for URL
+    ctx.fillStyle = 'rgba(6, 182, 212, 0.12)';
+    ctx.fillRect(168, 355, 260, 26);
+    ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)';
+    ctx.strokeRect(168, 355, 260, 26);
 
     ctx.fillStyle = '#06B6D4';
-    ctx.font = '12px "JetBrains Mono", monospace';
-    ctx.fillText('https://suryani-lestari.my.id', 190, 385);
+    ctx.font = 'bold 11px "JetBrains Mono", monospace';
+    ctx.fillText('https://suryani-lestari.my.id', 178, 372);
 
-    ctx.fillStyle = '#64748B';
+    ctx.fillStyle = '#94A3B8';
     ctx.font = '10px "Inter", sans-serif';
-    ctx.fillText('Terkoneksi langsung ke Digital Vault dan Repositori Otomasi.', 190, 410);
+    ctx.fillText('Terkoneksi langsung ke Digital Vault.', 168, 400);
+    ctx.fillText('Zero Defect Leak • Playwright JS Suite Verified.', 168, 416);
+    ctx.restore();
 
-    // 8. Seal Stamp Bottom Right
+    // 8. Right Bottom Symmetrical Card: Certified Status & Seal Stamp (x: 470, y: 325, w: 276, h: 100)
+    ctx.save();
+    const credX = 470;
+    const credY = 325;
+    const credW = 276;
+    const credH = 100;
+
+    ctx.fillStyle = '#1E293B';
+    ctx.fillRect(credX, credY, credW, credH);
+    ctx.strokeStyle = 'rgba(16, 185, 129, 0.3)';
+    ctx.strokeRect(credX, credY, credW, credH);
+
+    // Credential details
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#10B981';
+    ctx.font = 'bold 10px "JetBrains Mono", monospace';
+    ctx.fillText('SEEKER HAGA CERTIFICATION', credX + 14, credY + 28);
+
+    ctx.fillStyle = '#F8FAFC';
+    ctx.font = 'bold 12px "Inter", sans-serif';
+    ctx.fillText('Status: Active & Verified', credX + 14, credY + 48);
+
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = '10px "Inter", sans-serif';
+    ctx.fillText('Role: QA Automation Specialist', credX + 14, credY + 68);
+    ctx.fillText('Handshake & API Contract Audited', credX + 14, credY + 84);
+
+    // Double-ring Seal Stamp at Right of the card
+    const sealX = credX + credW - 46;
+    const sealY = credY + 50;
+
     ctx.strokeStyle = '#10B981';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.arc(710, 430, 26, 0, Math.PI * 2);
+    ctx.arc(sealX, sealY, 28, 0, Math.PI * 2);
     ctx.stroke();
 
-    ctx.font = 'bold 8px "JetBrains Mono", monospace';
-    ctx.fillStyle = '#10B981';
+    ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(sealX, sealY, 23, 0, Math.PI * 2);
+    ctx.stroke();
+
     ctx.textAlign = 'center';
-    ctx.fillText('VERIFIED', 710, 428);
-    ctx.fillText('QA LEAD', 710, 438);
-    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#10B981';
+    ctx.font = 'bold 8px "JetBrains Mono", monospace';
+    ctx.fillText('VERIFIED', sealX, sealY - 5);
+    ctx.fillText('QA LEAD', sealX, sealY + 6);
+    ctx.restore();
 
   }, [isOpen]);
 
@@ -213,6 +267,7 @@ export const LicenseCardModal = ({ isOpen, onClose }) => {
 
 // Radar Polygon Chart 5-Sumbu (Prompt Halaman 7)
 function drawRadarAttributes(ctx, centerX, centerY, radius, stats) {
+  ctx.save();
   const axes = Object.keys(stats);
   const totalAxes = axes.length;
 
@@ -268,10 +323,12 @@ function drawRadarAttributes(ctx, centerX, centerY, radius, stats) {
   ctx.strokeStyle = '#10B981';
   ctx.lineWidth = 2;
   ctx.stroke();
+  ctx.restore();
 }
 
 // Procedural Visual QR Code simulation
 function drawVisualQrCode(ctx, x, y, w, h) {
+  ctx.save();
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(x, y, w, h);
 
@@ -307,4 +364,5 @@ function drawVisualQrCode(ctx, x, y, w, h) {
       }
     }
   }
+  ctx.restore();
 }
