@@ -26,7 +26,7 @@ export const OPEN_WORLD_DISTRICTS = [
   {
     id: 'FOUNDRY',
     modalTarget: 'TERMINAL',
-    label: 'Automation Foundry',
+    label: 'Testing Foundry',
     shortLabel: 'FOUNDRY',
     district: 'Distrik 2',
     subtitle: 'Server Cluster Teal & Konsol Playwright Live Terminal Rig',
@@ -122,7 +122,7 @@ export const GameCanvas = ({
 }) => {
   const canvasRef = useRef(null);
 
-  // Player state: Suryani Lestari (Lead System Seeker)
+  // Player state: Suryani Lestari (System Seeker)
   const playerRef = useRef({
     x: 1200,
     y: 980,
@@ -299,7 +299,7 @@ export const GameCanvas = ({
           }
 
           // Prompt Halaman 3: Deteksi Penembusan Tembok Khas Haga (Collision Breach)
-          // Pada koordinat [X: 18, Y: 24] di distrik Automation Foundry (576, 768)
+          // Pada koordinat [X: 18, Y: 24] di distrik Testing Foundry (576, 768)
           const glitchTileX = 18 * 32; // 576
           const glitchTileY = 24 * 32; // 768
           const isTouchingGlitch = Math.hypot(p.x - glitchTileX, p.y - glitchTileY) < 38;
@@ -394,7 +394,7 @@ export const GameCanvas = ({
       // 4.3 Render 5 District Landmarks (Frustum Culling)
       renderDistrictLandmarks(ctx, tick, debugVision, nearbyRef.current, camX, camY, canvas.width, canvas.height);
 
-      // 4.4 Render Character Sprite Suryani Lestari (Lead System Seeker)
+      // 4.4 Render Character Sprite Suryani Lestari (System Seeker)
       drawSuryaniSprite(ctx, p.x, p.y, p.facing, p.walkFrame, p.isMoving, tick, debugVision);
 
       // 4.5 Haga Debug Vision 2.0 Overlay (Bab 4)
@@ -732,7 +732,7 @@ function drawCleanNoticeBoard(ctx, x, y) {
   ctx.fillRect(x - 18, y - 12, 32, 2);
 }
 
-// Landmark 2: Automation Foundry - The Playwright Rig & Teal Server Cluster
+// Landmark 2: Testing Foundry - The Playwright Rig & Teal Server Cluster
 function drawPlaywrightRigAndServer(ctx, x, y, tick) {
   // Server rack
   ctx.fillStyle = '#0f172a';
@@ -828,7 +828,7 @@ function drawEnvoyLoungeDesk(ctx, x, y) {
 
 // ==========================================
 // CHARACTER SPRITE: SURYANI LESTARI
-// Lead System Seeker & Cross-Module Stability Guardian
+// System Seeker & Cross-Module Stability Guardian
 // ==========================================
 function drawSuryaniSprite(ctx, x, y, facing, walkFrame, isMoving, tick, debugVision) {
   ctx.save();

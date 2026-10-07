@@ -63,7 +63,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
     setTimeout(() => {
       setFormSubmitted(false);
       setFormData({
-        commissionScope: 'Full-time QA Automation Specialist',
+        commissionScope: 'Full-time QA Specialist',
         companyName: '',
         workEmail: '',
         projectScope: ''
@@ -100,9 +100,9 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
             <div className="dispatch-info">
               <div className="dispatch-title-row">
                 <h4 className="dispatch-name">SURYANI LESTARI</h4>
-                <span className="dispatch-role-tag">LEAD SYSTEM SEEKER & STABILITY GUARDIAN</span>
+                <span className="dispatch-role-tag">SYSTEM SEEKER & STABILITY GUARDIAN</span>
               </div>
-              <p className="dispatch-role-sub">QA Automation Specialist & Mentor • Bandung, Indonesia (Remote / Hybrid)</p>
+              <p className="dispatch-role-sub">QA Specialist & Mentor • Bandung, Indonesia (Remote / Hybrid)</p>
 
               {/* Status Ketersediaan */}
               <div className="availability-box">
@@ -142,7 +142,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
                       value={formData.commissionScope}
                       onChange={(e) => setFormData({ ...formData, commissionScope: e.target.value })}
                     >
-                      <option value="Full-time QA Automation Specialist">Full-time QA Automation Specialist</option>
+                      <option value="Full-time QA Specialist">Full-time QA Specialist</option>
                       <option value="Playwright Test Suite Construction">Playwright Test Suite Construction</option>
                       <option value="QA Strategy & Advisory">QA Strategy & Advisory</option>
                     </select>
@@ -154,7 +154,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
                       id="companyName"
                       type="text"
                       className="jrpg-input"
-                      placeholder="e.g. Lead Talent Scout / Enterprise CTO Office"
+                      placeholder="e.g. Talent Scout / Enterprise CTO Office"
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       required
@@ -218,7 +218,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
                 <div className="links-stack">
                   {/* (1) Download Seeker Resume (PDF) */}
                   <a
-                    href="assets/docs/CV_Suryani_Lestari_QA_Automation.pdf"
+                    href="assets/docs/CV_Suryani_Lestari_QA.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="formal-link-row"
@@ -272,7 +272,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
 
         {/* Footer */}
         <div className="jrpg-window-footer">
-          <span className="jrpg-footer-hint">Tersedia untuk peran Full-Time QA Automation Specialist, Lead SDET, dan QA Advisor.</span>
+          <span className="jrpg-footer-hint">Tersedia untuk peran Full-Time QA Specialist, SDET, dan QA Advisor.</span>
           <button type="button" className="jrpg-btn primary" onClick={handleClose}>
             [ESC] KEMBALI KE PENJELAJAHAN
           </button>

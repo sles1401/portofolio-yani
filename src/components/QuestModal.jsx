@@ -62,7 +62,7 @@ const QUEST_DOSSIERS = [
     measurableMetrics: [
       { label: 'Schema Conformity', val: '100% Contract Conformance' },
       { label: 'Endpoint Resilience', val: '50+ Critical Endpoints Audited' },
-      { label: 'Pipeline Automation', val: 'Automated Newman CI Regression' }
+      { label: 'Pipeline Integration', val: 'Continuous Newman CI Regression' }
     ],
     weaponry: ['Postman', 'Newman CLI', 'JSON Schema Assertions', 'REST Assured']
   },

@@ -28,7 +28,7 @@ export const GameHUD = ({
         <div className="hud-meta">
           <div className="hud-row-top">
             <h2 className="hud-player-name">SURYANI LESTARI</h2>
-            <span className="hud-level-pill">LEAD SYSTEM SEEKER</span>
+            <span className="hud-level-pill">SYSTEM SEEKER</span>
             <span className="hud-sdet-pill">BANDUNG HQ</span>
           </div>
 

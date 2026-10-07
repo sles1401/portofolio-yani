@@ -8,7 +8,7 @@ export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, d
     { id: 'BESTIARY', label: 'Bestiary', sub: 'Anomaly Logs', icon: '👾' },
     { id: 'VISUAL_REGRESSION', label: 'Visual Diff', sub: 'Regression Slider', icon: '🔍' },
     { id: 'ROI_CALC', label: 'ROI Calc', sub: 'Cost Preserved', icon: '📈' },
-    { id: 'INTERVIEW', label: 'Interview', sub: 'NPC Leadership', icon: '💬' },
+    { id: 'INTERVIEW', label: 'Interview', sub: 'NPC Scenarios', icon: '💬' },
     { id: 'LICENSE_CARD', label: 'Seeker ID', sub: 'Export PNG', icon: '🪪' },
     { id: 'DISPATCH', label: 'Dispatch', sub: 'Hire Suryani', icon: '📮' }
   ];

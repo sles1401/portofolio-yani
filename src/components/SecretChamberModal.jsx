@@ -34,7 +34,7 @@ export const SecretChamberModal = ({ isOpen, onClose }) => {
             <span className="secret-trophy-icon">🏆</span>
             <div>
               <h4>EASTER EGG ANOMALI: BOUNDARY COLLISION BREACH TERTEMBUS!</h4>
-              <p>Anda berhasil menemukan celah tabrakan dinding khas Seeker Haga di Automation Foundry [X: 18, Y: 24]. Selamat datang di ruang arsip rahasia Suryani Lestari.</p>
+              <p>Anda berhasil menemukan celah tabrakan dinding khas Seeker Haga di Testing Foundry [X: 18, Y: 24]. Selamat datang di ruang arsip rahasia Suryani Lestari.</p>
             </div>
           </div>
 
@@ -72,7 +72,7 @@ export const SecretChamberModal = ({ isOpen, onClose }) => {
               </p>
               <div className="secret-actions-row">
                 <a
-                  href="assets/docs/CV_Suryani_Lestari_QA_Automation.pdf"
+                  href="assets/docs/CV_Suryani_Lestari_QA.pdf"
                   download
                   className="clean-btn execute-btn"
                   onClick={() => sound.playTerminalSuccess()}
@@ -96,7 +96,7 @@ export const SecretChamberModal = ({ isOpen, onClose }) => {
 
         {/* Footer */}
         <div className="clean-modal-footer">
-          <span className="footer-meta-pill">Koordinat Tersembunyi: Automation Foundry [X: 18, Y: 24] • Terverifikasi</span>
+          <span className="footer-meta-pill">Koordinat Tersembunyi: Testing Foundry [X: 18, Y: 24] • Terverifikasi</span>
           <button type="button" className="clean-btn primary" onClick={handleClose}>
             KEMBALI KE PENJELAJAHAN [ESC]
           </button>

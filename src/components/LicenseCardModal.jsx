@@ -79,7 +79,7 @@ export const LicenseCardModal = ({ isOpen, onClose }) => {
 
     ctx.font = '14px "Inter", sans-serif';
     ctx.fillStyle = '#06B6D4';
-    ctx.fillText('Lead System Seeker & Automation Architect', 54, 155);
+    ctx.fillText('System Seeker & Quality Architect', 54, 155);
 
     ctx.font = '12px "Inter", sans-serif';
     ctx.fillStyle = '#94A3B8';
@@ -167,7 +167,7 @@ export const LicenseCardModal = ({ isOpen, onClose }) => {
 
     ctx.fillStyle = '#94A3B8';
     ctx.font = '10px "Inter", sans-serif';
-    ctx.fillText('Role: QA Automation Specialist', credX + 14, credY + 68);
+    ctx.fillText('Role: QA Specialist', credX + 14, credY + 68);
     ctx.fillText('Handshake & API Contract Audited', credX + 14, credY + 84);
 
     // Double-ring Seal Stamp at Right of the card
@@ -191,7 +191,7 @@ export const LicenseCardModal = ({ isOpen, onClose }) => {
     ctx.fillStyle = '#10B981';
     ctx.font = 'bold 8px "JetBrains Mono", monospace';
     ctx.fillText('VERIFIED', sealX, sealY - 5);
-    ctx.fillText('QA LEAD', sealX, sealY + 6);
+    ctx.fillText('QA AUDIT', sealX, sealY + 6);
     ctx.restore();
 
   }, [isOpen]);

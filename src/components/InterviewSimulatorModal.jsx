@@ -7,21 +7,21 @@ const SCENARIOS = [
     title: 'Skenario 1: Krisis Rilis & Manajemen Risiko (Production Pressure)',
     npcName: 'Marcus Vance — Product Director',
     npcRole: 'Executive Stakeholder',
-    situation: '"Rilis terjadwal 3 jam lagi, namun terdeteksi anomali minor pada sinkronisasi sekunder modul PPIC. Apa keputusan Anda sebagai Lead QA?"',
+    situation: '"Rilis terjadwal 3 jam lagi, namun terdeteksi anomali minor pada sinkronisasi sekunder modul PPIC. Apa keputusan Anda sebagai QA Specialist?"',
     options: [
       {
         id: 'A',
         label: '(A) Blokir total tanpa kompromi (Hard Stop)',
         text: 'Batalkan rilis secara sepihak sampai seluruh anomali 100% diperbaiki, abaikan jadwal bisnis dan peluncuran marketing.',
         isOptimal: false,
-        feedback: 'Terlalu kaku dan mengabaikan nilai bisnis. Sebagai QA Lead, kita perlu menimbang dampak komersial dan menyajikan opsi mitigasi terukur, bukan sekadar menjadi penolak rilis pasif.'
+        feedback: 'Terlalu kaku dan mengabaikan nilai bisnis. Sebagai QA Specialist, kita perlu menimbang dampak komersial dan menyajikan opsi mitigasi terukur, bukan sekadar menjadi penolak rilis pasif.'
       },
       {
         id: 'B',
         label: '(B) Pendekatan Analitis & Mitigasi Risiko (PILIHAN UNGGULAN)',
         text: 'Sajikan matriks risiko ke CTO, isolasi alur transaksi finansial dengan feature-flag proteksi, loloskan modul inti yang stabil, dan siapkan hotfix test suite otomatis dalam sprint patch.',
         isOptimal: true,
-        feedback: 'Pilihan Sempurna! Menunjukkan kedewasaan kepemimpinan (Leadership & Crisis Diplomacy). Anda memproteksi integritas finansial pengguna tanpa mematikan momentum komersial perusahaan.'
+        feedback: 'Pilihan Sempurna! Menunjukkan kedewasaan profesional (Professional Maturity & Crisis Diplomacy). Anda memproteksi integritas finansial pengguna tanpa mematikan momentum komersial perusahaan.'
       },
       {
         id: 'C',
@@ -36,7 +36,7 @@ const SCENARIOS = [
     id: 'scen-2',
     title: 'Skenario 2: Mengatasi Flaky Test Otomasi (CI/CD Pipeline Health)',
     npcName: 'Elena Rostova — Principal Backend Architect',
-    npcRole: 'Tech Lead',
+    npcRole: 'Principal Architect',
     situation: '"Pipeline GitHub Actions kita sering merah palsu (flaky test) pada suite E2E saat load runner tinggi, membuat developer frustasi. Apa strategi perbaikan Anda?"',
     options: [
       {
@@ -176,7 +176,7 @@ export const InterviewSimulatorModal = ({ isOpen, onClose }) => {
             <div className={`rational-feedback-card ${selectedOption.isOptimal ? 'optimal' : 'suboptimal'}`}>
               <div className="feedback-header">
                 <span className="feedback-icon">{selectedOption.isOptimal ? '🌟' : '⚠️'}</span>
-                <strong>ANALISIS POLA PIKIR &amp; KELAYAKAN LEADERSHIP:</strong>
+                <strong>ANALISIS POLA PIKIR &amp; KELAYAKAN PROFESIONAL:</strong>
               </div>
               <p className="feedback-text">{selectedOption.feedback}</p>
             </div>

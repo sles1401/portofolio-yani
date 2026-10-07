@@ -77,7 +77,7 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
               <div>
                 <h1 className="candidate-name">SURYANI LESTARI</h1>
                 <div className="candidate-role">
-                  Lead System Seeker & Cross-Module Stability Guardian • QA Automation Engineer
+                  System Seeker & Cross-Module Stability Guardian • QA Engineer
                 </div>
               </div>
               <div className="candidate-status-pill">
@@ -86,13 +86,13 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
             </div>
 
             <p className="candidate-summary">
-              QA Specialist & Test Automation Engineer asal Bandung dengan basis operasi di <strong>suryani-lestari.my.id</strong>. Memadukan tema investigasi celah sistem ala <em>Seeker Haga</em> dengan proposisi nilai komersial nyata: penghematan 85% durasi regresi via Playwright JS, 0 defect leak pada sinkronisasi lintas modul (Marketing & PPIC), dan audit endpoint API tanpa celah.
+              QA Specialist & Test Engineer asal Bandung dengan basis operasi di <strong>suryani-lestari.my.id</strong>. Memadukan tema investigasi celah sistem ala <em>Seeker Haga</em> dengan proposisi nilai komersial nyata: penghematan 85% durasi regresi via Playwright JS, 0 defect leak pada sinkronisasi lintas modul (Marketing & PPIC), dan audit endpoint API tanpa celah.
             </p>
 
             {/* Quick 1-Click Action Buttons (Bab 2 & 9) */}
             <div className="contact-quick-links">
               <a 
-                href="assets/docs/CV_Suryani_Lestari_QA_Automation.pdf" 
+                href="assets/docs/CV_Suryani_Lestari_QA.pdf" 
                 className="contact-pill highlight-btn"
                 download
                 onClick={() => sound.playSelect()}
@@ -132,12 +132,12 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
         </div>
       </header>
 
-      {/* Blueprint v5.2 Live Testing & Automation Suite (Quick 1-Click Launchers) */}
+      {/* Blueprint v5.2 Live Testing Suite (Quick 1-Click Launchers) */}
       <section className="section-block live-tools-suite-section">
         <h3 className="section-heading">
-          <span>⚙️</span> 01. Live Test Automation &amp; Business Calculators (Akses Interaktif Langsung)
+          <span>⚙️</span> 01. Live Test &amp; Business Calculators (Akses Interaktif Langsung)
         </h3>
-        <p className="section-lead-text">
+        <p className="section-intro-text">
           Seluruh artefak pengujian berikut dapat diinspeksi dan dieksekusi secara interaktif langsung di peramban tanpa instalasi lokal:
         </p>
 
@@ -290,7 +290,7 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
               <tr>
                 <td><strong>Identitas & Gelar</strong></td>
                 <td>Suryani Lestari, QA Engineer & Mentor</td>
-                <td className="highlight-cell">Lead System Seeker & Cross-Module Stability Guardian</td>
+                <td className="highlight-cell">System Seeker & Cross-Module Stability Guardian</td>
               </tr>
               <tr>
                 <td><strong>Core Deliverable</strong></td>
@@ -578,7 +578,7 @@ await inputField.fill("Test_Item_🔥__LongStringRepeat500Chars");`}</code>
         <h3 className="section-heading">
           <span>✅</span> 08. Checklist Audit Kualitas &amp; Verifikasi Akhir Deployment (QA Acceptance Matrix)
         </h3>
-        <p className="section-lead-text">
+        <p className="section-intro-text">
           Panduan verifikasi penerimaan kualitas (Acceptance Criteria) komprehensif untuk memastikan seluruh fitur berjalan tanpa cela, lulus uji aksesibilitas, dan siap dihubungkan langsung ke domain utama <strong>suryani-lestari.my.id</strong>:
         </p>
 

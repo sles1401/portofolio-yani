@@ -45,7 +45,7 @@ export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
           />
           <div className="avatar-meta-badge">
             <strong>SURYANI LESTARI</strong>
-            <small>LEAD SYSTEM SEEKER &amp; STABILITY GUARDIAN • suryani-lestari.my.id</small>
+            <small>SYSTEM SEEKER &amp; STABILITY GUARDIAN • suryani-lestari.my.id</small>
           </div>
         </div>
         
@@ -53,7 +53,7 @@ export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
         <div className="title-subhead">OPEN-WORLD 2400×1800PX • RECRUITER DOCKET HYBRID SYSTEM</div>
         
         <p className="title-desc">
-          "Menyatukan identitas riil Suryani Lestari (QA Automation Engineer asal Bandung) dengan tema investigasi celah sistem ala Seeker Haga: pemotongan 85% durasi regresi via Playwright JS, 0 defect leak pada modul Marketing &amp; PPIC, dan audit endpoint API tanpa celah."
+          "Menyatukan identitas riil Suryani Lestari (QA Engineer asal Bandung) dengan tema investigasi celah sistem ala Seeker Haga: pemotongan 85% durasi regresi via Playwright JS, 0 defect leak pada modul Marketing &amp; PPIC, dan audit endpoint API tanpa celah."
         </p>
 
         {/* Dual-View Entry Buttons (Bab 2) */}

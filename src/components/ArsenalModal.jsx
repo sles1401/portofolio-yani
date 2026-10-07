@@ -29,7 +29,7 @@ const GEAR_ITEMS = [
     buffAttributes: [
       { stat: 'Contract Schema Safety', val: '100% Type Safe Assertions' },
       { stat: 'Idempotency Protection', val: 'Zero Double-Charge Risk' },
-      { stat: 'Collection Automation', val: 'Newman CI Automated Runs' }
+      { stat: 'Collection Runner', val: 'Newman CI Verification Runs' }
     ]
   },
   {
