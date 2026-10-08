@@ -17,6 +17,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Vercel
+.vercel
+
 # Editor & OS files
 .DS_Store
 Thumbs.db
