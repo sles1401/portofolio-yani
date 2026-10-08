@@ -15,11 +15,53 @@ import { RoiCalculatorModal } from './components/RoiCalculatorModal';
 import { InterviewSimulatorModal } from './components/InterviewSimulatorModal';
 import { LicenseCardModal } from './components/LicenseCardModal';
 import { ConventionalView } from './components/ConventionalView';
+import { WelcomeModal } from './components/WelcomeModal';
 import { sound } from './utils/audio';
 
+const STORAGE_KEY = 'qa_seeker_exploration_mode';
+
+// Helper to inspect URL parameters and hash for Dual-Target Routing
+const checkUrlMode = () => {
+  if (typeof window === 'undefined') return null;
+  const searchParams = new URLSearchParams(window.location.search);
+  const view = searchParams.get('view')?.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+
+  if (view === 'recruiter' || hash === '#docket' || hash === '#recruiter') {
+    return 'recruiter';
+  }
+  if (view === 'seeker' || view === 'game' || view === 'jrpg' || hash === '#seeker' || hash === '#game') {
+    return 'seeker';
+  }
+  return null;
+};
+
 export const App = () => {
-  const [viewMode, setViewMode] = useState('GAME'); // 'GAME' (Mode A) | 'CONVENTIONAL' (Mode B: Recruiter Docket)
-  const [gameStarted, setGameStarted] = useState(false);
+  // Initialize state based on URL params and localStorage persistence
+  const [initialRouting] = useState(() => {
+    const urlMode = checkUrlMode();
+    if (urlMode === 'recruiter') {
+      return { viewMode: 'CONVENTIONAL', gameStarted: true, showWelcome: false, hasPreference: true };
+    }
+    if (urlMode === 'seeker') {
+      return { viewMode: 'GAME', gameStarted: true, showWelcome: false, hasPreference: true };
+    }
+
+    const saved = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
+    if (saved === 'recruiter') {
+      return { viewMode: 'CONVENTIONAL', gameStarted: true, showWelcome: false, hasPreference: true };
+    }
+    if (saved === 'seeker') {
+      return { viewMode: 'GAME', gameStarted: true, showWelcome: false, hasPreference: true };
+    }
+
+    // First visit without URL param: Show Welcome Modal
+    return { viewMode: 'CONVENTIONAL', gameStarted: false, showWelcome: true, hasPreference: false };
+  });
+
+  const [viewMode, setViewMode] = useState(initialRouting.viewMode); // 'GAME' (Mode A) | 'CONVENTIONAL' (Mode B: Recruiter Docket)
+  const [gameStarted, setGameStarted] = useState(initialRouting.gameStarted);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(initialRouting.showWelcome);
   const [activeModal, setActiveModal] = useState(null); // 'QUESTS' | 'BESTIARY' | 'GEAR' | 'DISPATCH' | 'TERMINAL' | 'SECRET_CHAMBER' | 'VISUAL_REGRESSION' | 'ROI_CALC' | 'INTERVIEW' | 'LICENSE_CARD' | null
   const [nearbyPoint, setNearbyPoint] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -44,6 +86,71 @@ export const App = () => {
     }, 3200);
   }, []);
 
+  // Update browser URL query/hash when switching views for easy sharing & bookmarking
+  const syncUrlForMode = useCallback((mode) => {
+    if (typeof window === 'undefined') return;
+    try {
+      const url = new URL(window.location.href);
+      if (mode === 'recruiter') {
+        url.searchParams.set('view', 'recruiter');
+        url.hash = 'docket';
+      } else {
+        url.searchParams.delete('view');
+        if (url.hash === '#docket' || url.hash === '#recruiter') {
+          url.hash = '';
+        }
+      }
+      window.history.replaceState(null, '', url.toString());
+    } catch {
+      // guard
+    }
+  }, []);
+
+  // Mode Selection Handler (from Welcome Modal or Mode Switchers)
+  const handleSelectExplorationMode = useCallback((mode) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, mode);
+    } catch {
+      // guard for private browsing
+    }
+
+    setShowWelcomeModal(false);
+    setGameStarted(true);
+
+    if (mode === 'recruiter') {
+      setViewMode('CONVENTIONAL');
+      syncUrlForMode('recruiter');
+      showToast('RECRUITER MODE ACTIVE: Clean Docket & Technical Case Studies');
+    } else {
+      setViewMode('GAME');
+      syncUrlForMode('seeker');
+      showToast('JRPG MODE ACTIVE: Welcome to Central Plaza (2400×1800px)');
+    }
+  }, [syncUrlForMode, showToast]);
+
+  // URL Query Param & Hash Listener
+  useEffect(() => {
+    const handleUrlRouting = () => {
+      const routeMode = checkUrlMode();
+      if (routeMode === 'recruiter') {
+        setShowWelcomeModal(false);
+        setGameStarted(true);
+        setViewMode('CONVENTIONAL');
+      } else if (routeMode === 'seeker') {
+        setShowWelcomeModal(false);
+        setGameStarted(true);
+        setViewMode('GAME');
+      }
+    };
+
+    window.addEventListener('popstate', handleUrlRouting);
+    window.addEventListener('hashchange', handleUrlRouting);
+    return () => {
+      window.removeEventListener('popstate', handleUrlRouting);
+      window.removeEventListener('hashchange', handleUrlRouting);
+    };
+  }, []);
+
   // Global Keyboard Shortcuts (Bab 2 & 4: [M], [D], [ESC])
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
@@ -51,22 +158,26 @@ export const App = () => {
 
       // [ESC]: Close all modal windows or reset view (Bab 2)
       if (code === 'Escape') {
-        if (activeModal) {
+        if (showWelcomeModal && gameStarted) {
+          sound.playClose();
+          setShowWelcomeModal(false);
+        } else if (activeModal) {
           sound.playClose();
           setActiveModal(null);
         } else if (viewMode === 'CONVENTIONAL') {
           sound.playClose();
           setViewMode('GAME');
+          syncUrlForMode('seeker');
         }
       }
 
       // [D]: Toggle Haga Debug Vision 2.0 (Bab 4)
-      if (code === 'KeyD' && viewMode === 'GAME' && !activeModal) {
+      if (code === 'KeyD' && viewMode === 'GAME' && !activeModal && !showWelcomeModal) {
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
           e.preventDefault();
+          sound.playScan();
           setDebugVision((prev) => {
             const next = !prev;
-            sound.playScan();
             showToast(next ? 'HAGA DEBUG VISION 2.0: ACTIVE' : 'DEBUG VISION 2.0: DEACTIVATED');
             return next;
           });
@@ -74,27 +185,50 @@ export const App = () => {
       }
 
       // [M]: Toggle View between Mode A (Expedition) & Mode B (Recruiter Docket) (Bab 2)
-      if (code === 'KeyM') {
+      if (code === 'KeyM' && !showWelcomeModal) {
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
           e.preventDefault();
           sound.playSelect();
-          setViewMode((prev) => (prev === 'GAME' ? 'CONVENTIONAL' : 'GAME'));
+          setViewMode((prev) => {
+            const next = prev === 'GAME' ? 'CONVENTIONAL' : 'GAME';
+            const nextModeName = next === 'CONVENTIONAL' ? 'recruiter' : 'seeker';
+            try {
+              localStorage.setItem(STORAGE_KEY, nextModeName);
+            } catch {
+              // guard
+            }
+            syncUrlForMode(nextModeName);
+            showToast(next === 'CONVENTIONAL' ? 'VIEW SWITCHED: Recruiter Docket' : 'VIEW SWITCHED: JRPG Interactive Map');
+            return next;
+          });
         }
       }
     };
 
     window.addEventListener('keydown', handleGlobalKeyDown);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
-  }, [activeModal, viewMode, showToast]);
+  }, [activeModal, viewMode, showWelcomeModal, gameStarted, syncUrlForMode, showToast]);
 
   const handleStartExpedition = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, 'seeker');
+    } catch {
+      // guard
+    }
     setGameStarted(true);
     setViewMode('GAME');
+    syncUrlForMode('seeker');
   };
 
   const handleOpenDocketFromTitle = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, 'recruiter');
+    } catch {
+      // guard
+    }
     setGameStarted(true);
     setViewMode('CONVENTIONAL');
+    syncUrlForMode('recruiter');
   };
 
   const handleToggleMute = () => {
@@ -107,7 +241,18 @@ export const App = () => {
 
   const handleToggleView = () => {
     sound.playSelect();
-    setViewMode((prev) => (prev === 'GAME' ? 'CONVENTIONAL' : 'GAME'));
+    setViewMode((prev) => {
+      const next = prev === 'GAME' ? 'CONVENTIONAL' : 'GAME';
+      const nextModeName = next === 'CONVENTIONAL' ? 'recruiter' : 'seeker';
+      try {
+        localStorage.setItem(STORAGE_KEY, nextModeName);
+      } catch {
+        // guard
+      }
+      syncUrlForMode(nextModeName);
+      showToast(next === 'CONVENTIONAL' ? 'VIEW SWITCHED: Recruiter Docket' : 'VIEW SWITCHED: JRPG Interactive Map');
+      return next;
+    });
   };
 
   const handleDpadDirection = (direction, isPressed) => {
@@ -135,6 +280,11 @@ export const App = () => {
     });
   };
 
+  const handleOpenWelcomeGate = () => {
+    sound.playNavTick();
+    setShowWelcomeModal(true);
+  };
+
   return (
     <div className={`app-root ${debugVision ? 'debug-theme-overlay' : ''}`}>
       {/* CRT Scanline Overlay */}
@@ -151,13 +301,18 @@ export const App = () => {
       {/* Mode B: Recruiter Docket (Eksekutif) */}
       {viewMode === 'CONVENTIONAL' ? (
         <ConventionalView 
-          onReturnToGame={() => setViewMode('GAME')}
+          onReturnToGame={() => {
+            sound.playSelect();
+            setViewMode('GAME');
+            syncUrlForMode('seeker');
+          }}
           onShowToast={showToast}
           onOpenModal={handleOpenModal}
+          onOpenWelcomeModal={handleOpenWelcomeGate}
         />
       ) : (
         <div className="game-wrapper">
-          {/* Layar Pembuka (Title Screen) */}
+          {/* Layar Pembuka (Title Screen) - Only shown if game has not started yet */}
           {!gameStarted ? (
             <TitleScreen 
               onStartExpedition={handleStartExpedition} 
@@ -176,6 +331,7 @@ export const App = () => {
                 onToggleDebug={handleToggleDebug}
                 onOpenModal={handleOpenModal}
                 diagnostics={diagnostics}
+                onOpenWelcomeModal={handleOpenWelcomeGate}
               />
 
               {/* Mode A: Open-World Expedition Canvas 2400×1800 (Bab 3) */}
@@ -209,6 +365,15 @@ export const App = () => {
           )}
         </div>
       )}
+
+      {/* 1. Welcome Modal Gateway (Dual-Target Audience Routing) */}
+      <WelcomeModal
+        isOpen={showWelcomeModal}
+        onSelectMode={handleSelectExplorationMode}
+        onClose={() => setShowWelcomeModal(false)}
+        canClose={gameStarted}
+        currentMode={viewMode === 'CONVENTIONAL' ? 'recruiter' : 'seeker'}
+      />
 
       {/* Global Modals (Accessible in both Mode A & Mode B) */}
       <QuestModal

@@ -1,7 +1,7 @@
 import React from 'react';
 import { sound } from '../utils/audio';
 
-export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) => {
+export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal, onOpenWelcomeModal }) => {
   const copyCoordinates = () => {
     const contactEmail = "suryanilestari123@gmail.com";
     sound.playCopyChirp();
@@ -48,16 +48,32 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
           <span className="banner-badge">MODE B: RECRUITER DOCKET (LEMBAR EKSEKUTIF BERDENSITAS TINGGI)</span>
           <h2 className="banner-title">Evaluasi Kualifikasi Teknis (&lt; 15 Detik) — Suryani Lestari</h2>
         </div>
-        <button
-          className="return-to-game-btn"
-          type="button"
-          onClick={() => {
-            sound.playSelect();
-            onReturnToGame();
-          }}
-        >
-          <span>🎮</span> Masuk ke Mode A (Open-World Expedition 2400×1800px)
-        </button>
+        <div className="banner-action-buttons">
+          {onOpenWelcomeModal && (
+            <button
+              className="docket-switch-mode-btn"
+              type="button"
+              onClick={() => {
+                sound.playNavTick();
+                onOpenWelcomeModal();
+              }}
+              title="Ubah Preferensi Mode Eksplorasi (Welcome Gateway)"
+            >
+              <span>🔄</span> Ganti Mode
+            </button>
+          )}
+          <button
+            className="return-to-game-btn"
+            type="button"
+            onClick={() => {
+              sound.playSelect();
+              onReturnToGame();
+            }}
+            title="Beralih ke Kontrol Karakter Open-World [Shortcut: M]"
+          >
+            <span>🎮</span> Seeker / JRPG Mode (Interactive Map) [M]
+          </button>
+        </div>
       </div>
 
       {/* Hero Profile Card */}

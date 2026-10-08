@@ -3,11 +3,11 @@ import { sound } from '../utils/audio';
 
 export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, debugVision, onToggleView }) => {
   const navItems = [
-    { id: 'QUESTS', label: 'Quests', sub: 'Case Studies', icon: '📜' },
-    { id: 'TERMINAL', label: 'Playwright', sub: 'Live Runner', icon: '💻' },
-    { id: 'BESTIARY', label: 'Bestiary', sub: 'Anomaly Logs', icon: '👾' },
+    { id: 'QUESTS', label: 'Quests', sub: 'Case Studies & Test Reports', icon: '📜' },
+    { id: 'TERMINAL', label: 'Playwright', sub: 'Live Automation Demo', icon: '💻' },
+    { id: 'BESTIARY', label: 'Bestiary', sub: 'Bug & Anomaly Tracker', icon: '👾' },
     { id: 'VISUAL_REGRESSION', label: 'Visual Diff', sub: 'Regression Slider', icon: '🔍' },
-    { id: 'ROI_CALC', label: 'ROI Calc', sub: 'Cost Preserved', icon: '📈' },
+    { id: 'ROI_CALC', label: 'ROI Calc', sub: 'QA Business Value & Cost Preserved', icon: '📈' },
     { id: 'INTERVIEW', label: 'Interview', sub: 'NPC Scenarios', icon: '💬' },
     { id: 'LICENSE_CARD', label: 'Seeker ID', sub: 'Export PNG', icon: '🪪' },
     { id: 'DISPATCH', label: 'Dispatch', sub: 'Hire Suryani', icon: '📮' }
@@ -69,16 +69,16 @@ export const RecruiterExpressBar = ({ onOpenModal, activeModal, onToggleDebug, d
           }}
           title="Toggle Mode B: Recruiter Docket [Shortcut: M]"
         >
-          <span className="btn-icon">📋</span>
+          <span className="btn-icon">📄</span>
           <div className="btn-text-wrap">
-            <span className="btn-title">Docket [M]</span>
-            <span className="btn-sub">Eksekutif</span>
+            <span className="btn-title">Clean Resume</span>
+            <span className="btn-sub">Case Studies [M]</span>
           </div>
         </button>
       </div>
 
       <div className="express-shortcuts-hint">
-        <span>[M] Docket</span>
+        <span>[M] Clean Resume</span>
         <span>•</span>
         <span>[D] Vision 2.0</span>
         <span>•</span>

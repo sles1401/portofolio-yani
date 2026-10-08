@@ -10,7 +10,8 @@ export const GameHUD = ({
   debugVision,
   onToggleDebug,
   onOpenModal,
-  diagnostics
+  diagnostics,
+  onOpenWelcomeModal
 }) => {
   return (
     <header className="game-hud-layer sticky-executive-controller">
@@ -121,18 +122,35 @@ export const GameHUD = ({
           {isMuted ? '🔇 AUDIO: OFF' : '🔊 AUDIO: ON'}
         </button>
 
-        {/* Bab 2: Persistent Executive Controller Toggle View */}
+        {/* Redesigned High-Contrast Resume / Case Studies Button (Dual Routing) */}
         <button
-          className="hud-btn mode-switch-btn"
+          className="hud-btn hud-resume-contrast-btn"
           type="button"
           onClick={() => {
             sound.playSelect();
             onToggleView();
           }}
-          title="Toggle View: Open-World Expedition / Recruiter Docket [Shortcut: M]"
+          title="Buka Dokumen Bersih & Studi Kasus Cepat [Shortcut: M]"
         >
-          <span>📋</span> TOGGLE VIEW: {viewMode === 'GAME' ? 'RECRUITER DOCKET' : 'OPEN-WORLD'} [M]
+          <span className="contrast-btn-icon">📄</span>
+          <span className="contrast-btn-text">View Clean Resume / Case Studies</span>
+          <span className="contrast-btn-badge">[M]</span>
         </button>
+
+        {/* Change Exploration Mode Quick Action */}
+        {onOpenWelcomeModal && (
+          <button
+            className="hud-btn hud-gate-btn"
+            type="button"
+            onClick={() => {
+              sound.playNavTick();
+              onOpenWelcomeModal();
+            }}
+            title="Ubah Preferensi Mode Eksplorasi (Welcome Gateway)"
+          >
+            <span>🔄</span> MODE
+          </button>
+        )}
       </div>
 
       {/* Bab 4: Floating Diagnostics di pojok kiri atas saat Debug Vision 2.0 aktif */}
