@@ -72,7 +72,7 @@ export const SecretChamberModal = ({ isOpen, onClose }) => {
               </p>
               <div className="secret-actions-row">
                 <a
-                  href="assets/docs/CV_Suryani_Lestari_QA.pdf"
+                  href="public/assets/docs/CV_Suryani_Lestari_QA.pdf"
                   download
                   className="clean-btn execute-btn"
                   onClick={() => sound.playTerminalSuccess()}

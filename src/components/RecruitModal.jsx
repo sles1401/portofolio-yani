@@ -16,7 +16,7 @@ export const RecruitModal = ({ isOpen, onClose }) => {
   return (
     <div className="rpg-modal-backdrop" role="dialog" aria-modal="true">
       <div className="rpg-modal-box recruit-theme">
-        
+
         {/* Header */}
         <div className="rpg-modal-header">
           <div className="modal-title-wrap">
@@ -30,9 +30,9 @@ export const RecruitModal = ({ isOpen, onClose }) => {
         <div className="rpg-modal-body">
           <div className="recruit-card-profile">
             <div className="recruit-avatar-wrapper">
-              <img 
-                src="assets/images/suryani-avatar.jpg" 
-                alt="Suryani Lestari" 
+              <img
+                src="public/assets/images/suryani-avatar.jpg"
+                alt="Suryani Lestari"
                 className="recruit-avatar-img"
               />
               <span className="party-role-tag">ROLE: QA SPECIALIST</span>
@@ -41,7 +41,7 @@ export const RecruitModal = ({ isOpen, onClose }) => {
             <div className="recruit-main-info">
               <h4 className="recruit-name">Suryani Lestari</h4>
               <p className="recruit-title">Software Quality Assurance Engineer • S-Tier Bug Hunter</p>
-              
+
               <div className="dedication-box">
                 <span className="dedication-badge">⚔️ DEDIKASI KERJA PROFESIONAL</span>
                 <p className="dedication-text">

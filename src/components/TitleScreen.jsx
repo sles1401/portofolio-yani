@@ -21,7 +21,7 @@ export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
   return (
     <div className="title-screen-overlay">
       <div className="retro-grid-bg" aria-hidden="true" />
-      
+
       {/* Floating System Runes */}
       <div className="floating-runes" aria-hidden="true">
         <span className="rune" style={{ left: '8%', animationDelay: '0s' }}>[SURYANI_LESTARI_QA_SEEKER]</span>
@@ -39,7 +39,7 @@ export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
         {/* Character Avatar Showcase */}
         <div className="title-avatar-showcase">
           <img
-            src="assets/images/suryani-seeker-avatar.jpg"
+            src="public/assets/images/suryani-seeker-avatar.jpg"
             alt="Suryani Lestari Seeker"
             className="title-avatar-img"
           />
@@ -48,19 +48,19 @@ export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
             <small>SYSTEM SEEKER &amp; STABILITY GUARDIAN • suryani-lestari.my.id</small>
           </div>
         </div>
-        
+
         <h1 className="title-main">QA SEEKER MASTER BLUEPRINT</h1>
         <div className="title-subhead">OPEN-WORLD 2400×1800PX • RECRUITER DOCKET HYBRID SYSTEM</div>
-        
+
         <p className="title-desc">
           "Menyatukan identitas riil Suryani Lestari (QA Engineer asal Bandung) dengan tema investigasi celah sistem ala Seeker Haga: pemotongan 85% durasi regresi via Playwright JS, 0 defect leak pada modul Marketing &amp; PPIC, dan audit endpoint API tanpa celah."
         </p>
 
         {/* Dual-View Entry Buttons (Bab 2) */}
         <div className="title-actions-dual">
-          <button 
-            className="press-play-btn primary-start" 
-            type="button" 
+          <button
+            className="press-play-btn primary-start"
+            type="button"
             onClick={() => {
               sound.playSelect();
               onStartExpedition();
@@ -69,9 +69,9 @@ export const TitleScreen = ({ onStartExpedition, onOpenDocket }) => {
             ▶ MODE A: OPEN-WORLD EXPEDITION (CANVAS 2400×1800)
           </button>
 
-          <button 
-            className="press-play-btn secondary-express" 
-            type="button" 
+          <button
+            className="press-play-btn secondary-express"
+            type="button"
             onClick={() => {
               sound.playSelect();
               onOpenDocket();

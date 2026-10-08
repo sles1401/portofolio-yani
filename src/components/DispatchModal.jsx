@@ -93,7 +93,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
           {/* Seeker Operator Profile */}
           <div className="dispatch-hero-card">
             <div className="dispatch-avatar-box">
-              <img src="assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" className="dispatch-avatar-img" />
+              <img src="public/assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" className="dispatch-avatar-img" />
               <span className="dispatch-online-pulse">● SEEKER ACTIVE</span>
             </div>
 
@@ -218,7 +218,7 @@ export const DispatchModal = ({ isOpen, onClose, onShowToast }) => {
                 <div className="links-stack">
                   {/* (1) Download Seeker Resume (PDF) */}
                   <a
-                    href="assets/docs/CV_Suryani_Lestari_QA.pdf"
+                    href="public/assets/docs/CV_Suryani_Lestari_QA.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="formal-link-row"

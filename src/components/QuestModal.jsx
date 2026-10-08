@@ -102,7 +102,7 @@ export const QuestModal = ({ isOpen, onClose }) => {
   return (
     <div className="jrpg-modal-backdrop" role="dialog" aria-modal="true" onClick={handleClose}>
       <div className="jrpg-window quest-window" onClick={(e) => e.stopPropagation()}>
-        
+
         {/* Header */}
         <div className="jrpg-window-header">
           <div className="jrpg-header-title">
@@ -120,7 +120,7 @@ export const QuestModal = ({ isOpen, onClose }) => {
           {/* Seeker Note */}
           <div className="jrpg-lore-notice">
             <div className="seeker-avatar-mini">
-              <img src="assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" />
+              <img src="public/assets/images/suryani-seeker-avatar.jpg" alt="Suryani Lestari" />
               <span>SURYANI</span>
             </div>
             <p className="jrpg-lore-text">

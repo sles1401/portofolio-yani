@@ -2,10 +2,10 @@
   "name": "suryani-qa-seeker-openworld",
   "version": "2.0.0",
   "description": "QA Seeker Master Blueprint: Suryani Lestari Edition — Open-World Tilemap 2400x1800px & Recruiter Docket (suryani-lestari.my.id)",
-  "main": "assets/dist/bundle.js",
+  "main": "public/assets/dist/bundle.js",
   "scripts": {
-    "build": "esbuild src/index.jsx --bundle --outfile=assets/dist/bundle.js --minify --loader:.js=jsx --loader:.jsx=jsx",
-    "dev": "esbuild src/index.jsx --bundle --outfile=assets/dist/bundle.js --watch"
+    "build": "esbuild src/index.jsx --bundle --outfile=public/assets/dist/bundle.js --minify --loader:.js=jsx --loader:.jsx=jsx",
+    "dev": "esbuild src/index.jsx --bundle --outfile=public/assets/dist/bundle.js --watch"
   },
   "dependencies": {
     "react": "^18.3.1",

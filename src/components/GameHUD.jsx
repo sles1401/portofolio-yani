@@ -17,9 +17,9 @@ export const GameHUD = ({
       {/* Top Left: Suryani Lestari Seeker Card */}
       <div className="hud-player-card">
         <div className="hud-avatar-box">
-          <img 
-            src="assets/images/suryani-seeker-avatar.jpg" 
-            alt="Suryani Lestari Seeker Avatar" 
+          <img
+            src="public/assets/images/suryani-seeker-avatar.jpg"
+            alt="Suryani Lestari Seeker Avatar"
             className="hud-mini-avatar"
           />
           <span className="hud-online-dot" title="Seeker Online" />
@@ -55,7 +55,7 @@ export const GameHUD = ({
 
       {/* Center: Nearby Landmark & Interaction Prompt */}
       {nearbyPoint ? (
-        <div 
+        <div
           className="interaction-prompt-banner"
           onClick={() => {
             sound.playSelect();
@@ -112,9 +112,9 @@ export const GameHUD = ({
         </button>
 
         {/* Audio SFX Toggle */}
-        <button 
-          className="hud-btn audio-btn" 
-          type="button" 
+        <button
+          className="hud-btn audio-btn"
+          type="button"
           onClick={onToggleMute}
           title="Toggle Synthesized Sound Engine"
         >
@@ -122,9 +122,9 @@ export const GameHUD = ({
         </button>
 
         {/* Bab 2: Persistent Executive Controller Toggle View */}
-        <button 
-          className="hud-btn mode-switch-btn" 
-          type="button" 
+        <button
+          className="hud-btn mode-switch-btn"
+          type="button"
           onClick={() => {
             sound.playSelect();
             onToggleView();

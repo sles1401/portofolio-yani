@@ -48,9 +48,9 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
           <span className="banner-badge">MODE B: RECRUITER DOCKET (LEMBAR EKSEKUTIF BERDENSITAS TINGGI)</span>
           <h2 className="banner-title">Evaluasi Kualifikasi Teknis (&lt; 15 Detik) — Suryani Lestari</h2>
         </div>
-        <button 
-          className="return-to-game-btn" 
-          type="button" 
+        <button
+          className="return-to-game-btn"
+          type="button"
           onClick={() => {
             sound.playSelect();
             onReturnToGame();
@@ -64,9 +64,9 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
       <header className="profile-header-card">
         <div className="profile-flex">
           <div className="profile-img-wrap">
-            <img 
-              src="assets/images/suryani-seeker-avatar.jpg" 
-              alt="Suryani Lestari" 
+            <img
+              src="public/assets/images/suryani-seeker-avatar.jpg"
+              alt="Suryani Lestari"
               className="profile-img-large"
             />
             <span className="haga-level-tag">SEEKER LV. 95+</span>
@@ -91,8 +91,8 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
 
             {/* Quick 1-Click Action Buttons (Bab 2 & 9) */}
             <div className="contact-quick-links">
-              <a 
-                href="assets/docs/CV_Suryani_Lestari_QA.pdf" 
+              <a
+                href="public/assets/docs/CV_Suryani_Lestari_QA.pdf"
                 className="contact-pill highlight-btn"
                 download
                 onClick={() => sound.playSelect()}
@@ -100,28 +100,28 @@ export const ConventionalView = ({ onReturnToGame, onShowToast, onOpenModal }) =
                 <span>📄</span> Download Seeker Resume (PDF)
               </a>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="contact-pill copy-btn"
                 onClick={copyCoordinates}
               >
                 <span>📋</span> Copy Email Coordinates (suryanilestari123@gmail.com)
               </button>
 
-              <a 
-                href="https://suryani-lestari.my.id" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://suryani-lestari.my.id"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="contact-pill"
                 onClick={() => sound.playSelect()}
               >
                 <span>🌐</span> Digital Vault (suryani-lestari.my.id)
               </a>
 
-              <a 
-                href="https://linkedin.com/in/suryani-lestari" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://linkedin.com/in/suryani-lestari"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="contact-pill"
                 onClick={() => sound.playSelect()}
               >
